@@ -10,7 +10,6 @@ clusterGroup:
   - vault
   - golang-external-secrets
   - quarkus-homeoffice
-  - imperative
 
   subscriptions:
     acm:
