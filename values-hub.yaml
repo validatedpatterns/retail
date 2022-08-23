@@ -10,6 +10,7 @@ clusterGroup:
   - vault
   - golang-external-secrets
   - quarkus-homeoffice
+  - imperative
 
   subscriptions:
     acm:
@@ -85,7 +86,7 @@ clusterGroup:
     # imagePullPolicy is set to always: imperative.imagePullPolicy
     # For additional overrides that apply to the jobs, please refer to
     # https://hybrid-cloud-patterns.io/imperative-actions/#additional-job-customizations
-#    jobs:
+    jobs: []
 #    - name: regional-ca
       # ansible playbook to be run
 #      playbook: ansible/playbooks/on-hub-get-regional-ca.yml
