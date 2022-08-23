@@ -21,9 +21,15 @@ clusterGroup:
 
   amqstreams-ho:
       name: amq-streams
-      namespace: quarkus-homeoffice
+      namespace: openshift-operators
       channel: amq-streams-2.x
       csv: amqstreams.v2.0.1-0
+
+  crunchypgo-ho:
+      name: postgresoperator
+      namespace: openshift-operators
+      channel: v5
+      csv: postgresoperator.v5.1.2
 
   projects:
   - hub
