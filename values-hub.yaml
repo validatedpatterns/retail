@@ -3,12 +3,13 @@ clusterGroup:
   isHubCluster: true
   # Note: setting this to true stores the vault unseal keys inside a cluster secret and
   # is fundamentally insecure
-  insecureUnsealVaultInsideCluster: false
+  insecureUnsealVaultInsideCluster: true
 
   namespaces:
   - open-cluster-management
   - vault
   - golang-external-secrets
+  - quarkus-homeoffice
 
   subscriptions:
     acm:
@@ -17,20 +18,26 @@ clusterGroup:
       channel: release-2.5
       csv: advanced-cluster-management.v2.5.0
 
+  amqstreams-ho:
+      name: amq-streams
+      namespace: quarkus-homeoffice
+      channel: amq-streams-2.x
+      csv: amqstreams.v2.0.1-0
+
   projects:
   - hub
 
   applications:
-#    acm:
-#      name: acm
-#      namespace: open-cluster-management
-#      project: hub
-#      path: common/acm
-#      ignoreDifferences:
-#      - group: internal.open-cluster-management.io
-#        kind: ManagedClusterInfo
-#        jsonPointers:
-#          - /spec/loggingCA
+    acm:
+      name: acm
+      namespace: open-cluster-management
+      project: hub
+      path: common/acm
+      ignoreDifferences:
+      - group: internal.open-cluster-management.io
+        kind: ManagedClusterInfo
+        jsonPointers:
+          - /spec/loggingCA
 
     vault:
       name: vault
