@@ -28,6 +28,7 @@ clusterGroup:
       name: crunchy-postgres-operator
       namespace: openshift-operators
       channel: v5
+      source: certified-operators
       csv: postgresoperator.v5.2.0
 
   projects:
