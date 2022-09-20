@@ -54,7 +54,7 @@ clusterGroup:
       path: common/hashicorp-vault
 
     coffeeshopdb-homeoffice:
-      name: golang-external-secrets
+      name: coffeeshopdb-homeoffice
       namespace: coffeeshop-homeoffice
       project: coffeeshop-homeoffice
       path: charts/hub/coffeeshopdb-homeoffice
