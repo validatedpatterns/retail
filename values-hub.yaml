@@ -18,13 +18,13 @@ clusterGroup:
       channel: release-2.5
       csv: advanced-cluster-management.v2.5.0
 
-  amqstreams-ho:
+    amqstreams-ho:
       name: amq-streams
       namespace: openshift-operators
       channel: amq-streams-2.x
       csv: amqstreams.v2.0.1-0
 
-  crunchypgo-ho:
+    crunchypgo-ho:
       name: postgresoperator
       namespace: openshift-operators
       channel: v5
