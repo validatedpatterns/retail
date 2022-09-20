@@ -32,6 +32,7 @@ clusterGroup:
 
   projects:
   - hub
+  - coffeeshop-homeoffice
 
   applications:
     acm:
@@ -60,7 +61,7 @@ clusterGroup:
     coffeeshopdb-homeoffice:
       name: golang-external-secrets
       namespace: coffeeshop-homeoffice
-      project: hub
+      project: coffeeshop-homeoffice
       path: charts/hub/coffeeshopdb-homeoffice
 
   imperative:
