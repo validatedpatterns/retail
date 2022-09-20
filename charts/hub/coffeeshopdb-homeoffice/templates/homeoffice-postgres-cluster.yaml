@@ -1,43 +1,27 @@
-piVersion: postgres-operator.crunchydata.com/v1beta1
+apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
   name: coffeeshopdb-homeoffice
 spec:
-  port: 5432
-  dataSource:
-    pgbackrest:
-      stanza: db
-  standby:
-    enabled: true
-  userInterface:
-    pgAdmin:
-      service:
-        type: ClusterIP
-      replicas: 1
-  proxy:
-    pgBouncer:
-      port: 5432
-      service:
-        type: ClusterIP
-      replicas: 1
-  backups:
-    pgbackrest:
-      restore:
-        enabled: false
-  service:
-    type: ClusterIP
-  patroni:
-    leaderLeaseDurationSeconds: 30
-    port: 8008
-    switchover:
-      type: Switchover
-    syncPeriodSeconds: 10
+  image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres:ubi8-14.5-1
+  postgresVersion: 14
   instances:
-    - dataVolumeClaimSpec:
+    - name: instance1
+      dataVolumeClaimSpec:
         accessModes:
-          - ReadWriteOnce
+        - "ReadWriteOnce"
         resources:
           requests:
-            storage: l0Gi
-      replicas: 1
-  postgresVersion: 13
+            storage: 10Gi
+  backups:
+    pgbackrest:
+      image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.40-1
+      repos:
+      - name: repo1
+        volume:
+          volumeClaimSpec:
+            accessModes:
+            - "ReadWriteOnce"
+            resources:
+              requests:
+                storage: 1Gi
