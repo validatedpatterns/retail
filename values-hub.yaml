@@ -9,7 +9,7 @@ clusterGroup:
   - open-cluster-management
   - vault
   - golang-external-secrets
-  - quarkus-homeoffice
+  - coffeeshop-homeoffice
 
   subscriptions:
     acm:
@@ -57,11 +57,11 @@ clusterGroup:
       project: hub
       path: common/golang-external-secrets
 
-#    config-demo:
-#      name: config-demo
-#      namespace: config-demo
-#      project: config-demo
-#      path: charts/all/config-demo
+    coffeeshopdb-homeoffice:
+      name: golang-external-secrets
+      namespace: coffeeshop-homeoffice
+      project: hub
+      path: charts/hub/coffeeshopdb-homeoffice
 
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
