@@ -28,7 +28,7 @@ clusterGroup:
       name: postgresoperator
       namespace: openshift-operators
       channel: v5
-      csv: postgresoperator.v5.1.2
+      csv: postgresoperator.v5.2.0
 
   projects:
   - hub
