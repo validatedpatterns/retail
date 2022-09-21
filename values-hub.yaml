@@ -80,6 +80,12 @@ clusterGroup:
         - name: Release.release-namespace
           value: coffeeshop-store
 
+    coffeeshop-store:
+      name: coffeeshop-store-kafka
+      namespace: coffeeshop-store
+      project: coffeeshop-store
+      path: charts/store/quarkuscoffeeshop-store-kafka
+
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
     # The default schedule is every 10 minutes: imperative.schedule
