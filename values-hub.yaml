@@ -10,6 +10,7 @@ clusterGroup:
   - vault
   - golang-external-secrets
   - coffeeshop-homeoffice
+  - coffeeshop-store
 
   subscriptions:
     acm:
@@ -34,6 +35,7 @@ clusterGroup:
   projects:
   - hub
   - coffeeshop-homeoffice
+  - coffeeshop-store
 
   applications:
     acm:
@@ -64,6 +66,19 @@ clusterGroup:
       namespace: coffeeshop-homeoffice
       project: coffeeshop-homeoffice
       path: charts/hub/coffeeshopdb-homeoffice
+
+    coffeeshop-store:
+      name: coffeeshop-store
+      namespace: coffeeshop-store
+      project: coffeeshop-store
+      path: charts/store/quarkuscoffeeshop-charts
+      overrides:
+        - name: projectnamespace
+          value: cofeeshop-store
+        - name: storeid
+          value: ROGERS
+        - name: Release.release-namespace
+          value: coffeeshop-store
 
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
