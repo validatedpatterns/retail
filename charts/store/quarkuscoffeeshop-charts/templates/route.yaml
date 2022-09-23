@@ -4,6 +4,8 @@ kind: Route
 metadata:
   name: quarkuscoffeeshop-web
 spec:
+  port:
+    targetPort: 8080-tcp
   to:
     kind: Service
     name: quarkuscoffeeshop-web
@@ -13,6 +15,8 @@ kind: Route
 metadata:
   name: quarkuscoffeeshop-customermocker
 spec:
+  port:
+    targetPort: 8080-tcp
   to:
     kind: Service
     name: quarkuscoffeeshop-customermocker
