@@ -4,7 +4,6 @@ kind: Route
 metadata:
   name: quarkuscoffeeshop-web
 spec:
-  host: null
   to:
     kind: Service
     name: quarkuscoffeeshop-web
@@ -14,7 +13,6 @@ kind: Route
 metadata:
   name: quarkuscoffeeshop-customermocker
 spec:
-  host: null
   to:
     kind: Service
     name: quarkuscoffeeshop-customermocker
