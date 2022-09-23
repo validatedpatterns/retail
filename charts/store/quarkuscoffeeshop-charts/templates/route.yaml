@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Route
+metadata:
+  name: quarkuscoffeeshop-web
+spec:
+  to:
+    kind: Service
+    name: quarkuscoffeeshop-web
+---
+apiVersion: v1
+kind: Route
+metadata:
+  name: quarkuscoffeeshop-customermocker
+spec:
+  to:
+    kind: Service
+    name: quarkuscoffeeshop-customermocker
+
