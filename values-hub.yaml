@@ -88,7 +88,7 @@ clusterGroup:
 
     configdemo-store:
       name: config-demo-store
-      namespace: config-demo-store
+      namespace: coffeeshop-store
       project: coffeeshop-store
       path: charts/all/config-demo
       overrides:
@@ -97,7 +97,7 @@ clusterGroup:
 
     configdemo-homeoffice:
       name: config-demo-homeoffice
-      namespace: config-demo-homeoffice
+      namespace: coffeeshop-homeoffice
       project: coffeeshop-homeoffice
       path: charts/all/config-demo
       overrides:
