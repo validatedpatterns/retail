@@ -1,1 +1,7 @@
 ---
+partitions: 3
+replicas: 1
+
+# Originally:
+# partitions: 10
+# replicas: 3
