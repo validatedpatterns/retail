@@ -4,6 +4,7 @@ kind: Route
 metadata:
   name: quarkuscoffeeshop-web
 spec:
+  host: quarkuscoffeeshop-web
   port:
     targetPort: 8080-tcp
   to:
@@ -15,6 +16,7 @@ kind: Route
 metadata:
   name: quarkuscoffeeshop-customermocker
 spec:
+  host: quarkuscoffeeshop-customermocker
   port:
     targetPort: 8080-tcp
   to:
