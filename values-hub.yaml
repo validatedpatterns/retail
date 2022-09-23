@@ -61,11 +61,11 @@ clusterGroup:
       project: hub
       path: common/golang-external-secrets
 
-    coffeeshopdb-homeoffice:
-      name: coffeeshopdb-homeoffice
-      namespace: coffeeshop-homeoffice
-      project: coffeeshop-homeoffice
-      path: charts/hub/coffeeshopdb-homeoffice
+    coffeeshopdb-store:
+      name: coffeeshopdb-store
+      namespace: coffeeshop-store
+      project: coffeeshop-store
+      path: charts/store/coffeeshopdb-store
 
     coffeeshop-store:
       name: coffeeshop-store
