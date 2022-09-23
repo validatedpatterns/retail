@@ -1,7 +1,7 @@
 apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
-  name: coffeeshop-store
+  name: cafe-cluster
 spec:
   kafka:
     replicas: 3
