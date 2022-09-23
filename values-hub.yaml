@@ -80,11 +80,29 @@ clusterGroup:
         - name: Release.release-namespace
           value: coffeeshop-store
 
-    coffeeshop-store:
+    coffeeshop-store-kafka:
       name: coffeeshop-store-kafka
       namespace: coffeeshop-store
       project: coffeeshop-store
       path: charts/store/quarkuscoffeeshop-store-kafka
+
+    configdemo-store:
+      name: config-demo-store
+      namespace: config-demo-store
+      project: coffeeshop-store
+      path: charts/all/config-demo
+      overrides:
+        - name: secret
+          value: stillnotasecret
+
+    configdemo-homeoffice:
+      name: config-demo-homeoffice
+      namespace: config-demo-homeoffice
+      project: coffeeshop-homeoffice
+      path: charts/all/config-demo
+      overrides:
+        - name: secret
+          value: homeofficesecret
 
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
