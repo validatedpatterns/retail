@@ -18,10 +18,13 @@ spec:
       offsets.topic.replication.factor: 3
       transaction.state.log.replication.factor: 3
       transaction.state.log.min.isr: 2
-      default.replication.factor: 3
+      #default.replication.factor: 3
     storage:
       type: ephemeral
   zookeeper:
     replicas: 3
     storage:
       type: ephemeral
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}
