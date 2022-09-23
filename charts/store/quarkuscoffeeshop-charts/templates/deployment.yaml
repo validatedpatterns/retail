@@ -156,7 +156,7 @@ spec:
               protocol: TCP
           env:
             - name: REST_URL
-              value: http://quarkuscoffeeshop-web-{{ .Values.projectnamespace }}.apps.{{ .Values.domain }}
+              value: http://quarkuscoffeeshop-web-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -268,12 +268,12 @@ spec:
             - name: KAFKA_BOOTSTRAP_SERVERS
               value: {{ .Values.kafka_cluster_name }}-kafka-bootstrap:9092
             - name: REST_URL
-              value: http://quarkuscoffeeshop-web-{{ .Values.projectnamespace }}.apps.{{ .Values.domain }}
+              value: http://quarkuscoffeeshop-web-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}
             - name: STREAM_URL
-              value:  http://quarkuscoffeeshop-web-{{ .Values.projectnamespace }}.apps.{{ .Values.domain }}/dashboard/stream
+              value:  http://quarkuscoffeeshop-web-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/dashboard/stream
             - name: LOYALTY_STREAM_URL
-              value: http://quarkuscoffeeshop-web-{{ .Values.projectnamespace }}.apps.{{ .Values.domain }}/dashboard/loyaltystream
+              value: http://quarkuscoffeeshop-web-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/dashboard/loyaltystream
             - name: CORS_ORIGINS
-              value: http://quarkuscoffeeshop-web-{{ .Values.projectnamespace }}.apps.{{ .Values.domain }}
+              value: http://quarkuscoffeeshop-web-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}
             - name: STORE_ID
               value: {{ .Values.storeid }}
