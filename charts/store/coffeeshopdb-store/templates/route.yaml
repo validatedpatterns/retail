@@ -5,7 +5,7 @@ metadata:
   name: quarkuscoffeeshopdb-pgadmin
 spec:
   port:
-    targetPort: 8080-tcp
+    targetPort: 5050-tcp
   to:
     kind: Service
     name: quarkuscoffeeshopdb-pgadmin
