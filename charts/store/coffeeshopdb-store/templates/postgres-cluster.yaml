@@ -23,7 +23,7 @@ spec:
         resources:
           requests:
             storage: 10Gi
-  userinterface:
+  userInterface:
     pgAdmin: {}
   backups:
     pgbackrest:
