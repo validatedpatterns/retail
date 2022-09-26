@@ -23,7 +23,8 @@ spec:
         resources:
           requests:
             storage: 10Gi
-  pgAdmin: {}
+  userinterface:
+    pgAdmin: {}
   backups:
     pgbackrest:
       image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.40-1
