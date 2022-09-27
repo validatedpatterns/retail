@@ -62,7 +62,9 @@ clusterGroup:
       name: coffeeshopdb-store
       namespace: coffeeshop-store
       project: coffeeshop-store
-      path: charts/store/coffeeshopdb-store
+      path: charts/all/crunchy-pgcluster
+      extraValueFiles:
+        - /values-db-store.yaml
 
     coffeeshop-store:
       name: coffeeshop-store
