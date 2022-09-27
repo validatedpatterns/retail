@@ -4,5 +4,4 @@ kind: ConfigMap
 metadata:
   name: {{ .Values.dbInitConfigMap.name }}
 data:
-  {{ .Values.dbInitConfigMap.key }}: |-
-    {{ .Values.dbInitSQL }}
+  {{ .Values.dbInitConfigMap.key }}: {{ .Values.dbInitSQL | toPrettyJson }}
