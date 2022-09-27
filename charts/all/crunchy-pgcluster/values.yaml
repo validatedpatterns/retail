@@ -9,7 +9,7 @@ clusterUsers:
       - db
 
 dbInitConfigMap:
-  name: dbInitSQL
+  name: db-init-sql
   key: initSQL
 
 dbInitSQL: |-
