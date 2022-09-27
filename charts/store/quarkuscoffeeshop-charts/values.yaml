@@ -26,7 +26,7 @@ pgsql_url: 'jdbc:postgresql://coffeeshopdb:5432/coffeeshopdb?currentSchema=coffe
 pgsql_username: coffeshopadmin
 pgsql_password: 'changepassword'
 storeid: ATLANTA
-quarkus_log_level: INFO
+quarkus_log_level: DEBUG
 quarkuscoffeeshop_log_level: DEBUG
 
 
