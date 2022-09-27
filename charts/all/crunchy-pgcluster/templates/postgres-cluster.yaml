@@ -1,48 +1,17 @@
 apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
-  name: coffeeshopdb
+  name: {{ .Values.clusterName }}
 spec:
-  users:
-    - name: coffeeshopuser
-      databases:
-        - coffeeshopdb
-    - name: coffeeshopadmin
-      databases:
-        - coffeeshopdb
+  users: {{ .Values.clusterUsers | toPrettyJson }}
   databaseInitSQL:
-    key: initSQL
-    name: pg-cm
-  image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres:ubi8-13.8-1
-  postgresVersion: 13
-  instances:
-    - name: instance1
-      dataVolumeClaimSpec:
-        accessModes:
-        - "ReadWriteOnce"
-        resources:
-          requests:
-            storage: 10Gi
+    key: {{ .Values.dbInitConfigMap.key }}
+    name: {{ .Values.dbInitConfigMap.name }}
+  postgresVersion: {{ .Values.postgresVersion }}
+  instances: {{ .Values.clusterInstances | toPrettyJson }}
+{{- if .Values.enablePgAdmin }}
   userInterface:
-    pgAdmin:
-      replicas: 1
-      service:
-        type: ClusterIP
-      dataVolumeClaimSpec:
-        accessModes:
-        - "ReadWriteOnce"
-        resources:
-          requests:
-            storage: 1Gi
+    pgAdmin: {{ .Values.pgAdmin | toPrettyJson }}
+{{- end }}
   backups:
-    pgbackrest:
-      image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.40-1
-      repos:
-      - name: repo1
-        volume:
-          volumeClaimSpec:
-            accessModes:
-            - "ReadWriteOnce"
-            resources:
-              requests:
-                storage: 1Gi
+    pgbackrest: {{ .Values.pgbackrest | toPrettyJson }}

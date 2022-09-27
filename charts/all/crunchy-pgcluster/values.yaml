@@ -1,7 +1,48 @@
 ---
-clusterName: cluster
+clusterName: db
+
+postgresVersion: 14
+
 clusterUsers:
   - name: user
     databases:
       - db
 
+dbInitConfigMap:
+  name: dbInitSQL
+  key: initSQL
+
+dbInitSQL: |-
+  \c db;
+
+clusterInstances:
+  - name: instance1
+    dataVolumeClaimSpec:
+      accessModes:
+        - "ReadWriteOnce"
+      resources:
+        requests:
+          storage: 10Gi
+
+enablePgAdmin: true
+pgAdmin:
+  replicas: 1
+  service:
+    type: ClusterIP
+  dataVolumeClaimSpec:
+    accessModes:
+      - "ReadWriteOnce"
+    resources:
+      requests:
+        storage: 1Gi
+
+pgbackrest:
+  repos:
+    - name: backup-repo
+      volume:
+        volumeClaimSpec:
+          accessModes:
+            - "ReadWriteOnce"
+          resources:
+            requests:
+              storage: 1Gi
