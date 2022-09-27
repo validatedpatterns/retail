@@ -1,0 +1,7 @@
+---
+clusterName: cluster
+clusterUsers:
+  - name: user
+    databases:
+      - db
+
