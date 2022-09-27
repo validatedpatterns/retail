@@ -1,6 +1,0 @@
----
-global:
-  hubClusterDomain: hub.example.com
-  localClusterDomain: region-one.example.com
-
-secret: notasecret

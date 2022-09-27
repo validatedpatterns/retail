@@ -93,24 +93,6 @@ clusterGroup:
       project: coffeeshop-store
       path: charts/store/quarkuscoffeeshop-store-kafka
 
-    configdemo-store:
-      name: config-demo-store
-      namespace: coffeeshop-store
-      project: coffeeshop-store
-      path: charts/all/config-demo
-      overrides:
-        - name: secret
-          value: stillnotasecret
-
-    configdemo-homeoffice:
-      name: config-demo-homeoffice
-      namespace: coffeeshop-homeoffice
-      project: coffeeshop-homeoffice
-      path: charts/all/config-demo
-      overrides:
-        - name: secret
-          value: homeofficesecret
-
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
     # The default schedule is every 10 minutes: imperative.schedule
