@@ -38,7 +38,7 @@ pgAdmin:
 
 pgbackrest:
   repos:
-    - name: backup-repo
+    - name: repo1
       volume:
         volumeClaimSpec:
           accessModes:
