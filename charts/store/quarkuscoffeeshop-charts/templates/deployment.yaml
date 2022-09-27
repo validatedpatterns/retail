@@ -115,6 +115,7 @@ spec:
                   name: coffeeshopdb-pguser-coffeeshopadmin
                   key: jdbc-uri
             - name: PGSQL_USER
+              valueFrom:
                 secretKeyRef:
                   name: coffeeshopdb-pguser-coffeeshopadmin
                   key: user
