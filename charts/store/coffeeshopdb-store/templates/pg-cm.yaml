@@ -5,6 +5,7 @@ metadata:
   name: pg-cm
 data:
   initSQL: |-
+    \c coffeeshopdb;
     DROP SCHEMA IF EXISTS inventory CASCADE;
     CREATE SCHEMA inventory AUTHORIZATION coffeeshopuser;
     DROP SCHEMA IF EXISTS coffeeshop CASCADE;
