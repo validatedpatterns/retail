@@ -112,17 +112,17 @@ spec:
             - name: PGSQL_URL
               valueFrom:
                 secretKeyRef:
-                  name: coffeeshopdb-pguser-coffeeshopadmin
+                  name: coffeeshopdb-pguser-coffeeshopuser
                   key: jdbc-uri
             - name: PGSQL_USER
               valueFrom:
                 secretKeyRef:
-                  name: coffeeshopdb-pguser-coffeeshopadmin
+                  name: coffeeshopdb-pguser-coffeeshopuser
                   key: user
             - name: PGSQL_PASS
               valueFrom:
                 secretKeyRef:
-                  name: coffeeshopdb-pguser-coffeeshopadmin
+                  name: coffeeshopdb-pguser-coffeeshopuser
                   key: password
             - name: LOG_SQL
               value: 'true'
