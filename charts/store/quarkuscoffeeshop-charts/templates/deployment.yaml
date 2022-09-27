@@ -244,7 +244,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quarkuscoffeshop-web
+  name: quarkuscoffeeshop-web
   labels:
     app: quarkuscoffeeshop-web
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
