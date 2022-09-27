@@ -110,11 +110,19 @@ spec:
             - name: KAFKA_BOOTSTRAP_URLS
               value: 'cafe-cluster-kafka-bootstrap:9092'
             - name: PGSQL_URL
-              value: {{ .Values.pgsql_url }}
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopadmin
+                  key: jdbc-uri
             - name: PGSQL_USER
-              value: {{ .Values.pgsql_username }}
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopadmin
+                  key: user
             - name: PGSQL_PASS
-              value: {{ .Values.pgsql_password }}
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopadmin
+                  key: password
             - name: LOG_SQL
               value: 'true'
             - name: QUARKUS_LOG_LEVEL
