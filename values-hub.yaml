@@ -81,7 +81,7 @@ clusterGroup:
       path: charts/store/quarkuscoffeeshop-charts
       overrides:
         - name: projectnamespace
-          value: cofeeshop-store
+          value: coffeeshop-store
         - name: storeid
           value: ROGERS
         - name: Release.release-namespace
