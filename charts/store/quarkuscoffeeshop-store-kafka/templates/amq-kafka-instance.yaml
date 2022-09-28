@@ -7,6 +7,7 @@ spec:
     topicOperator: {}
     userOperator: {}
   kafka:
+    version: 3.1.0
     replicas: 3
     listeners:
       - name: plain
