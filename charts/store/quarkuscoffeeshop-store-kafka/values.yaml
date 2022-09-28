@@ -1,7 +1,7 @@
 ---
-partitions: 3
-replicas: 1
+partitions: 10
+replicas: 3
 
-# Originally:
-# partitions: 10
-# replicas: 3
+# Maybe:
+# partitions: 3
+# replicas: 1
