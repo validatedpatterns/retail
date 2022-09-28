@@ -327,12 +327,47 @@ spec:
                 secretKeyRef:
                   name: coffeeshopdb-pguser-coffeeshopuser
                   key: jdbc-uri
+            - name: PGSQL_URL_KITCHEN
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: jdbc-uri
+            - name: PGSQL_URL_BARISTA
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: jdbc-uri
             - name: PGSQL_USER
               valueFrom:
                 secretKeyRef:
                   name: coffeeshopdb-pguser-coffeeshopuser
                   key: user
+            - name: PGSQL_USER_BARISTA
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: user
+            - name: PGSQL_USER_KITCHEN
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: user
             - name: PGSQL_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: password
+            - name: PGSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: password
+            - name: PGSQL_PASSWORD_BARISTA
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: password
+            - name: PGSQL_PASSWORD_KITCHEN
               valueFrom:
                 secretKeyRef:
                   name: coffeeshopdb-pguser-coffeeshopuser
