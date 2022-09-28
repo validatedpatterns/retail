@@ -82,8 +82,6 @@ clusterGroup:
       overrides:
         - name: projectnamespace
           value: coffeeshop-store
-        - name: storeid
-          value: RALEIGH
         - name: Release.release-namespace
           value: coffeeshop-store
 
