@@ -385,6 +385,8 @@ spec:
             - name: LOYALTY_STREAM_URL
               value: http://quarkuscoffeeshop-mm-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/dashboard/loyaltystream
             - name: CORS_ORIGINS
-              value: '/http(s?)://quarkuscoffeeshop-mm(-tls)?-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/'
+              value: ''
+              #value: '/http(s?)://quarkuscoffeeshop-mm(-tls)?-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/'
+              #value: 'http://quarkuscoffeeshop-mm-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}'
             - name: STORE_ID
               value: {{ .Values.storeid }}
