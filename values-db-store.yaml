@@ -15,6 +15,10 @@ dbInitSQL: |-
   CREATE SCHEMA inventory AUTHORIZATION coffeeshopuser;
   DROP SCHEMA IF EXISTS coffeeshop CASCADE;
   CREATE SCHEMA coffeeshop AUTHORIZATION coffeeshopuser;
+  DROP SCHEMA IF EXISTS kitchen CASCADE;
+  CREATE SCHEMA kitchen AUTHORIZATION coffeeshopuser;
+  DROP SCHEMA IF EXISTS barista CASCADE;
+  CREATE SCHEMA barista AUTHORIZATION coffeeshopuser;
   alter table if exists coffeeshop.LineItems
     drop constraint if exists FK6fhxopytha3nnbpbfmpiv4xgn;
   drop table if exists coffeeshop.LineItems cascade;
