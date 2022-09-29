@@ -131,21 +131,21 @@ spec:
       port: 8080
       protocol: TCP
       targetPort: 8080
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: quarkuscoffeeshop-mm
-  labels:
-    app: quarkuscoffeeshop-mm
-    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-    release: {{ .Release.Name }}
-spec:
-  selector:
-    app: quarkuscoffeeshop-mm
-  type: ClusterIP
-  ports:
-    - name: 8080-tcp
-      port: 8080
-      protocol: TCP
-      targetPort: 8080
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: quarkuscoffeeshop-mm
+#  labels:
+#    app: quarkuscoffeeshop-mm
+#    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+#    release: {{ .Release.Name }}
+#spec:
+#  selector:
+#    app: quarkuscoffeeshop-mm
+#  type: ClusterIP
+#  ports:
+#    - name: 8080-tcp
+#      port: 8080
+#      protocol: TCP
+#      targetPort: 8080

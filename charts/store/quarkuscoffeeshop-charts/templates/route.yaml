@@ -22,30 +22,30 @@ spec:
     name: quarkuscoffeeshop-web
   tls:
     termination: edge
----
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  name: quarkuscoffeeshop-mm
-spec:
-  port:
-    targetPort: 8080-tcp
-  to:
-    kind: Service
-    name: quarkuscoffeeshop-mm
----
-apiVersion: route.openshift.io/v1
-kind: Route
-metadata:
-  name: quarkuscoffeeshop-mm-tls
-spec:
-  port:
-    targetPort: 8080-tcp
-  to:
-    kind: Service
-    name: quarkuscoffeeshop-mm
-  tls:
-    termination: edge
+#---
+#apiVersion: route.openshift.io/v1
+#kind: Route
+#metadata:
+#  name: quarkuscoffeeshop-mm
+#spec:
+#  port:
+#    targetPort: 8080-tcp
+#  to:
+#    kind: Service
+#    name: quarkuscoffeeshop-mm
+#---
+#apiVersion: route.openshift.io/v1
+#kind: Route
+#metadata:
+#  name: quarkuscoffeeshop-mm-tls
+#spec:
+#  port:
+#    targetPort: 8080-tcp
+#  to:
+#    kind: Service
+#    name: quarkuscoffeeshop-mm
+#  tls:
+#    termination: edge
 #---
 #apiVersion: route.openshift.io/v1
 #kind: Route
