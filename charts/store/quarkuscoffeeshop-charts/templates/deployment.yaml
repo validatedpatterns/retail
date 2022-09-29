@@ -110,7 +110,7 @@ spec:
             - name: KAFKA_BOOTSTRAP_URLS
               value: 'cafe-cluster-kafka-bootstrap:9092'
             - name: PGSQL_URL
-              value: 'jdbc:postgresql://coffeeshopdb:5432/coffeeshopdb?currentSchema=coffeeshop'
+              value: {{ .Values.pgsql_url | quote }}
             - name: PGSQL_USER
               valueFrom:
                 secretKeyRef:
@@ -320,17 +320,11 @@ spec:
             - name: KAFKA_BOOTSTRAP_URLS
               value: 'cafe-cluster-kafka-bootstrap:9092'
             - name: PGSQL_URL
-              value: 'jdbc:postgresql://coffeeshopdb:5432/coffeeshopdb?currentSchema=coffeeshop'
+              value: {{ .Values.pgsql_url | quote }}
             - name: PGSQL_URL_KITCHEN
-              valueFrom:
-                secretKeyRef:
-                  name: coffeeshopdb-pguser-coffeeshopuser
-                  key: jdbc-uri
+              value: {{ .Values.pgsql_url | quote }}
             - name: PGSQL_URL_BARISTA
-              valueFrom:
-                secretKeyRef:
-                  name: coffeeshopdb-pguser-coffeeshopuser
-                  key: jdbc-uri
+              value: {{ .Values.pgsql_url | quote }}
             - name: PGSQL_USER
               valueFrom:
                 secretKeyRef:
