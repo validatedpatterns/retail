@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 if [ -z "$1" ]; then
     ENDPOINT="quarkuscoffeeshop-web-coffeeshop-store.$(oc get ingresses.config/cluster -o jsonpath={.spec.domain})"
@@ -6,10 +6,10 @@ else
     ENDPOINT="$1"
 fi
 
-curl  --request POST http://$ENDPOINT/order \
---header 'Content-Type: application/json' \
---header 'Accept: application/json' \
--d '{
+id=$(uuid)
+body=$(cat <<EOF
+{
+    "id": "$id",
     "baristaItems": [
         {
             "item": "COFFEE_WITH_ROOM",
@@ -33,4 +33,13 @@ curl  --request POST http://$ENDPOINT/order \
     "storeId": "ATLANTA",
 	"orderSource": "WEB",
 	"rewardsId": "test-post@example.com"
-}'
+}
+EOF
+)
+
+echo $body | jq .
+
+curl  --request POST http://$ENDPOINT/order \
+--header 'Content-Type: application/json' \
+--header 'Accept: application/json' \
+-d "$body"
