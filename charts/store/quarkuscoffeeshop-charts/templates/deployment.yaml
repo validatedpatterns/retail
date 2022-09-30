@@ -163,6 +163,11 @@ spec:
           env:
             - name: REST_URL
               value: http://quarkuscoffeeshop-web-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}
+            # This may not work.
+            - name: QUARKUS_LOG_LEVEL
+              value: {{ .Values.quarkus_log_level }}
+            - name: QUARKUSCOFFEESHOP_LOG_LEVEL
+              value: {{ .Values.quarkuscoffeeshop_log_level }}
 ---
 apiVersion: apps/v1
 kind: Deployment
