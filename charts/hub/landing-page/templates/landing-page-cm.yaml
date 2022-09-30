@@ -14,7 +14,7 @@ data:
         </head>
           <body>
             <h1>
-  Store Web Page is <a href="http://quarkuscoffeeshop-web-coffeeshop-store.{{ .Values.localClusterDomain }}">Store Web Page</a>
+            <a href="http://quarkuscoffeeshop-web-coffeeshop-store.{{ .Values.global.localClusterDomain }}">Store Web Page</a>
             </h1>
           </body>
       </html>
