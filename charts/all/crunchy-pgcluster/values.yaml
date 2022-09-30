@@ -24,7 +24,7 @@ clusterInstances:
         requests:
           storage: 10Gi
 
-enablePgAdmin: true
+enablePgAdmin: false
 pgAdmin:
   replicas: 1
   service:
