@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: landing-page-configmap
+  labels:
+    app.kubernetes.io/instance: landing-page
+data:
+  "index.html": |-
+    <!DOCTYPE html>
+      <html lang="en">
+        <head>
+          <meta charset="utf-8">
+            <title>Quarkus Coffeeshop Landing Page</title>
+        </head>
+          <body>
+            <h1>
+  Store Web Page is <a href="http://quarkuscoffeeshop-web-coffeeshop-store.{{ .Values.localClusterDomain }}">Store Web Page</a>
+            </h1>
+          </body>
+      </html>
