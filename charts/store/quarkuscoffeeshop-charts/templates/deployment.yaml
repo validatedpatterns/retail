@@ -158,7 +158,7 @@ spec:
           image: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-customermocker:{{ .Values.version.customermocker }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
-            - containerPort: 8080
+            - containerPort: 80
               protocol: TCP
           env:
             - name: REST_URL
