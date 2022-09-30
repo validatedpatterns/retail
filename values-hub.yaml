@@ -89,7 +89,13 @@ clusterGroup:
       name: coffeeshop-store-kafka
       namespace: coffeeshop-store
       project: coffeeshop-store
-      path: charts/store/quarkuscoffeeshop-store-kafka
+      path: charts/all/quarkuscoffeeshop-kafka
+
+    coffeeshop-homeoffice-kafka:
+      name: coffeeshop-homeoffice-kafka
+      namespace: coffeeshop-homeoffice
+      project: coffeeshop-homeoffice
+      path: charts/all/quarkuscoffeeshop-kafka
 
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
