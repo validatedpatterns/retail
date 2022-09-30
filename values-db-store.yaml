@@ -90,3 +90,11 @@ dbInitSQL: |-
   );
   alter table if exists inventory.Inventory add constraint FK4gqdqmrew97itl6ola2uh50tu
     foreign key (productMaster_sku_id) references inventory.ProductMaster;
+  grant all on all tables in schema "coffeeshop" to coffeeshopuser;
+  grant all on all tables in schema "coffeeshop" to coffeeshopadmin;
+  grant all on all tables in schema "inventory" to coffeeshopuser;
+  grant all on all tables in schema "inventory" to coffeeshopadmin;
+  grant all on all tables in schema "barista" to coffeeshopuser;
+  grant all on all tables in schema "barista" to coffeeshopadmin;
+  grant all on all tables in schema "kitchen" to coffeeshopuser;
+  grant all on all tables in schema "kitchen" to coffeeshopadmin;
