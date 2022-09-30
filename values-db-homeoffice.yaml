@@ -14,6 +14,6 @@ dbInitSQL: |-
   CREATE SCHEMA coffeeshop;
   DROP SCHEMA IF EXISTS coffeeshop-backend;
   CREATE SCHEMA coffeeshop-backend;
-  GRANT ALL on SCHEMA "homeoffice" to homeofficeuser;
-  GRANT ALL on SCHEMA "coffeeshop" to homeofficeuser;
-  GRANT ALL on SCHEMA "coffeeshop-backend" to homeofficeuser;
+  GRANT ALL on ALL TABLES in SCHEMA "homeoffice" to homeofficeuser;
+  GRANT ALL on ALL TABLES in SCHEMA "coffeeshop" to homeofficeuser;
+  GRANT ALL on ALL TABLES in SCHEMA "coffeeshop-backend" to homeofficeuser;
