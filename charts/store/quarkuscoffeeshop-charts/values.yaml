@@ -22,7 +22,7 @@ replica_count:
   customerloyalty: 1
   kitchen: 1
   web: 1
-pgsql_url: 'jdbc:postgresql://coffeeshopdb:5432/coffeeshopdb?currentSchema=coffeeshop'
+pgsql_url: 'jdbc:postgresql://coffeeshopdb-primary.coffeeshop-store.svc:5432/coffeeshopdb?currentSchema=coffeeshop'
 pgsql_username: coffeshopadmin
 pgsql_password: 'changepassword'
 storeid: ATLANTA
