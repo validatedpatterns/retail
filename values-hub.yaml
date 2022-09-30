@@ -6,11 +6,12 @@ clusterGroup:
   insecureUnsealVaultInsideCluster: true
 
   namespaces:
-  - open-cluster-management
-  - vault
-  - golang-external-secrets
-  - coffeeshop-homeoffice
-  - coffeeshop-store
+    - open-cluster-management
+    - vault
+    - golang-external-secrets
+    - landing-page
+    - coffeeshop-homeoffice
+    - coffeeshop-store
 
   subscriptions:
     acm:
@@ -30,9 +31,9 @@ clusterGroup:
       source: certified-operators
 
   projects:
-  - hub
-  - coffeeshop-homeoffice
-  - coffeeshop-store
+    - hub
+    - coffeeshop-homeoffice
+    - coffeeshop-store
 
   applications:
     acm:
@@ -57,6 +58,12 @@ clusterGroup:
       namespace: golang-external-secrets
       project: hub
       path: common/golang-external-secrets
+
+    landing-page:
+      name: landing-page
+      namespace: landing-page
+      project: hub
+      path: charts/hub/landing-page
 
     coffeeshopdb-store:
       name: coffeeshopdb-store
