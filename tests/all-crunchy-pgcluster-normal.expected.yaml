@@ -1,0 +1,62 @@
+---
+# Source: crunchy-pgcluster/templates/dbinit-cm.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-init-sql
+data:
+  initSQL: "\\c db;"
+---
+# Source: crunchy-pgcluster/templates/postgres-cluster.yaml
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
+metadata:
+  name: db
+spec:
+  users: [
+  {
+    "databases": [
+      "db"
+    ],
+    "name": "user"
+  }
+]
+  databaseInitSQL:
+    key: initSQL
+    name: db-init-sql
+  postgresVersion: 14
+  instances: [
+  {
+    "dataVolumeClaimSpec": {
+      "accessModes": [
+        "ReadWriteOnce"
+      ],
+      "resources": {
+        "requests": {
+          "storage": "10Gi"
+        }
+      }
+    },
+    "name": "instance1"
+  }
+]
+  backups:
+    pgbackrest: {
+  "repos": [
+    {
+      "name": "repo1",
+      "volume": {
+        "volumeClaimSpec": {
+          "accessModes": [
+            "ReadWriteOnce"
+          ],
+          "resources": {
+            "requests": {
+              "storage": "1Gi"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
