@@ -57,7 +57,7 @@ clusterGroup:
       name: quarkuscoffeeshop-cicd
       namespace: quarkuscoffeeshop-cicd
       project: hub
-      path: charts/hub/quarkuscoffeeshop-cicd
+      path: charts/hub/quarkuscoffeeshop-pipelines
 
     vault:
       name: vault
