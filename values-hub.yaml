@@ -14,7 +14,7 @@ clusterGroup:
     - coffeeshop-store
     - quarkuscoffeeshop-cicd
     - quarkuscoffeeshop-integration
-    
+
 
   subscriptions:
     acm:
@@ -23,9 +23,7 @@ clusterGroup:
       channel: release-2.5
     
     pipelines: 
-      name: openshift-pipelines
-      namespace: openshift-operators
-      channel: stable
+      name: openshift-pipelines-operator-rh
 
     amqstreams-homeoffice:
       name: amq-streams
