@@ -46,15 +46,14 @@ spec:
 #    name: quarkuscoffeeshop-mm
 #  tls:
 #    termination: edge
-#---
-#apiVersion: route.openshift.io/v1
-#kind: Route
-#metadata:
-#  name: quarkuscoffeeshop-customermocker
-#spec:
-#  port:
-#    targetPort: 8080-tcp
-#  to:
-#    kind: Service
-#    name: quarkuscoffeeshop-customermocker
-#
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: quarkuscoffeeshop-customermocker
+spec:
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: quarkuscoffeeshop-customermocker
