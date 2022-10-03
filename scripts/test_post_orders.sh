@@ -1,45 +1,23 @@
 #!/bin/bash -x
 
 if [ -z "$1" ]; then
-    ENDPOINT="quarkuscoffeeshop-web-coffeeshop-store.$(oc get ingresses.config/cluster -o jsonpath={.spec.domain})"
+    ENDPOINT="quarkuscoffeeshop-customermocker-coffeeshop-store.$(oc get ingresses.config/cluster -o jsonpath={.spec.domain})"
 else
     ENDPOINT="$1"
 fi
 
 id=$(uuid)
 body=$(cat <<EOF
-{
-    "id": "$id",
-    "baristaItems": [
-        {
-            "item": "COFFEE_WITH_ROOM",
-            "name": "Mickey"
-        },
-        {
-            "item": "CAPPUCCINO",
-            "name": "Minnie"
-        }
-    ],
-    "kitchenItems": [
-        {
-            "item": "CAKEPOP",
-            "name": "Mickey"
-        },
-        {
-            "item": "CROISSANT",
-            "name": "Minnie"
-        }
-    ],
-    "storeId": "ATLANTA",
-	"orderSource": "WEB",
-	"rewardsId": "test-post@example.com"
-}
+{}
 EOF
 )
 
-echo $body | jq .
-
-curl  --request POST http://$ENDPOINT/order \
+curl  --request POST http://$ENDPOINT/api/start \
 --header 'Content-Type: application/json' \
 --header 'Accept: application/json' \
 -d "$body"
+
+#curl  --request POST http://$ENDPOINT/api/start \
+#--header 'Content-Type: application/json' \
+#--header 'Accept: application/json' \
+#-d "$body"
