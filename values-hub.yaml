@@ -12,12 +12,20 @@ clusterGroup:
     - landing-page
     - coffeeshop-homeoffice
     - coffeeshop-store
+    - quarkuscoffeeshop-cicd
+    - quarkuscoffeeshop-integration
+    
 
   subscriptions:
     acm:
       name: advanced-cluster-management
       namespace: open-cluster-management
       channel: release-2.5
+    
+    pipelines: 
+      name: openshift-pipelines
+      namespace: openshift-operators
+      channel: stable
 
     amqstreams-homeoffice:
       name: amq-streams
@@ -46,6 +54,12 @@ clusterGroup:
         kind: ManagedClusterInfo
         jsonPointers:
           - /spec/loggingCA
+
+    quarkuscoffeeshop-cicd:
+      name: quarkuscoffeeshop-cicd
+      namespace: quarkuscoffeeshop-cicd
+      project: hub
+      path: charts/hub/quarkuscoffeeshop-cicd
 
     vault:
       name: vault
