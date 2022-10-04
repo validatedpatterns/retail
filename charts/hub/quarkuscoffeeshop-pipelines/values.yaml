@@ -1,1 +1,13 @@
 ---
+global:
+  git:
+    hostname: github.com
+    account: hybrid-cloud-patterns
+    username: hybrid-cloud-patterns
+    email: SOMEWHERE@EXAMPLE.COM
+    dev_revision: main
+
+  imageregistry:
+    account: hybridcloudpatterns
+    hostname: quay.io
+    type: quay
