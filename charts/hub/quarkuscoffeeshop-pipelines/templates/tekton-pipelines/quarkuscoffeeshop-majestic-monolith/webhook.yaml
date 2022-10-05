@@ -1,3 +1,5 @@
+{{ if .Values.enableWebhookSecret }}
+---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
@@ -92,3 +94,4 @@ spec:
         - ref: quarkuscoffeeshop-majestic-monolith-github-triggerbinding
       template:
         name: quarkuscoffeeshop-majestic-monolith-build-triggertemplate
+{{ end }}
