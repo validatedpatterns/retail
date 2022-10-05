@@ -40,3 +40,10 @@ global:
     revision: '5.0.3-SNAPSHOT'
 
 enableWebhookSecret: false
+
+imageregistrysecret:
+  key: secret/data/hub/imageregistry
+
+secretStore:
+  name: vault-backend
+  kind: ClusterSecretStore
