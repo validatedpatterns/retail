@@ -23,7 +23,7 @@ spec:
     - default: latest
       name: quay-io-image-tag-name
       type: string
-    - name: revison
+    - name: revision
       type: string
       default: {{ .Values.global.homeofficeBackend.revision | quote }}
 {{ if .Values.enableWebhookSecret }}
