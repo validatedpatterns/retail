@@ -17,16 +17,21 @@ spec:
         secret.
       name: quay-io-account
       type: string
-    - default: quay.io/quarkuscoffeeshop/homeoffice-ingress
+    - default: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/homeoffice-ingress
       name: quay-io-repository
       type: string
     - default: latest
       name: quay-io-image-tag-name
       type: string
+    - name: revision
+      default: {{ .Values.global.homeoffice-ingress.revision | quote }}
+      type: string
+{{ if .Values.enableWebhookSecret }}
     - default: webhook-secret
       description: Webhook secret name
       name: webhook-secret
       type: string
+{{ end }}
   resources:
     - name: app-git
       type: git
@@ -36,11 +41,13 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/quarkuscoffeeshop/homeoffice-ingress'
+          value: 'https://{{ .Values.global.git.hostname }}/{{ .Values.global.git.account }}/homeoffice-ingress'
         - name: subdirectory
           value: ''
         - name: deleteExisting
           value: 'true'
+        - name: revision
+          value: $(params.revision)
       taskRef:
         kind: Task
         name: git-clone

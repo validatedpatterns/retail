@@ -6,6 +6,6 @@ global:
     useCSV: false
     syncPolicy: Automatic
     installPlanApproval: Automatic
-
+  
 main:
   clusterGroupName: hub

@@ -11,7 +11,7 @@ spec:
       description: Image Tag Value
       name: IMAGE_TAG
       type: string
-    - default: quay.io/quarkuscoffeeshop/homeoffice-backend
+    - default: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/homeoffice-backend
       name: quay-io-repository
       type: string
     - default: quay-auth-secret
@@ -23,10 +23,15 @@ spec:
     - default: latest
       name: quay-io-image-tag-name
       type: string
+    - name: revison
+      type: string
+      default: {{ .Values.global.homeoffice-backend.revision | quote }}
+{{ if .Values.enableWebhookSecret }}
     - default: webhook-secret
       description: Webhook secert name
       name: webhook-secret
       type: string
+{{ end }}
   resources:
     - name: app-git
       type: git
@@ -36,11 +41,13 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/quarkuscoffeeshop/homeoffice-backend'
+          value: 'https://{{ .Values.global.git.hostname }}/{{ .Values.global.git.account }}/homeoffice-backend'
         - name: subdirectory
           value: ''
         - name: deleteExisting
           value: 'true'
+        - name: revision
+          value: $(params.revision)
       taskRef:
         kind: Task
         name: git-clone

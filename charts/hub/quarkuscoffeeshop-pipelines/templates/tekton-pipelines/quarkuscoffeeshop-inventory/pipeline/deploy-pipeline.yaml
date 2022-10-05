@@ -10,16 +10,21 @@ spec:
       description: Image Tag Value
       name: IMAGE_TAG
       type: string
-    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-inventory
+    - default: {{ .Values.global.imageregistry.hostname }} /{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-inventory
       name: quay-io-repository
       type: string
     - default: latest
       name: quay-io-image-tag-name
       type: string
+    - name: revision
+      default: {{ .Values.global.quarkuscoffeeshop-inventory.revision | quote }}
+      type: string
+{{ if .Values.enableWebhookSecret }}
     - default: webhook-secret
       description: webhook secret name
       name: webhook-secret
       type: string
+{{ end }}
   resources:
     - name: app-git
       type: git
@@ -29,9 +34,9 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/quarkuscoffeeshop/quarkuscoffeeshop-inventory'
+          value: 'https://{{ .Values.global.git.hostname }}/{{ .Values.global.git.account }}/quarkuscoffeeshop-inventory'
         - name: revision
-          value: 5.0.0-SNAPSHOT
+          value: $(params.revision)
         - name: subdirectory
           value: ''
         - name: deleteExisting

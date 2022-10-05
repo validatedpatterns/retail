@@ -48,6 +48,7 @@ spec:
               name: reversewords-git-$(uid)
           - name: image
             type: image
+{{ if .Values.enableWebhookSecret }}
 ---
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: EventListener
@@ -69,3 +70,4 @@ spec:
           ref: github-triggerbinding
       template:
         name: quarkuscoffeeshop-homeoffice-ui-build-triggertemplate
+{{ end }}

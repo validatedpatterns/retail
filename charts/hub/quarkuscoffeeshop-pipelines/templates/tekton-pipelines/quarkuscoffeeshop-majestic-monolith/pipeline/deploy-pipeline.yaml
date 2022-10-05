@@ -11,19 +11,21 @@ spec:
       description: Image Tag Value
       name: IMAGE_TAG
       type: string
-    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-majestic-monolith
+    - default: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-majestic-monolith
       name: quay-io-repository
       type: string
-    - default: main
-      description: Select Branch 
-      name: branch_name
+    - default: {{ .Values.global.quarkuscoffeeshop-majestic-monolith.revision | quote }}
+      name: revision
+      type: string
     - default: latest
       name: quay-io-image-tag-name
       type: string
+{{ if .Values.enableWebhookSecret }}
     - default: webhook-secret
       description: Webhook secret name
       name: webhook-secret
       type: string
+{{ end }}
   resources:
     - name: app-git
       type: git
@@ -33,7 +35,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/jeremyrdavis/quarkuscoffeeshop-majestic-monolith'
+          value: 'https://{{ .Values.global.git.hostname }}/{{ .Values.global.git.account }}/quarkuscoffeeshop-majestic-monolith'
         - name: subdirectory
           value: ''
         - name: deleteExisting
