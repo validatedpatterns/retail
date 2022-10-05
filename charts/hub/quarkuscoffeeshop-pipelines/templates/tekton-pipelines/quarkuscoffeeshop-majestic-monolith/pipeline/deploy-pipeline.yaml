@@ -41,7 +41,7 @@ spec:
         - name: deleteExisting
           value: 'true'
         - name: revision
-          value: $(params.branch_name)
+          value: $(params.revision)
       taskRef:
         kind: Task
         name: git-clone
