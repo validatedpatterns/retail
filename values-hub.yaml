@@ -13,7 +13,7 @@ clusterGroup:
     - coffeeshop-homeoffice
     - coffeeshop-store
     - quarkuscoffeeshop-cicd
-    - quarkuscoffeeshop-demo
+    - coffeeshop-demo
     - quarkuscoffeeshop-integration
 
   subscriptions:
