@@ -17,7 +17,7 @@ spec:
       name: quay-io-image-tag-name
       type: string
     - name: revision
-      default: {{ .Values.global.quarkuscoffeeshop-kitchen.revision | quote }}
+      default: {{ .Values.global.quarkuscoffeeshopKitchen.revision | quote }}
       type: string
 {{ if .Values.enableWebhookSecret }}
     - default: webhook-secret

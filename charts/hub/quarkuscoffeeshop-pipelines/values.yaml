@@ -12,31 +12,31 @@ global:
     hostname: quay.io
     type: quay
 
-  homeoffice-backend:
+  homeofficeBackend:
     revision: main
 
-  homeoffice-ingress:
+  homeofficeIngress:
     revision: master
 
-  quarkuscoffeeshop-barista:
+  quarkuscoffeeshopBarista:
     revision: main
 
-  quarkuscoffeeshop-counter:
+  quarkuscoffeeshopCounter:
     revision: 5.0.3-SNAPSHOT
 
-  quarkuscoffeeshop-customermocker:
+  quarkuscoffeeshopCustomermocker:
     revision: master
 
-  quarkuscoffeeshop-inventory:
+  quarkuscoffeeshopInventory:
     revision: '5.0.0-SNAPSHOT'
 
-  quarkuscoffeeshop-kitchen:
+  quarkuscoffeeshopKitchen:
     revision: main
 
-  quarkuscoffeeshop-majestic-monolith:
+  quarkuscoffeeshopMajesticMonolith:
     revision: main
 
-  quarkuscoffeeshop-web:
+  quarkuscoffeeshopWeb:
     revision: '5.0.3-SNAPSHOT'
 
 enableWebhookSecret: false

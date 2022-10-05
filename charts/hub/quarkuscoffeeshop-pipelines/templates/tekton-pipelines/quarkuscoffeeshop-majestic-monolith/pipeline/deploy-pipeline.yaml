@@ -14,7 +14,7 @@ spec:
     - default: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-majestic-monolith
       name: quay-io-repository
       type: string
-    - default: {{ .Values.global.quarkuscoffeeshop-majestic-monolith.revision | quote }}
+    - default: {{ .Values.global.quarkuscoffeeshopMajesticMonolith.revision | quote }}
       name: revision
       type: string
     - default: latest

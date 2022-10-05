@@ -25,7 +25,7 @@ spec:
       type: string
     - name: revison
       type: string
-      default: {{ .Values.global.homeoffice-backend.revision | quote }}
+      default: {{ .Values.global.homeofficeBackend.revision | quote }}
 {{ if .Values.enableWebhookSecret }}
     - default: webhook-secret
       description: Webhook secert name

@@ -18,7 +18,7 @@ spec:
       type: string
     - name: revision
       type: string
-      default: {{ .Values.global.quarkuscoffeeshop-counter.revision | quote }}
+      default: {{ .Values.global.quarkuscoffeeshopCounter.revision | quote }}
 {{ if .Values.enableWebhookSecret }}
     - default: webhook-secret
       description: Webhook secret name
