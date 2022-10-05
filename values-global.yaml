@@ -6,6 +6,45 @@ global:
     useCSV: false
     syncPolicy: Automatic
     installPlanApproval: Automatic
-  
+
+  git:
+    hostname: github.com
+    account: hybrid-cloud-patterns
+    username: hybrid-cloud-patterns
+    email: SOMEWHERE@EXAMPLE.COM
+    dev_revision: main
+
+  imageregistry:
+    account: hybridcloudpatterns
+    hostname: quay.io
+    type: quay
+
+  homeoffice-backend:
+    revision: main
+
+  homeoffice-ingress:
+    revision: master
+
+  quarkuscoffeeshop-barista:
+    revision: main
+
+  quarkuscoffeeshop-counter:
+    revision: 5.0.3-SNAPSHOT
+
+  quarkuscoffeeshop-customermocker:
+    revision: master
+
+  quarkuscoffeeshop-inventory:
+    revision: '5.0.0-SNAPSHOT'
+
+  quarkuscoffeeshop-kitchen:
+    revision: main
+
+  quarkuscoffeeshop-majestic-monolith:
+    revision: main
+
+  quarkuscoffeeshop-web:
+    revision: '5.0.3-SNAPSHOT'
+
 main:
   clusterGroupName: hub
