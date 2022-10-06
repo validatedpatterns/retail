@@ -43,7 +43,7 @@ global:
     revision: '5.0.3-SNAPSHOT'
 
 buildNamespace: 'quarkuscoffeeshop-cicd'
-testNamespace: 'coffeeshop-demo'
+testNamespace: 'quarkuscoffeeshop-demo'
 
 enableWebhookSecret: false
 

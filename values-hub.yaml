@@ -13,7 +13,7 @@ clusterGroup:
     - coffeeshop-homeoffice
     - coffeeshop-store
     - quarkuscoffeeshop-cicd
-    - coffeeshop-demo
+    - quarkuscoffeeshop-demo
     - quarkuscoffeeshop-integration
 
   subscriptions:
@@ -40,7 +40,7 @@ clusterGroup:
     - hub
     - coffeeshop-homeoffice
     - coffeeshop-store
-    - coffeeshop-demo
+    - quarkuscoffeeshop-demo
 
   applications:
     acm:
@@ -95,30 +95,30 @@ clusterGroup:
         - /values-db-homeoffice.yaml
 
     coffeeshop-test:
-      name: coffeeshop-demo
-      namespace: coffeeshop-demo
-      project: coffeeshop-demo
+      name: quarkuscoffeeshop-demo
+      namespace: quarkuscoffeeshop-demo
+      project: quarkuscoffeeshop-demo
       path: charts/store/quarkuscoffeeshop-charts
       overrides:
         - name: projectnamespace
-          value: coffeeshop-demo
+          value: quarkuscoffeeshop-demo
         - name: Release.release-namespace
-          value: coffeeshop-demo
+          value: quarkuscoffeeshop-demo
         - name: storeid
           value: TEST
 
     coffeeshopdb-test:
-      name: coffeeshopdb-demo
-      namespace: coffeeshop-demo
-      project: coffeeshop-demo
+      name: quarkuscoffeeshopdb-demo
+      namespace: quarkuscoffeeshop-demo
+      project: quarkuscoffeeshop-demo
       path: charts/all/crunchy-pgcluster
       extraValueFiles:
         - /values-db-store.yaml
 
     coffeeshop-test-kafka:
       name: coffeeshop-test-kafka
-      namespace: coffeeshop-demo
-      project: coffeeshop-demo
+      namespace: quarkuscoffeeshop-demo
+      project: quarkuscoffeeshop-demo
       path: charts/all/quarkuscoffeeshop-kafka
 
     coffeeshop-store:
