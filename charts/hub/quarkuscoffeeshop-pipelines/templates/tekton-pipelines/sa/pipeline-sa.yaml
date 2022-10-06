@@ -7,7 +7,7 @@ metadata:
   # To change this setting, edit the configmap config-defaults in ns openshift-pipelines
   name: pipeline
 secrets:
-  - name: quay-auth-
+  - name: quay-auth-secret
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
