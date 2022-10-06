@@ -9,4 +9,6 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/quarkuscoffeeshop/homeoffice-backend
+    value: https://{{ .Values.global.git.hostname }}/{{ .Values.global.git.account }}/homeoffice-backend
+  - name: revision
+    value: {{ .Values.global.homeofficeBackend.revision | quote }}

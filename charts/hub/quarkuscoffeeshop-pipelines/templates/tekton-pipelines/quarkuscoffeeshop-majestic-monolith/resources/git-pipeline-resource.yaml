@@ -9,4 +9,6 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/jeremyrdavis/quarkuscoffeeshop-majestic-monolith
+    value: https://{{ .Values.global.git.hostname }}/{{ .Values.global.git.account }}/quarkuscoffeeshop-majestic-monolith
+  - name: revision
+    value: {{ .Values.global.quarkuscoffeeshopMajesticMonolith.revision | quote }}

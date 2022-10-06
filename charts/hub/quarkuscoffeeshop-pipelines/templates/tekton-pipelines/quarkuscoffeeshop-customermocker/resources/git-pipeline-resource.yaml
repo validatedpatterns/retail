@@ -9,4 +9,6 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/quarkuscoffeeshop/quarkuscoffeeshop-customermocker
+    value: https://{{ .Values.global.git.hostname }}/{{ .Values.global.git.account }}}/quarkuscoffeeshop-customermocker
+  - name: revision
+    value: {{ .Values.global.quarkuscoffeeshopCustomermocker.revision | quote }}

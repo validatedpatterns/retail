@@ -18,6 +18,9 @@ global:
   homeofficeIngress:
     revision: master
 
+  quarkuscoffeeshopHomeofficeUI:
+    revision: main
+
   quarkuscoffeeshopBarista:
     revision: main
 

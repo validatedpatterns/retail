@@ -8,4 +8,6 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/quarkuscoffeeshop/quarkuscoffeeshop-kitchen
+    value: https://{{ .Values.global.git.hostname }}/{{ .Values.global.git.account }}/quarkuscoffeeshop-kitchen
+  - name: revision
+    value: {{ .Values.global.quarkuscoffeeshopKitchen.revision | quote }}
