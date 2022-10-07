@@ -111,10 +111,6 @@ spec:
           value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-web:'$(params.IMAGE_TAG)'
         - name: destImageURL
           value: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-web:'$(params.IMAGE_TAG)'
-      resources:
-        inputs:
-          - name: image
-            resource: image
       runAfter:
         - push-to-test-env
       taskRef:
