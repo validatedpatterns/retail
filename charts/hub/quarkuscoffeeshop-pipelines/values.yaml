@@ -34,7 +34,8 @@ global:
     revision: '5.0.0-SNAPSHOT'
 
   quarkuscoffeeshopKitchen:
-    revision: '5.0.0-SNAPSHOT'
+    revision: main
+    # revision: '5.0.0-SNAPSHOT'
 
   quarkuscoffeeshopMajesticMonolith:
     revision: main
