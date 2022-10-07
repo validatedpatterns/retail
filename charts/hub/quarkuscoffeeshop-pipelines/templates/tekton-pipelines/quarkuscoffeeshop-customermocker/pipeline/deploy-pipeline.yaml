@@ -99,7 +99,7 @@ spec:
       params:
         - name: SCRIPT
           value: |
-            oc patch deployment/quarkuscoffeeshop-customermocker  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-inventory","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
+            oc patch deployment/quarkuscoffeeshop-customermocker  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-customermocker","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
       runAfter:
         - tag-test-image
       taskRef:
