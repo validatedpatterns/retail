@@ -42,7 +42,7 @@ global:
     # revision: '5.0.0-SNAPSHOT'
 
   quarkuscoffeeshopMajesticMonolith:
-    revision: main
+    revision: master
 
   quarkuscoffeeshopWeb:
     revision: '5.0.3-SNAPSHOT'
