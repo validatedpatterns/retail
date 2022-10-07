@@ -2,7 +2,7 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: skopeo-copy
+  name: skopeo-copy-multi
   labels:
     app.kubernetes.io/version: "0.2"
   annotations:
@@ -21,6 +21,8 @@ spec:
     internal.registry to production.registry. If your production registry requires
     credentials to login in order to push the image, skopeo can handle that as well.
 
+  workspaces:
+    - name: images-url
   params:
     - name: srcImageURL
       description: URL of the image to be copied to the destination registry
@@ -45,6 +47,23 @@ spec:
         value: /tekton/home
       image: quay.io/skopeo/stable:v1.9.0
       script: |
+        # Function to copy multiple images.
+        #
+        copyimages() {
+          filename="$(workspaces.images-url.path)/url.txt"
+          while IFS= read -r line || [ -n "$line" ]
+          do
+            cmd=""
+            for url in $line
+            do
+              # echo $url
+              cmd="$cmd \
+                  $url"
+            done
+            skopeo copy "$cmd" --src-tls-verify="$(params.srcTLSverify)" --dest-tls-verify="$(params.destTLSverify)"
+            echo "$cmd"
+          done < "$filename"
+        }
         #
         # If single image is to be copied then, it can be passed through
         # params in the taskrun.
