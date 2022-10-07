@@ -4,7 +4,6 @@ metadata:
   name: build-and-push-quarkuscoffeeshop-customermocker
   labels:
     app: quarkuscoffeeshop-customermocker
-  namespace: quarkuscoffeeshop-cicd
 spec:
   params:
     - default: latest
@@ -26,15 +25,6 @@ spec:
       name: webhook-secret
       type: string
 {{ end }}
-    - default: >-
-        --patch={"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-customermocker","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker:CHANGEME_TO_TAG"}]}}}}
-      description: CHANGEME_TO_TAG at the end of the string above
-      name: PATCH_IMAGE
-      type: string
-    - default: quarkuscoffeeshop-demo
-      description: Target Project
-      name: target_project
-      type: string
   resources:
     - name: app-git
       type: git
@@ -97,11 +87,9 @@ spec:
           workspace: shared-workspace
     - name: tag-test-image
       params:
-        - name: ARGS
-          value:
-            - tag
-            - 'quarkuscoffeeshop-customermocker:$(params.IMAGE_TAG)'
-            - 'quarkuscoffeeshop-customermocker:latest'
+        - name: SCRIPT
+          value: |
+            - oc tag quarkuscoffeeshop-customermocker:$(params.IMAGE_TAG) quarkuscoffeeshop-customermocker:latest
       runAfter:
         - build-java-app-image
       taskRef:
@@ -109,13 +97,9 @@ spec:
         name: openshift-client
     - name: push-to-test-env
       params:
-        - name: ARGS
-          value:
-            - patch
-            - deployment/quarkuscoffeeshop-customermocker
-            - $(params.PATCH_IMAGE)
-            - '-n'
-            - $(params.target_project)
+        - name: SCRIPT
+          value: |
+            oc patch deployment/quarkuscoffeeshop-customermocker  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-inventory","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
       runAfter:
         - tag-test-image
       taskRef:
