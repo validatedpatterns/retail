@@ -120,3 +120,6 @@ spec:
       taskRef:
         kind: Task
         name: skopeo-copy
+workspaces:
+    - name: shared-workspace
+    - name: maven-settings
