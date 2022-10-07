@@ -89,7 +89,7 @@ spec:
       params:
         - name: SCRIPT
           value: |
-            - oc tag quarkuscoffeeshop-customermocker:$(params.IMAGE_TAG) quarkuscoffeeshop-customermocker:latest
+            oc tag quarkuscoffeeshop-customermocker:$(params.IMAGE_TAG) quarkuscoffeeshop-customermocker:latest
       runAfter:
         - build-java-app-image
       taskRef:
