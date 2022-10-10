@@ -100,7 +100,7 @@ spec:
       params:
         - name: SCRIPT
           value: |
-            oc patch deployment/quarkuscoffeeshop-majestic-monolith  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-majestic-monolith","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-integration
+            oc patch deployment/quarkuscoffeeshop-majestic-monolith  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-majestic-monolith","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
       runAfter:
         - tag-test-image
       taskRef:

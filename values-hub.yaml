@@ -14,7 +14,6 @@ clusterGroup:
     - coffeeshop-store
     - quarkuscoffeeshop-cicd
     - quarkuscoffeeshop-demo
-    - quarkuscoffeeshop-integration
 
   subscriptions:
     acm:

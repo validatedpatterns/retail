@@ -1,9 +1,12 @@
-#!/bin/bash -x 
+#!/bin/bash -x
 
-apps=('homeoffice-backend' 'homeoffice-ingress' 'quarkuscoffeeshop-barista' 'quarkuscoffeeshop-counter' 'quarkuscoffeeshop-counter' 'quarkuscoffeeshop-customermocker' 'quarkuscoffeeshop-homeoffice-ui' 'quarkuscoffeeshop-inventory' 'quarkuscoffeeshop-kitchen' 'quarkuscoffeeshop-majestic-monolith' 'quarkuscoffeeshop-web')
+# Separate homeoffice componenents from store ones
+homeoffice_apps=('homeoffice-backend' 'homeoffice-ingress' 'quarkuscoffeeshop-homeoffice-ui')
+
+store_apps=('quarkuscoffeeshop-barista' 'quarkuscoffeeshop-counter' 'quarkuscoffeeshop-counter' 'quarkuscoffeeshop-customermocker' 'quarkuscoffeeshop-inventory' 'quarkuscoffeeshop-kitchen' 'quarkuscoffeeshop-majestic-monolith' 'quarkuscoffeeshop-web')
 namespace='quarkuscoffeeshop-cicd'
 
-for app in ${apps[@]}; do
+for app in ${store_apps[@]}; do
     pipeline="build-and-push-$app"
     mavenpvc="$app-maven-settings-pvc"
     workspacepvc="$app-shared-workspace-pvc"

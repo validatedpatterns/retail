@@ -130,7 +130,7 @@ spec:
             - deployment/quarkuscoffeeshop-majestic-monolith
             - $(params.PATCH_IMAGE)
             - '-n'
-            - quarkuscoffeeshop-integration
+            - quarkuscoffeeshop-demo
       runAfter:
         - tag-test-image
       taskRef:
