@@ -288,96 +288,96 @@ spec:
               value: http://quarkuscoffeeshop-web-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/,https://quarkuscoffeeshop-web-tls-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain   }}
             - name: STORE_ID
               value: {{ .Values.storeid }}
-#---
-#apiVersion: apps/v1
-#kind: Deployment
-#metadata:
-#  name: quarkuscoffeeshop-mm
-#  labels:
-#    app: quarkuscoffeeshop-mm
-#    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
-#    release: {{ .Release.Name }}
-#spec:
-#  replicas: {{ .Values.replica_count.counter }}
-#  selector:
-#    matchLabels:
-#      app: quarkuscoffeeshop-mm
-#  template:
-#    metadata:
-#      name: quarkuscoffeeshop-mm-deployment
-#      labels:
-#        app:  quarkuscoffeeshop-mm
-#        release: {{ .Release.Name }}
-#        app.kubernetes.io/component: quarkuscoffeeshop-mm
-#        app.kubernetes.io/instance: quarkuscoffeeshop-mm
-#        app.kubernetes.io/part-of: quarkus-cafe
-#        quarkus-cafe: ""
-#        app.openshift.io/runtime-namespace: {{ .Values.projectnamespace }}
-#    spec:
-#      containers:
-#        - name: quarkuscoffeeshop-mm
-#          image: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-majestic-monolith:latest
-#          imagePullPolicy: {{ .Values.image.pullPolicy }}
-#          ports:
-#            - containerPort: 8080
-#              protocol: TCP
-#          env:
-#            - name: KAFKA_BOOTSTRAP_URLS
-#              value: 'cafe-cluster-kafka-bootstrap:9092'
-#            - name: PGSQL_URL
-#              value: {{ .Values.pgsql_url | quote }}
-#            - name: PGSQL_URL_KITCHEN
-#              value: {{ .Values.pgsql_url | quote }}
-#            - name: PGSQL_URL_BARISTA
-#              value: {{ .Values.pgsql_url | quote }}
-#            - name: PGSQL_USER
-#              valueFrom:
-#                secretKeyRef:
-#                  name: coffeeshopdb-pguser-coffeeshopuser
-#                  key: user
-#            - name: PGSQL_USER_BARISTA
-#              valueFrom:
-#                secretKeyRef:
-#                  name: coffeeshopdb-pguser-coffeeshopuser
-#                  key: user
-#            - name: PGSQL_USER_KITCHEN
-#              valueFrom:
-#                secretKeyRef:
-#                  name: coffeeshopdb-pguser-coffeeshopuser
-#                  key: user
-#            - name: PGSQL_PASS
-#              valueFrom:
-#                secretKeyRef:
-#                  name: coffeeshopdb-pguser-coffeeshopuser
-#                  key: password
-#            - name: PGSQL_PASSWORD
-#              valueFrom:
-#                secretKeyRef:
-#                  name: coffeeshopdb-pguser-coffeeshopuser
-#                  key: password
-#            - name: PGSQL_PASSWORD_BARISTA
-#              valueFrom:
-#                secretKeyRef:
-#                  name: coffeeshopdb-pguser-coffeeshopuser
-#                  key: password
-#            - name: PGSQL_PASSWORD_KITCHEN
-#              valueFrom:
-#                secretKeyRef:
-#                  name: coffeeshopdb-pguser-coffeeshopuser
-#                  key: password
-#            - name: LOG_SQL
-#              value: 'true'
-#            - name: QUARKUS_LOG_LEVEL
-#              value: {{ .Values.quarkus_log_level }}
-#            - name: QUARKUSCOFFEESHOP_LOG_LEVEL
-#              value: {{ .Values.quarkuscoffeeshop_log_level }}
-#            - name: REST_URL
-#              value: http://quarkuscoffeeshop-mm-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}
-#            - name: STREAM_URL
-#              value:  http://quarkuscoffeeshop-mm-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/dashboard/stream
-#            - name: LOYALTY_STREAM_URL
-#              value: http://quarkuscoffeeshop-mm-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/dashboard/loyaltystream
-#            - name: CORS_ORIGINS
-#              value: http://quarkuscoffeeshop-mm-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/,https://quarkuscoffeeshop-mm-tls-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain   }}
-#            - name: STORE_ID
-#              value: {{ .Values.storeid }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkuscoffeeshop-mm
+  labels:
+    app: quarkuscoffeeshop-mm
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replica_count.counter }}
+  selector:
+    matchLabels:
+      app: quarkuscoffeeshop-majestic-monolith
+  template:
+    metadata:
+      name: quarkuscoffeeshop-majestic-monolith
+      labels:
+        app:  quarkuscoffeeshop-majestic-monolith
+        release: {{ .Release.Name }}
+        app.kubernetes.io/component: quarkuscoffeeshop-majestic-monolith
+        app.kubernetes.io/instance: quarkuscoffeeshop-majestic-monolith
+        app.kubernetes.io/part-of: quarkus-cafe
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: {{ .Values.projectnamespace }}
+    spec:
+      containers:
+        - name: quarkuscoffeeshop-majestic-monolith
+          image: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-majestic-monolith:latest
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: KAFKA_BOOTSTRAP_URLS
+              value: 'cafe-cluster-kafka-bootstrap:9092'
+            - name: PGSQL_URL
+              value: {{ .Values.pgsql_url | quote }}
+            - name: PGSQL_URL_KITCHEN
+              value: {{ .Values.pgsql_url | quote }}
+            - name: PGSQL_URL_BARISTA
+              value: {{ .Values.pgsql_url | quote }}
+            - name: PGSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: user
+            - name: PGSQL_USER_BARISTA
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: user
+            - name: PGSQL_USER_KITCHEN
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: user
+            - name: PGSQL_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: password
+            - name: PGSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: password
+            - name: PGSQL_PASSWORD_BARISTA
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: password
+            - name: PGSQL_PASSWORD_KITCHEN
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: password
+            - name: LOG_SQL
+              value: 'true'
+            - name: QUARKUS_LOG_LEVEL
+              value: {{ .Values.quarkus_log_level }}
+            - name: QUARKUSCOFFEESHOP_LOG_LEVEL
+              value: {{ .Values.quarkuscoffeeshop_log_level }}
+            - name: REST_URL
+              value: http://quarkuscoffeeshop-majestic-monolith-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}
+            - name: STREAM_URL
+              value:  http://quarkuscoffeeshop-majestic-monolith-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/dashboard/stream
+            - name: LOYALTY_STREAM_URL
+              value: http://quarkuscoffeeshop-majestic-monolith-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/dashboard/loyaltystream
+            - name: CORS_ORIGINS
+              value: http://quarkuscoffeeshop-majestic-monolith-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/,https://quarkuscoffeeshop-mm-tls-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain   }}
+            - name: STORE_ID
+              value: {{ .Values.storeid }}
