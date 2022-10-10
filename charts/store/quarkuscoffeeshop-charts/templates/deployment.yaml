@@ -292,9 +292,9 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: quarkuscoffeeshop-mm
+  name: quarkuscoffeeshop-majestic-monolith
   labels:
-    app: quarkuscoffeeshop-mm
+    app: quarkuscoffeeshop-majestic-monolith
     chart: {{ .Chart.Name }}-{{ .Chart.Version }}
     release: {{ .Release.Name }}
 spec:
@@ -378,6 +378,6 @@ spec:
             - name: LOYALTY_STREAM_URL
               value: http://quarkuscoffeeshop-majestic-monolith-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/dashboard/loyaltystream
             - name: CORS_ORIGINS
-              value: http://quarkuscoffeeshop-majestic-monolith-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/,https://quarkuscoffeeshop-mm-tls-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain   }}
+              value: http://quarkuscoffeeshop-majestic-monolith-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain }}/,https://quarkuscoffeeshop-majestic-monolith-tls-{{ .Values.projectnamespace }}.{{ .Values.global.localClusterDomain   }}
             - name: STORE_ID
               value: {{ .Values.storeid }}
