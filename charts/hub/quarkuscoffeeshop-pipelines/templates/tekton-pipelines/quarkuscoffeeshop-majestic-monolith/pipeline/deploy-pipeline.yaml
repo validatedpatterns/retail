@@ -117,21 +117,6 @@ spec:
       taskRef:
         kind: Task
         name: skopeo-copy
-    - name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay-latest
-      params:
-        - name: quay-io-repository
-          value: $(params.quay-io-repository)
-        - name: quay-io-image-tag-name
-          value: latest
-      resources:
-        inputs:
-          - name: image
-            resource: image
-      runAfter:
-        - push-quarkuscoffeeshop-majestic-monolith-image-to-quay
-      taskRef:
-        kind: Task
-        name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay-latest
   workspaces:
     - name: shared-workspace
     - name: maven-settings
