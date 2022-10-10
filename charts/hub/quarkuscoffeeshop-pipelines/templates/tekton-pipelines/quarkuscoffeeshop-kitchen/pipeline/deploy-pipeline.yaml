@@ -107,19 +107,15 @@ spec:
         name: openshift-client
     - name: push-quarkuscoffeeshop-kitchen-image-to-quay
       params:
-        - name: quay-io-repository
-          value: $(params.quay-io-repository)
-        - name: quay-io-image-tag-name
-          value: $(params.quay-io-image-tag-name)
-      resources:
-        inputs:
-          - name: image
-            resource: image
+        - name: srcImageURL
+          value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-kitchen:$(params.IMAGE_TAG)"
+        - name: destImageURL
+          value: "docker://{{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-kitchen:$(params.IMAGE_TAG)"
       runAfter:
         - push-to-test-env
       taskRef:
         kind: Task
-        name: push-quarkuscoffeeshop-kitchen-image-to-quay
+        name: skopeo-copy
   workspaces:
     - name: shared-workspace
     - name: maven-settings
