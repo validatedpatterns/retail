@@ -39,6 +39,10 @@ global:
     revision: 5.0.3-SNAPSHOT
     imageTag: latest
 
+  quarkuscoffeeshopCustomerloyalty:
+    revision: main
+    imageTag: latest
+
   quarkuscoffeeshopCustomermocker:
     revision: master
     imageTag: latest

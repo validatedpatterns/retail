@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-barista
-          image: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-barista:{{ .Values.version.barista }}
+          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-barista:{{ .Values.global.quarkuscoffeeshopBarista.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8778
@@ -63,7 +63,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-inventory
-          image: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-inventory:{{ .Values.version.inventory }}
+          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-inventory:{{ .Values.global.quarkuscoffeeshopInventory.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8778
@@ -101,7 +101,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-counter
-          image: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-counter:{{ .Values.version.counter }}
+          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-counter:{{ .Values.global.quarkuscoffeeshopCounter.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
@@ -155,7 +155,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-customermocker
-          image: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-customermocker:{{ .Values.version.customermocker }}
+          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-customermocker:{{ .Values.global.quarkuscoffeeshopCustomermocker.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
@@ -196,7 +196,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-kitchen
-          image: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-kitchen:{{ .Values.version.kitchen }}
+          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-kitchen:{{ .Values.global.quarkuscoffeeshopKitchen.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080

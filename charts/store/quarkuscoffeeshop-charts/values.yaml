@@ -29,11 +29,51 @@ storeid: ATLANTA
 quarkus_log_level: INFO
 quarkuscoffeeshop_log_level: DEBUG
 
-
 # Helm chart variables
 Release:
   Name: quarkuscoffeeshop-deployment
   release-namespace: quarkuscoffeeshop-demo
+
+homeofficeBackend:
+  revision: main
+  imageTag: latest
+
+homeofficeIngress:
+  revision: master
+  imageTag: latest
+
+homeofficeUI:
+  revision: master
+  imageTag: latest
+
+quarkuscoffeeshopBarista:
+  revision: main
+  imageTag: latest
+
+quarkuscoffeeshopCounter:
+  revision: 5.0.3-SNAPSHOT
+  imageTag: latest
+
+quarkuscoffeeshopCustomermocker:
+  revision: master
+  imageTag: latest
+
+quarkuscoffeeshopInventory:
+  revision: '5.0.0-SNAPSHOT'
+  imageTag: latest
+
+quarkuscoffeeshopKitchen:
+  revision: main
+  # revision: '5.0.0-SNAPSHOT'
+  imageTag: latest
+
+quarkuscoffeeshopMajesticMonolith:
+  revision: master
+  imageTag: latest
+
+quarkuscoffeeshopWeb:
+  revision: '5.0.3-SNAPSHOT'
+  imageTag: latest
 
 replicaCount: 1
 

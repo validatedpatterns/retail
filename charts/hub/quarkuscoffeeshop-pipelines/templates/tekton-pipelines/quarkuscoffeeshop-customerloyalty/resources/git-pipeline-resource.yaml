@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-customerloyalty-git
+  labels:
+    app: quarkuscoffeeshop-customerloyalty
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://{{ .Values.global.git.hostname }}/{{ .Values.global.git.account }}/customerloyalty
