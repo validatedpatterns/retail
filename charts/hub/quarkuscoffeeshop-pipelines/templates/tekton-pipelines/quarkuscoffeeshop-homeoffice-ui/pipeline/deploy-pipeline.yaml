@@ -20,7 +20,7 @@ spec:
     - default: latest
       name: quay-io-image-tag-name
       type: string
-    - default: latest
+    - default: {{ coalesce .Values.global.homeofficeUI.imageTag "latest" }}
       description: Image Tag Value
       name: IMAGE_TAG
       type: string

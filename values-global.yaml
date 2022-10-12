@@ -27,6 +27,10 @@ global:
     revision: master
     imageTag: latest
 
+  homeofficeUI:
+    revision: master
+    imageTag: latest
+
   quarkuscoffeeshopBarista:
     revision: main
     imageTag: latest

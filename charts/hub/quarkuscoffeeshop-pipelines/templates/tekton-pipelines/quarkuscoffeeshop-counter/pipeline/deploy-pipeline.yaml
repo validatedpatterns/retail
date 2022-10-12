@@ -6,7 +6,7 @@ metadata:
     app: quarkuscoffeeshop-counter
 spec:
   params:
-    - default: latest
+    - default: {{ coalesce .Values.global.quarkuscoffeeshopCounter.imageTag "latest" }}
       description: Image Tag Value
       name: IMAGE_TAG
       type: string

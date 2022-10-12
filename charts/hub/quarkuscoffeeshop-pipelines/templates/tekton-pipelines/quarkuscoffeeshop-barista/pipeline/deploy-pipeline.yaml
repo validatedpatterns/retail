@@ -6,7 +6,7 @@ metadata:
     app: quarkuscoffeeshop-barista
 spec:
   params:
-    - default: latest
+    - default: {{ coalesce .Values.global.quarkuscoffeeshopBarista.imageTag "latest" }}
       description: Image Tag Value
       name: IMAGE_TAG
       type: string
