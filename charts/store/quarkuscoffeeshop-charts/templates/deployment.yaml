@@ -232,7 +232,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-customerloyalty
-          image: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-customerloyalty:{{ .Values.version.customerloyalty }}
+          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-customerloyalty:{{ .Values.global.quarkuscoffeeshopCustomerloyalty.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
@@ -270,7 +270,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-web
-          image: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-web:{{ .Values.version.web }}
+          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-web:{{ .Values.global.quarkuscoffeeshopWeb.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
@@ -316,7 +316,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-majestic-monolith
-          image: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-majestic-monolith:latest
+          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-majestic-monolith:{{ .Values.global.quarkuscoffeeshopMajesticMonolith.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
