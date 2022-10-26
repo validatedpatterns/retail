@@ -19,17 +19,17 @@ clusterGroup:
     acm:
       name: advanced-cluster-management
       namespace: open-cluster-management
-      channel: release-2.5
+      channel: release-2.6
 
     pipelines:
       name: openshift-pipelines-operator-rh
 
-    amqstreams-homeoffice:
+    amqstreams:
       name: amq-streams
       namespace: openshift-operators
-      channel: amq-streams-2.x
+      channel: stable
 
-    crunchypgo-homeoffice:
+    crunchypgo:
       name: crunchy-postgres-operator
       namespace: openshift-operators
       channel: v5
