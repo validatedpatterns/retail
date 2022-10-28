@@ -1,5 +1,23 @@
 # Changes
 
+## October 28, 2022
+
+* Updated vault helm chart to v0.22.1 and vault containers to 1.12.0
+
+## October 25, 2022
+
+* Updated External Secrets Operator to v0.6.0
+* Moved to -UBI based ESO containers
+
+## October 13, 2022
+
+* Added global.clusterVersion as a new helm variable which represents the OCP
+  Major.Minor cluster version. By default now a user can add a
+  values-<ocpversion>-<clustergroup>.yaml file to have specific cluster version
+  overrides (e.g. values-4.10-hub.yaml). Will need Validated Patterns Operator >= 0.0.6
+  when deploying with the operator. Note: When using the ArgoCD Hub and spoke model,
+  you cannot have spokes with a different version of OCP than the hub.
+
 ## October 4, 2022
 
 * Extended the values-secret.yaml file to support multiple vault paths and re-wrote

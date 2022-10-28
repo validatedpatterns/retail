@@ -58,6 +58,7 @@ def exit_json(*args, **kwargs):
 def fail_json(*args, **kwargs):
     """function to patch over fail_json; package return data into an exception"""
     kwargs["failed"] = True
+    kwargs["args"] = args
     raise AnsibleFailJson(kwargs)
 
 
@@ -116,10 +117,12 @@ class TestMyModule(unittest.TestCase):
 
         calls = [
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/config-demo' secret='VALUE'\""  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/config-demo' secret='VALUE'\"",  # noqa: E501
+                attempts=3,
             ),
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/aws' access_key_id='VALUE' secret_access_key='VALUE'\""  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/aws' access_key_id='VALUE' secret_access_key='VALUE'\"",  # noqa: E501
+                attempts=3,
             ),
         ]
         mock_run_command.assert_has_calls(calls)
@@ -162,7 +165,8 @@ class TestMyModule(unittest.TestCase):
 
         calls = [
             call(
-                "cat '/home/michele/.ssh/id_rsa.pub' | oc exec -n vault vault-0 -i -- sh -c 'cat - > /tmp/vcontent'; oc exec -n vault vault-0 -i -- sh -c 'base64 --wrap=0 /tmp/vcontent | vault kv put secret/hub/publickey b64content=- content=@/tmp/vcontent; rm /tmp/vcontent'"  # noqa: E501
+                "cat '/home/michele/.ssh/id_rsa.pub' | oc exec -n vault vault-0 -i -- sh -c 'cat - > /tmp/vcontent'; oc exec -n vault vault-0 -i -- sh -c 'base64 --wrap=0 /tmp/vcontent | vault kv put secret/hub/publickey b64content=- content=@/tmp/vcontent; rm /tmp/vcontent'",  # noqa: E501
+                attempts=3,
             ),
         ]
         mock_run_command.assert_has_calls(calls)
@@ -187,34 +191,100 @@ class TestMyModule(unittest.TestCase):
 
         calls = [
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/config-demo' secret='demo123'\""  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/config-demo' secret='demo123'\"",  # noqa: E501
+                attempts=3,
             ),
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/googleapi' key='lskdjflskjdflsdjflsdkjfldsjkfldsj'\""  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/googleapi' key='lskdjflskjdflsdjflsdkjfldsjkfldsj'\"",  # noqa: E501
+                attempts=3,
             ),
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/cluster_alejandro' name='alejandro' bearerToken='sha256~bumxi-012345678901233455675678678098-abcdef'\""  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/cluster_alejandro' name='alejandro' bearerToken='sha256~bumxi-012345678901233455675678678098-abcdef'\"",  # noqa: E501
+                attempts=3,
             ),
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/test' s3.accessKey='1234' s3.secretKey='4321' s3Secret='czMuYWNjZXNzS2V5OiAxMjM0CnMzLnNlY3JldEtleTogNDMyMQ=='\""  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/test' s3.accessKey='1234' s3.secretKey='4321' s3Secret='czMuYWNjZXNzS2V5OiAxMjM0CnMzLnNlY3JldEtleTogNDMyMQ=='\"",  # noqa: E501
+                attempts=3,
             ),
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/test2' s3.accessKey='accessKey' s3.secretKey='secretKey' s3Secret='fooo'\""  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/test2' s3.accessKey='accessKey' s3.secretKey='secretKey' s3Secret='fooo'\"",  # noqa: E501
+                attempts=3,
             ),
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/test3' s3.accessKey='aaaaa' s3.secretKey='bbbbbbbb' s3Secret='czMuYWNjZXNzS2V5OiBhYWFhYQpzMy5zZWNyZXRLZXk6IGJiYmJiYmJi'\""  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/test3' s3.accessKey='aaaaa' s3.secretKey='bbbbbbbb' s3Secret='czMuYWNjZXNzS2V5OiBhYWFhYQpzMy5zZWNyZXRLZXk6IGJiYmJiYmJi'\"",  # noqa: E501
+                attempts=3,
             ),
             call(
-                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/region-one/config-demo' secret='region123'\""  # noqa: E501
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/region-one/config-demo' secret='region123'\"",  # noqa: E501
+                attempts=3,
             ),
             call(
-                "cat '/home/michele/ca.crt' | oc exec -n vault vault-0 -i -- sh -c 'cat - > /tmp/vcontent'; oc exec -n vault vault-0 -i -- sh -c 'base64 --wrap=0 /tmp/vcontent | vault kv put secret/hub/cluster_alejandro_ca b64content=- content=@/tmp/vcontent; rm /tmp/vcontent'"  # noqa: E501
+                "cat '/home/michele/ca.crt' | oc exec -n vault vault-0 -i -- sh -c 'cat - > /tmp/vcontent'; oc exec -n vault vault-0 -i -- sh -c 'base64 --wrap=0 /tmp/vcontent | vault kv put secret/hub/cluster_alejandro_ca b64content=- content=@/tmp/vcontent; rm /tmp/vcontent'",  # noqa: E501
+                attempts=3,
             ),
             call(
-                "cat '/home/michele/ca.crt' | oc exec -n vault vault-0 -i -- sh -c 'cat - > /tmp/vcontent'; oc exec -n vault vault-0 -i -- sh -c 'base64 --wrap=0 /tmp/vcontent | vault kv put secret/region-one/ca b64content=- content=@/tmp/vcontent; rm /tmp/vcontent'"  # noqa: E501
+                "cat '/home/michele/ca.crt' | oc exec -n vault vault-0 -i -- sh -c 'cat - > /tmp/vcontent'; oc exec -n vault vault-0 -i -- sh -c 'base64 --wrap=0 /tmp/vcontent | vault kv put secret/region-one/ca b64content=- content=@/tmp/vcontent; rm /tmp/vcontent'",  # noqa: E501
+                attempts=3,
             ),
         ]
         mock_run_command.assert_has_calls(calls)
+
+    def test_ensure_good_template_checking(self):
+        set_module_args(
+            {
+                "values_secrets": os.path.join(self.testdir, "mcg-values-secret.yaml"),
+                "check_missing_secrets": True,
+                "values_secret_template": os.path.join(
+                    self.testdir, "template-mcg-working.yaml"
+                ),
+            }
+        )
+        with patch.object(vault_load_secrets, "run_command") as mock_run_command:
+            stdout = "configuration updated"
+            stderr = ""
+            ret = 0
+            mock_run_command.return_value = ret, stdout, stderr  # successful execution
+
+            with self.assertRaises(AnsibleExitJson) as result:
+                vault_load_secrets.main()
+            self.assertTrue(
+                result.exception.args[0]["changed"]
+            )  # ensure result is changed
+            assert mock_run_command.call_count == 1
+
+        calls = [
+            call(
+                "oc exec -n vault vault-0 -i -- sh -c \"vault kv put 'secret/hub/config-demo' secret='VALUE' additionalsecret='test'\"",  # noqa: E501
+                attempts=3,
+            ),
+        ]
+        mock_run_command.assert_has_calls(calls)
+
+    def test_ensure_bad_template_checking(self):
+        set_module_args(
+            {
+                "values_secrets": os.path.join(self.testdir, "mcg-values-secret.yaml"),
+                "check_missing_secrets": True,
+                "values_secret_template": os.path.join(
+                    self.testdir, "template-mcg-missing.yaml"
+                ),
+            }
+        )
+        with patch.object(vault_load_secrets, "run_command") as mock_run_command:
+            stdout = "configuration updated"
+            stderr = ""
+            ret = 0
+            mock_run_command.return_value = ret, stdout, stderr
+
+            with self.assertRaises(AnsibleFailJson) as result:
+                vault_load_secrets.main()
+            self.assertTrue(result.exception.args[0]["failed"])
+            # In case of failure args[1] contains the msg of the failure
+            assert (
+                result.exception.args[0]["args"][1]
+                == "Values secret yaml is missing needed secrets from the templates: {'secrets.config-demo.foo'}"
+            )
+            assert mock_run_command.call_count == 0
 
 
 if __name__ == "__main__":

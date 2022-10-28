@@ -53,6 +53,8 @@ files.region2:
 import base64
 import os
 import subprocess
+import time
+from collections.abc import MutableMapping
 
 import yaml
 from ansible.module_utils.basic import AnsibleModule
@@ -95,6 +97,19 @@ options:
     required: false
     type: str
     default: secret
+  check_missing_secrets:
+    description:
+      - Validate the ~/values-secret.yaml file against the top-level
+        values-secret-template.yaml and error out if secrets are missing
+    required: false
+    type: bool
+    default: False
+  values_secret_template:
+    description:
+      - Path of the values-secret-template.yaml file of the pattern
+    required: false
+    type: str
+    default: ""
 """
 
 RETURN = """
@@ -137,27 +152,68 @@ def get_version(syaml):
     return syaml.get("version", "1.0")
 
 
-def run_command(command):
+def run_command(command, attempts=1, sleep=3):
     """
     Runs a command on the host ansible is running on. A failing command
     will raise an exception in this function directly (due to check=True)
 
     Parameters:
         command(str): The command to be run.
+        attempts(int): Number of times to retry in case of Error (defaults to 1)
+        sleep(int): Number of seconds to wait in between retry attempts (defaults to 3s)
 
     Returns:
         ret(subprocess.CompletedProcess): The return value from run()
     """
-    ret = subprocess.run(
-        command,
-        shell=True,
-        env=os.environ.copy(),
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        universal_newlines=True,
-        check=True,
-    )
-    return ret
+    for attempt in range(attempts):
+        try:
+            ret = subprocess.run(
+                command,
+                shell=True,
+                env=os.environ.copy(),
+                stdout=subprocess.PIPE,
+                stderr=subprocess.PIPE,
+                universal_newlines=True,
+                check=True,
+            )
+            return ret
+        except subprocess.CalledProcessError as e:
+            # We reached maximum nr of retries. Re-raise the last error
+            if attempt >= attempts - 1:
+                raise e
+            time.sleep(sleep)
+
+
+def flatten(dictionary, parent_key=False, separator="."):
+    """
+    Turn a nested dictionary into a flattened dictionary and also
+    drop any key that has 'None' as their value
+
+    Parameters:
+        dictionary(dict): The dictionary to flatten
+
+        parent_key(str): The string to prepend to dictionary's keys
+
+        separator(str): The string used to separate flattened keys
+
+    Returns:
+
+        dictionary: A flattened dictionary where the keys represent the
+        path to reach the leaves
+    """
+
+    items = []
+    for key, value in dictionary.items():
+        new_key = str(parent_key) + separator + key if parent_key else key
+        if isinstance(value, MutableMapping):
+            items.extend(flatten(value, new_key, separator).items())
+        elif isinstance(value, list):
+            for k, v in enumerate(value):
+                items.extend(flatten({str(k): v}, new_key).items())
+        else:
+            if value is not None:
+                items.append((new_key, value))
+    return dict(items)
 
 
 def sanitize_values(module, syaml):
@@ -320,7 +376,7 @@ def inject_secrets(module, syaml, namespace, pod, basepath):
                 f"oc exec -n {namespace} {pod} -i -- sh -c "
                 f"\"vault kv put '{path}/{secret}' {properties}\""
             )
-            run_command(cmd)
+            run_command(cmd, attempts=3)
             counter += 1
 
     for i in get_secrets_vault_paths(module, syaml, "files"):
@@ -334,9 +390,30 @@ def inject_secrets(module, syaml, namespace, pod, basepath):
                 f"vault kv put {path}/{filekey} b64content=- content=@/tmp/vcontent; "
                 f"rm /tmp/vcontent'"
             )
-            run_command(cmd)
+            run_command(cmd, attempts=3)
             counter += 1
     return counter
+
+
+def check_for_missing_secrets(module, syaml, values_secret_template):
+    with open(values_secret_template, "r", encoding="utf-8") as file:
+        template_yaml = yaml.safe_load(file.read())
+    if template_yaml is None:
+        module.fail_json(f"Template {values_secret_template} is empty")
+
+    syaml_flat = flatten(syaml)
+    template_flat = flatten(template_yaml)
+
+    syaml_keys = set(syaml_flat.keys())
+    template_keys = set(template_flat.keys())
+
+    if template_keys <= syaml_keys:
+        return
+
+    diff = template_keys - syaml_keys
+    module.fail_json(
+        f"Values secret yaml is missing needed secrets from the templates: {diff}"
+    )
 
 
 def run(module):
@@ -348,6 +425,12 @@ def run(module):
     basepath = args.get("basepath")
     namespace = args.get("namespace")
     pod = args.get("pod")
+    check_missing_secrets = args.get("check_missing_secrets")
+    values_secret_template = args.get("values_secret_template")
+    if check_missing_secrets and values_secret_template == "":
+        module.fail_json(
+            "No values_secret_template defined and check_missing_secrets set to True"
+        )
 
     if not os.path.exists(values_secrets):
         results["failed"] = True
@@ -363,6 +446,12 @@ def run(module):
 
     # In the future we can use the version field to manage different formats if needed
     secrets = sanitize_values(module, syaml)
+
+    # If the user specified check_for_missing_secrets then we read values_secret_template
+    # and check if there are any missing secrets
+    if check_missing_secrets:
+        check_for_missing_secrets(module, syaml, values_secret_template)
+
     nr_secrets = inject_secrets(module, secrets, namespace, pod, basepath)
     results["failed"] = False
     results["changed"] = True
