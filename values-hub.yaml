@@ -23,6 +23,7 @@ clusterGroup:
 
     pipelines:
       name: openshift-pipelines-operator-rh
+      channel: latest
 
     amqstreams:
       name: amq-streams

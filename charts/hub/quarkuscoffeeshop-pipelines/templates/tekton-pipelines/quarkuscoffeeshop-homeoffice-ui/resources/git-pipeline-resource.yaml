@@ -10,4 +10,4 @@ spec:
   - name: url
     value: https://{{ .Values.global.git.hostname }}/{{ .Values.global.git.account }}/quarkuscoffeeshop-homeoffice-ui
   - name: revision
-    value: {{ .Values.global.quarkuscoffeeshopHomeofficeUI.revision | quote }}
+    value: {{ .Values.global.homeofficeUI.revision | quote }}

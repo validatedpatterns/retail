@@ -1,0 +1,20 @@
+--- tests/hub-quarkuscoffeeshop-pipelines-naked.expected.yaml
++++ tests/hub-quarkuscoffeeshop-pipelines-normal.expected.yaml
+@@ -952,7 +952,7 @@
+       type: string
+     - name: revision
+       type: string
+-      default: 
++      default: "main"
+ 
+   resources:
+     - name: app-git
+@@ -2141,7 +2141,7 @@
+   - name: url
+     value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-homeoffice-ui
+   - name: revision
+-    value: "main"
++    value: "master"
+ ---
+ # Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources/image-pipeline-resource.yaml
+ apiVersion: tekton.dev/v1alpha1

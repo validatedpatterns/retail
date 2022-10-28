@@ -1,0 +1,4092 @@
+---
+# Source: config-demo/templates/tekton-pipelines/sa/pipeline-sa.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  # pipeline is configured in the openshift-pipelines namespace as the default serviceaccount for pipelineruns
+  # So let's use that as our primary serviceaccount
+  # To change this setting, edit the configmap config-defaults in ns openshift-pipelines
+  name: pipeline
+secrets:
+  - name: quay-auth-secret
+---
+# Source: config-demo/templates/tekton-pipelines/sa/pipelines-sa.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: quarkuscoffeeshop-pipelines
+secrets:
+  - name: quay-user-pass
+---
+# Source: config-demo/templates/tekton-pipelines/event-notification/webhook-secret.yaml
+kind: Secret
+apiVersion: v1
+metadata:
+  name: webhook-secret
+stringData:
+  url: https://replace-me-with-an-external-secret.com
+---
+# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/pvc/maven-source-pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homeoffice-backend-maven-settings-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/pvc/pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homeoffice-backend-shared-workspace-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: config-demo/templates/tekton-pipelines/homeoffice-ingress/pvc/maven-source-pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homeoffice-ingress-maven-settings-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+# Source: config-demo/templates/tekton-pipelines/homeoffice-ingress/pvc/pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homeoffice-ingress-shared-workspace-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-barista/pvc/maven-source-pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-barista-maven-settings-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-barista/pvc/pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-barista-shared-workspace-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-counter/pvc/maven-source-pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-counter-maven-settings-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-counter/pvc/pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-counter-shared-workspace-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/pvc/maven-source-pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-customerloyalty-maven-settings-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/pvc/pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-customerloyalty-shared-workspace-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/pvc/maven-source-pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-customermocker-maven-settings-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/pvc/pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-customermocker-shared-workspace-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/pvc/pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: homeoffice-pipeline-cache
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-inventory/pvc/maven-source-pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-inventory-maven-settings-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-inventory/pvc/pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-inventory-shared-workspace-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/pvc/maven-source-pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-kitchen-maven-settings-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/pvc/pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-kitchen-shared-workspace-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pvc/maven-source-pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-majestic-monolith-maven-settings-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pvc/pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-majestic-monolith-shared-workspace-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-web/pvc/maven-source-pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-web-maven-settings-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 500Mi
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-web/pvc/pvc.yml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: quarkuscoffeeshop-web-shared-workspace-pvc
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+---
+# Source: config-demo/templates/tekton-pipelines/sa/pipeline-sa.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: pipeline-edit
+  namespace: openshift
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+subjects:
+  - kind: ServiceAccount
+    name: pipeline
+    namespace: quarkuscoffeeshop-cicd
+  #- kind: ServiceAccount
+  #  name: pipeline
+  #  namespace: quarkuscoffeeshop-demo
+---
+# Source: config-demo/templates/tekton-pipelines/sa/pipeline-sa.yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: admin
+  namespace: quarkuscoffeeshop-demo
+subjects:
+  - kind: ServiceAccount
+    name: pipeline
+    namespace: quarkuscoffeeshop-cicd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+---
+# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/tektontasks/s2i-quarkus-task.yaml
+#---
+#apiVersion: tekton.dev/v1alpha1
+#kind: Task
+#metadata:
+#  name: s2i-quarkus
+#  namespace: quarkuscoffeeshop-cicd
+#spec:
+#  inputs:
+#    resources:
+#      - name: source
+#        type: git
+#  params:
+#    - name: VERSION
+#      description: The version of the quarkus s2i builder image
+#      default: '20.3.0-java11'
+#    - name: PATH_CONTEXT
+#      description: The location of the path to run s2i from.
+#      default: .
+#    - name: TLSVERIFY
+#      description: Verify the TLS on the registry endpoint (for push/pull to a non-TLS registry)
+#      default: "true"
+#    - name: IMAGE_TAG
+#      description: image release tag
+#      default: 'v1.0'
+#  outputs:
+#    resources:
+#      - name: image
+#        type: image
+#  steps:
+#    - name: generate
+#      image: quay.io/openshift-pipeline/s2i
+#      workingdir: /workspace/source
+#      command: ['s2i', 'build', '$(params.PATH_CONTEXT)', 'quay.io/quarkus/ubi-quarkus-native-s2i:$(params.VERSION)', '--as-dockerfile', '/gen-source/Dockerfile.gen']
+#      volumeMounts:
+#        - name: gen-source
+#          mountPath: /gen-source
+#      resources:
+#        limits:
+#          cpu: 500m
+#          memory: 2Gi
+#        requests:
+#          cpu: 500m
+#          memory: 2Gi
+#    - name: build
+#      image: quay.io/buildah/stable
+#      workingdir: /gen-source
+#      command: ['buildah', 'bud', '--tls-verify=$(params.TLSVERIFY)', '--layers', '-f', '/gen-source/Dockerfile.gen', '-t', '$(outputs.resources.image.url):$(params.IMAGE_TAG)', '.']
+#      volumeMounts:
+#        - name: varlibcontainers
+#          mountPath: /var/lib/containers
+#        - name: gen-source
+#          mountPath: /gen-source
+#      resources:
+#        limits:
+#          cpu: 500m
+#          memory: 2Gi
+#        requests:
+#          cpu: 500m
+#          memory: 2Gi
+#      securityContext:
+#        privileged: true
+#    - name: push
+#      image: quay.io/buildah/stable
+#      command: ['buildah', 'push', '--tls-verify=$(params.TLSVERIFY)', '$(outputs.resources.image.url):$(params.IMAGE_TAG)', 'docker://$(outputs.resources.image.url):$(params.IMAGE_TAG)']
+#      volumeMounts:
+#        - name: varlibcontainers
+#          mountPath: /var/lib/containers
+#      resources:
+#        limits:
+#          cpu: 500m
+#          memory: 2Gi
+#        requests:
+#          cpu: 500m
+#          memory: 2Gi
+#      securityContext:
+#        privileged: true
+#  volumes:
+#    - name: varlibcontainers
+#      emptyDir: {}
+#    - name: gen-source
+#      emptyDir: {}
+---
+# Source: config-demo/templates/quay-auth-secret.yaml
+apiVersion: "external-secrets.io/v1beta1"
+kind: ExternalSecret
+metadata:
+  name: quay-auth-secret
+spec:
+  refreshInterval: 15s
+  secretStoreRef:
+    name: vault-backend
+    kind: ClusterSecretStore
+  target:
+    name: quay-auth-secret
+    template:
+      metadata:
+        annotations:
+          # Tekton magic, see https://tekton.dev/vault/pipelines-v0.15.2/auth/
+          tekton.dev/docker-0: https://quay.io
+      type: kubernetes.io/basic-auth
+  dataFrom:
+  - extract:
+      key: secret/data/hub/imageregistry
+---
+# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/pipeline/deploy-pipeline.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-push-homeoffice-backend
+  labels:
+    app: homeoffice-backend
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  params:
+    - default: latest
+      description: Image Tag Value
+      name: IMAGE_TAG
+      type: string
+    - default: quay.io/hybridcloudpatterns/homeoffice-backend
+      name: quay-io-repository
+      type: string
+    - default: quay-auth-secret
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: latest
+      name: quay-io-image-tag-name
+      type: string
+    - name: revision
+      type: string
+      default: "main"
+
+  resources:
+    - name: app-git
+      type: git
+    - name: image
+      type: image
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: 'https://github.com/hybrid-cloud-patterns/homeoffice-backend'
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+        - name: revision
+          value: $(params.revision)
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: maven-run
+      params:
+        - name: CONTEXT_DIR
+          value: .
+        - name: GOALS
+          value:
+            - '-DskipTests'
+            - clean
+            - package
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace
+    - name: build-java-app-image
+      params:
+        - name: CONTEXT
+          value: .
+        - name: DOCKERFILE
+          value: src/main/docker/Dockerfile.jvm
+        - name: IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-backend:$(params.IMAGE_TAG)
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - maven-run
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: tag-test-image
+      params:
+        - name: SCRIPT
+          value: |
+            oc tag homeoffice-backend:$(params.IMAGE_TAG) homeoffice-backend:latest
+      runAfter:
+        - build-java-app-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc patch deployment/homeoffice-backend  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"homeoffice-backend","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-backend:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-homeoffice
+      runAfter:
+        - tag-test-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-homeoffice-backend-image-to-quay
+      params:
+        - name: quay-io-repository
+          value: $(params.quay-io-repository)
+        - name: quay-io-image-tag-name
+          value: $(params.quay-io-image-tag-name)
+      resources:
+        inputs:
+          - name: image
+            resource: image
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: push-homeoffice-backend-image-to-quay
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+---
+# Source: config-demo/templates/tekton-pipelines/homeoffice-ingress/pipeline/deploy-pipeline.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-push-homeoffice-ingress
+  labels:
+    app: homeoffice-ingress
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  params:
+    - default: latest
+      description: Image Tag Value
+      name: IMAGE_TAG
+      type: string
+    - default: quay-auth-secret
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: quay.io/hybridcloudpatterns/homeoffice-ingress
+      name: quay-io-repository
+      type: string
+    - default: latest
+      name: quay-io-image-tag-name
+      type: string
+    - name: revision
+      default: "master"
+      type: string
+
+  resources:
+    - name: app-git
+      type: git
+    - name: image
+      type: image
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: 'https://github.com/hybrid-cloud-patterns/homeoffice-ingress'
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+        - name: revision
+          value: $(params.revision)
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: maven-run
+      params:
+        - name: CONTEXT_DIR
+          value: .
+        - name: GOALS
+          value:
+            - '-DskipTests'
+            - clean
+            - package
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace
+    - name: build-java-app-image
+      params:
+        - name: CONTEXT
+          value: .
+        - name: DOCKERFILE
+          value: src/main/docker/Dockerfile.jvm
+        - name: IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-ingress:$(params.IMAGE_TAG)
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - maven-run
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: tag-test-image
+      params:
+        - name: SCRIPT
+          value: |
+            oc tag homeoffice-ingress:$(params.IMAGE_TAG) homeoffice-ingress:latest
+      runAfter:
+        - build-java-app-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc patch deployment/homeoffice-ingress  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"homeoffice-ingress","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-ingress:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-homeoffice
+      runAfter:
+        - tag-test-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-homeoffice-ingress-image-to-quay
+      params:
+        - name: quay-io-repository
+          value: $(params.quay-io-repository)
+        - name: quay-io-image-tag-name
+          value: $(params.quay-io-image-tag-name)
+      resources:
+        inputs:
+          - name: image
+            resource: image
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: push-homeoffice-ingress-image-to-quay
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-barista/pipeline/deploy-pipeline.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-push-quarkuscoffeeshop-barista
+  labels:
+    app: quarkuscoffeeshop-barista
+spec:
+  params:
+    - default: latest
+      description: Image Tag Value
+      name: IMAGE_TAG
+      type: string
+    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-barista
+      name: quay-io-repository
+      type: string
+    - default: latest
+      name: quay-io-image-tag-name
+      type: string
+    - name: revision
+      type: string
+      default: "main"
+
+  resources:
+    - name: app-git
+      type: git
+    - name: image
+      type: image
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-barista'
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+        - name: revision
+          value: $(params.revision)
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: maven-run
+      params:
+        - name: CONTEXT_DIR
+          value: .
+        - name: GOALS
+          value:
+            - '-DskipTests'
+            - clean
+            - package
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace
+    - name: build-java-app-image
+      params:
+        - name: CONTEXT
+          value: .
+        - name: DOCKERFILE
+          value: src/main/docker/Dockerfile.jvm
+        - name: IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-barista:$(params.IMAGE_TAG)
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - maven-run
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: tag-test-image
+      params:
+        - name: SCRIPT
+          value: |
+            oc tag quarkuscoffeeshop-barista:$(params.IMAGE_TAG) quarkuscoffeeshop-barista:latest
+      runAfter:
+        - build-java-app-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc patch deployment/quarkuscoffeeshop-barista  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-barista","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-barista:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
+      runAfter:
+        - tag-test-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-quarkuscoffeeshop-barista-image-to-quay
+      params:
+        - name: srcImageURL
+          value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-barista:$(params.IMAGE_TAG)"
+        - name: destImageURL
+          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-barista:$(params.IMAGE_TAG)"
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: skopeo-copy
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-counter/pipeline/deploy-pipeline.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-push-quarkuscoffeeshop-counter
+  labels:
+    app: quarkuscoffeeshop-counter
+spec:
+  params:
+    - default: latest
+      description: Image Tag Value
+      name: IMAGE_TAG
+      type: string
+    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-counter
+      name: quay-io-repository
+      type: string
+    - default: latest
+      name: quay-io-image-tag-name
+      type: string
+    - name: revision
+      type: string
+      default: "5.0.3-SNAPSHOT"
+
+  resources:
+    - name: app-git
+      type: git
+    - name: image
+      type: image
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-counter'
+        - name: subdirectory
+          value: ''
+        - name: revision
+          value: $(params.revision)
+        - name: deleteExisting
+          value: 'true'
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: maven-run
+      params:
+        - name: CONTEXT_DIR
+          value: .
+        - name: GOALS
+          value:
+            - '-DskipTests'
+            - clean
+            - package
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace
+    - name: build-java-app-image
+      params:
+        - name: CONTEXT
+          value: .
+        - name: DOCKERFILE
+          value: src/main/docker/Dockerfile.jvm
+        - name: IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter:$(params.IMAGE_TAG)
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - maven-run
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: tag-test-image
+      params:
+        - name: SCRIPT
+          value: |
+            oc tag quarkuscoffeeshop-counter:$(params.IMAGE_TAG) quarkuscoffeeshop-counter:latest
+      runAfter:
+        - build-java-app-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc patch deployment/quarkuscoffeeshop-counter  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-counter","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
+      runAfter:
+        - tag-test-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-quarkuscoffeeshop-counter-image-to-quay
+      params:
+        - name: srcImageURL
+          value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter:$(params.IMAGE_TAG)"
+        - name: destImageURL
+          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-counter:$(params.IMAGE_TAG)"
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: skopeo-copy
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/pipeline/deploy-pipeline.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-push-quarkuscoffeeshop-customerloyalty
+  labels:
+    app: quarkuscoffeeshop-customerloyalty
+spec:
+  params:
+    - default: latest
+      description: Image Tag Value
+      name: IMAGE_TAG
+      type: string
+    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-customerloyalty
+      name: quay-io-repository
+      type: string
+    - default: latest
+      name: quay-io-image-tag-name
+      type: string
+    - name: revision
+      type: string
+      default: 
+
+  resources:
+    - name: app-git
+      type: git
+    - name: image
+      type: image
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: 'https://github.com/hybrid-cloud-patterns/customerloyalty'
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+        - name: revision
+          value: $(params.revision)
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: maven-run
+      params:
+        - name: CONTEXT_DIR
+          value: .
+        - name: GOALS
+          value:
+            - '-DskipTests'
+            - clean
+            - package
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace
+    - name: build-java-app-image
+      params:
+        - name: CONTEXT
+          value: .
+        - name: DOCKERFILE
+          value: src/main/docker/Dockerfile.jvm
+        - name: IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customerloyalty:$(params.IMAGE_TAG)
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - maven-run
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: tag-test-image
+      params:
+        - name: SCRIPT
+          value: |
+            oc tag quarkuscoffeeshop-customerloyalty:$(params.IMAGE_TAG) quarkuscoffeeshop-customerloyalty:latest
+      runAfter:
+        - build-java-app-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc patch deployment/quarkuscoffeeshop-customerloyalty  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-customerloyalty","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customerloyalty:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
+      runAfter:
+        - tag-test-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-quarkuscoffeeshop-customerloyalty-image-to-quay
+      params:
+        - name: srcImageURL
+          value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customerloyalty:$(params.IMAGE_TAG)"
+        - name: destImageURL
+          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-customerloyalty:$(params.IMAGE_TAG)"
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: skopeo-copy
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/pipeline/deploy-pipeline.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-push-quarkuscoffeeshop-customermocker
+  labels:
+    app: quarkuscoffeeshop-customermocker
+spec:
+  params:
+    - default: latest
+      description: Image Tag Value
+      name: IMAGE_TAG
+      type: string
+    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-customermocker
+      name: quay-io-repository
+      type: string
+    - default: latest
+      name: quay-io-image-tag-name
+      type: string
+    - name: revision
+      default: "master"
+      type: string
+
+  resources:
+    - name: app-git
+      type: git
+    - name: image
+      type: image
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-customermocker'
+        - name: subdirectory
+          value: ''
+        - name: revision
+          value: $(params.revision)
+        - name: deleteExisting
+          value: 'true'
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: maven-run
+      params:
+        - name: CONTEXT_DIR
+          value: .
+        - name: GOALS
+          value:
+            - '-DskipTests'
+            - clean
+            - package
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace
+    - name: build-java-app-image
+      params:
+        - name: CONTEXT
+          value: .
+        - name: DOCKERFILE
+          value: src/main/docker/Dockerfile.jvm
+        - name: IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker:$(params.IMAGE_TAG)
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - maven-run
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: tag-test-image
+      params:
+        - name: SCRIPT
+          value: |
+            oc tag quarkuscoffeeshop-customermocker:$(params.IMAGE_TAG) quarkuscoffeeshop-customermocker:latest
+      runAfter:
+        - build-java-app-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc patch deployment/quarkuscoffeeshop-customermocker  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-customermocker","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
+      runAfter:
+        - tag-test-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-quarkuscoffeeshop-customermocker-image-to-quay
+      params:
+        - name: srcImageURL
+          value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker:$(params.IMAGE_TAG)"
+        - name: destImageURL
+          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-customermocker:$(params.IMAGE_TAG)"
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: skopeo-copy
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/pipeline/deploy-pipeline.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-push-quarkuscoffeeshop-homeoffice-ui
+  labels:
+    app: quarkuscoffeeshop-homeoffice-ui
+spec:
+  params:
+    - default: quay-auth-secret
+      name: quay-io-account
+      type: string
+    - default: >-
+        http://quarkuscoffeeshop-homeoffice-ui-quarkuscoffeeshop-homeoffice.apps.shop.example.com/graphql
+      description: The home office backend endpoint
+      name: REACT_APP_GRAPHQL_ENDPOINT
+      type: string
+    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-homeoffice-ui
+      name: quay-io-repository
+      type: string
+    - default: latest
+      name: quay-io-image-tag-name
+      type: string
+    - default: latest
+      description: Image Tag Value
+      name: IMAGE_TAG
+      type: string
+    - default: webhook-secret
+      description: Webhook secert name
+      name: webhook-secret
+      type: string
+  resources:
+    - name: app-git
+      type: git
+    - name: image
+      type: image
+  tasks:
+    - name: build-nodejsapp
+      params:
+        - name: TLSVERIFY
+          value: 'false'
+        - name: IMAGE_TAG
+          value: $(params.IMAGE_TAG)
+        - name: REACT_APP_GRAPHQL_ENDPOINT
+          value: $(params.REACT_APP_GRAPHQL_ENDPOINT)
+      resources:
+        inputs:
+          - name: source
+            resource: app-git
+        outputs:
+          - name: image
+            resource: image
+      taskRef:
+        kind: Task
+        name: s2i-nodejs
+    - name: tag-test-image
+      params:
+        - name: SCRIPT
+          value: |
+            oc tag quarkuscoffeeshop-homeoffice-ui:$(params.IMAGE_TAG) quarkuscoffeeshop-homeoffice-ui:latest
+      runAfter:
+        - build-nodejsapp
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc patch deployment/quarkuscoffeeshop-homeoffice-ui  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-homeoffice-ui","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-homeoffice-ui:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-homeoffice
+      runAfter:
+        - tag-test-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-image-to-quay
+      params:
+        - name: quay-io-repository
+          value: $(params.quay-io-repository)
+        - name: quay-io-image-tag-name
+          value: $(params.quay-io-image-tag-name)
+      resources:
+        inputs:
+          - name: image
+            resource: image
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: push-image-to-quay
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-inventory/pipeline/deploy-pipeline.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-push-quarkuscoffeeshop-inventory
+  labels:
+    app: quarkuscoffeeshop-inventory
+spec:
+  params:
+    - default: latest
+      description: Image Tag Value
+      name: IMAGE_TAG
+      type: string
+    - default: quay.io /hybridcloudpatterns/quarkuscoffeeshop-inventory
+      name: quay-io-repository
+      type: string
+    - default: latest
+      name: quay-io-image-tag-name
+      type: string
+    - name: revision
+      default: "5.0.0-SNAPSHOT"
+      type: string
+
+  resources:
+    - name: app-git
+      type: git
+    - name: image
+      type: image
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-inventory'
+        - name: revision
+          value: $(params.revision)
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: maven-run
+      params:
+        - name: CONTEXT_DIR
+          value: .
+        - name: GOALS
+          value:
+            - '-DskipTests'
+            - clean
+            - package
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace
+    - name: build-java-app-image
+      params:
+        - name: CONTEXT
+          value: .
+        - name: DOCKERFILE
+          value: src/main/docker/Dockerfile.jvm
+        - name: IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-inventory:$(params.IMAGE_TAG)
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - maven-run
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: tag-test-image
+      params:
+        - name: SCRIPT
+          value: |
+            oc tag quarkuscoffeeshop-inventory:$(params.IMAGE_TAG) quarkuscoffeeshop-inventory:latest
+      runAfter:
+        - build-java-app-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc patch deployment/quarkuscoffeeshop-inventory  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-inventory","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-inventory:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
+      runAfter:
+        - tag-test-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-quarkuscoffeeshop-inventory-image-to-quay
+      params:
+        - name: srcImageURL
+          value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-inventory:$(params.IMAGE_TAG)"
+        - name: destImageURL
+          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-inventory:$(params.IMAGE_TAG)"
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: skopeo-copy
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/pipeline/deploy-pipeline.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-push-quarkuscoffeeshop-kitchen
+  labels:
+    app: quarkuscoffeeshop-kitchen
+spec:
+  params:
+    - default: latest
+      description: Image Tag Value
+      name: IMAGE_TAG
+      type: string
+    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-kitchen
+      name: quay-io-repository
+      type: string
+    - default: latest
+      name: quay-io-image-tag-name
+      type: string
+    - name: revision
+      default: "main"
+      type: string
+
+  resources:
+    - name: app-git
+      type: git
+    - name: image
+      type: image
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-kitchen'
+        - name: revision
+          value: $(params.revision)
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: maven-run
+      params:
+        - name: CONTEXT_DIR
+          value: .
+        - name: GOALS
+          value:
+            - '-DskipTests'
+            - clean
+            - package
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace
+    - name: build-java-app-image
+      params:
+        - name: CONTEXT
+          value: .
+        - name: DOCKERFILE
+          value: src/main/docker/Dockerfile.jvm
+        - name: IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-kitchen:$(params.IMAGE_TAG)
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - maven-run
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: tag-test-image
+      params:
+        - name: SCRIPT
+          value: |
+            oc tag quarkuscoffeeshop-kitchen:$(params.IMAGE_TAG) quarkuscoffeeshop-kitchen:latest
+      runAfter:
+        - build-java-app-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc patch deployment/quarkuscoffeeshop-kitchen  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-kitchen","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-kitchen:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
+      runAfter:
+        - tag-test-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-quarkuscoffeeshop-kitchen-image-to-quay
+      params:
+        - name: srcImageURL
+          value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-kitchen:$(params.IMAGE_TAG)"
+        - name: destImageURL
+          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-kitchen:$(params.IMAGE_TAG)"
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: skopeo-copy
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pipeline/deploy-pipeline.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-push-quarkuscoffeeshop-majestic-monolith
+  labels:
+    app: quarkuscoffeeshop-majestic-monolith
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  params:
+    - default: latest
+      description: Image Tag Value
+      name: IMAGE_TAG
+      type: string
+    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-majestic-monolith
+      name: quay-io-repository
+      type: string
+    - default: "master"
+      name: revision
+      type: string
+    - default: latest
+      name: quay-io-image-tag-name
+      type: string
+
+  resources:
+    - name: app-git
+      type: git
+    - name: image
+      type: image
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-majestic-monolith'
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+        - name: revision
+          value: $(params.revision)
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: maven-run
+      params:
+        - name: CONTEXT_DIR
+          value: .
+        - name: GOALS
+          value:
+            - '-DskipTests'
+            - clean
+            - package
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace
+    - name: build-java-app-image
+      params:
+        - name: CONTEXT
+          value: .
+        - name: DOCKERFILE
+          value: src/main/docker/Dockerfile.jvm
+        - name: IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:$(params.IMAGE_TAG)
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - maven-run
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: tag-test-image
+      params:
+        - name: SCRIPT
+          value: |
+            oc tag quarkuscoffeeshop-majestic-monolith:$(params.IMAGE_TAG) quarkuscoffeeshop-majestic-monolith:latest
+      runAfter:
+        - build-java-app-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc patch deployment/quarkuscoffeeshop-majestic-monolith  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-majestic-monolith","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
+      runAfter:
+        - tag-test-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay
+      params:
+        - name: srcImageURL
+          value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:$(params.IMAGE_TAG)"
+        - name: destImageURL
+          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-majestic-monolith:$(params.IMAGE_TAG)"
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: skopeo-copy
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pipeline/deploy-to-edge-pipeline.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-push-to-edge
+  labels:
+    app: quarkuscoffeeshop-majestic-monolith
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  params:
+    - default: latest
+      description: Image Tag Value
+      name: IMAGE_TAG
+      type: string
+    - default: main
+      description: Select Branch 
+      name: branch_name
+      type: string
+    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-majestic-monolith
+      name: quay-io-repository
+      type: string
+    - default: latest
+      name: quay-io-image-tag-name
+      type: string
+    - default: webhook-secret
+      description: Webhook secret name
+      name: webhook-secret
+      type: string
+    - default: >-
+        --patch={"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-majestic-monolith","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:$(params.IMAGE_TAG)"}]}}}}
+      description: patch image
+      name: PATCH_IMAGE
+      type: string
+    - default: 192.168.1.10
+      description: Ansible Tower Instance
+      name: tower_host
+      type: string
+    - default: 10.0.1.20
+      description:  Target Edge Device
+      name: target_edge_device
+      type: string
+    - default: "25"
+      description:  Ansible Tower Job Template Default is `Update quarkuscoffeeshop-majestic-monolith Application` the number is found in the URL
+      name: tower_job_template
+      type: string
+    - default: "1"
+      description:  Ansible Tower Inventory number is  found in url 
+      name: tower_inventory
+      type: string
+    - default: "1"
+      description:  Ansible Tower Credential number is  found in url 
+      name: tower_credential
+      type: string
+  resources:
+    - name: app-git
+      type: git
+    - name: image
+      type: image
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: 'https://github.com/jeremyrdavis/quarkuscoffeeshop-majestic-monolith'
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+        - name: revision
+          value: $(params.branch_name)
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: maven-run
+      params:
+        - name: CONTEXT_DIR
+          value: .
+        - name: GOALS
+          value:
+            - '-DskipTests'
+            - clean
+            - package
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace
+    - name: build-java-app-image
+      params:
+        - name: CONTEXT
+          value: .
+        - name: DOCKERFILE
+          value: src/main/docker/Dockerfile.jvm
+        - name: IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:$(params.IMAGE_TAG)
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - maven-run
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: tag-test-image
+      params:
+        - name: ARGS
+          value:
+            - tag
+            - 'quarkuscoffeeshop-majestic-monolith:$(params.IMAGE_TAG)'
+            - 'quarkuscoffeeshop-majestic-monolith:latest'
+      runAfter:
+        - build-java-app-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-to-test-env
+      params:
+        - name: ARGS
+          value:
+            - patch
+            - deployment/quarkuscoffeeshop-majestic-monolith
+            - $(params.PATCH_IMAGE)
+            - '-n'
+            - quarkuscoffeeshop-demo
+      runAfter:
+        - tag-test-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay
+      params:
+        - name: quay-io-repository
+          value: $(params.quay-io-repository)
+        - name: quay-io-image-tag-name
+          value: $(params.quay-io-image-tag-name)
+      resources:
+        inputs:
+          - name: image
+            resource: image
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay
+    - name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay-latest
+      params:
+        - name: quay-io-repository
+          value: $(params.quay-io-repository)
+        - name: quay-io-image-tag-name
+          value: latest
+      resources:
+        inputs:
+          - name: image
+            resource: image
+      runAfter:
+        - push-quarkuscoffeeshop-majestic-monolith-image-to-quay
+      taskRef:
+        kind: Task
+        name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay-latest
+    - name: send-to-webhook-slack
+      params:
+        - name: webhook-secret
+          value: $(params.webhook-secret)
+        - name: message
+          value: >-
+            Pipeline build pushed succesfully to 
+            $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      runAfter:
+        - push-quarkuscoffeeshop-majestic-monolith-image-to-quay-latest
+      taskRef:
+        kind: Task
+        name: send-to-webhook-slack
+    - name: deploy-application-to-edge
+      taskRef:
+        name: ansible-tower-cli
+      params:
+      - name: SSLVERIFY
+        value: "false"
+      - name: HOST
+        value: $(params.tower_host)
+      - name: tower-secret
+        value: "tower-creds"
+      - name: ARGS
+        value:
+          - job
+          - launch
+          - "--job-template"
+          - "$(params.tower_job_template)"
+          - "--extra-vars"
+          - 'external_endpoint=$(params.target_edge_device)'
+          - "--inventory"
+          - "$(params.tower_inventory)"
+          - --credential
+          - "$(params.tower_credential)"
+          - "--monitor"
+      runAfter:
+        - send-to-webhook-slack
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-web/pipeline/deploy-pipeline.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  name: build-and-push-quarkuscoffeeshop-web
+  labels:
+    app: quarkuscoffeeshop-web
+spec:
+  params:
+    - default: latest
+      description: Image Tag Value
+      name: IMAGE_TAG
+      type: string
+    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-web
+      name: quay-io-repository
+      type: string
+    - default: latest
+      name: quay-io-image-tag-name
+      type: string
+    - default: "5.0.3-SNAPSHOT"
+      name: revision
+      type: string
+
+  resources:
+    - name: app-git
+      type: git
+    - name: image
+      type: image
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-web'
+        - name: revision
+          value: $(params.revision)
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+      taskRef:
+        kind: Task
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: shared-workspace
+    - name: maven-run
+      params:
+        - name: CONTEXT_DIR
+          value: .
+        - name: GOALS
+          value:
+            - '-DskipTests'
+            - clean
+            - package
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: Task
+        name: maven
+      workspaces:
+        - name: maven-settings
+          workspace: maven-settings
+        - name: source
+          workspace: shared-workspace
+    - name: build-java-app-image
+      params:
+        - name: CONTEXT
+          value: .
+        - name: DOCKERFILE
+          value: src/main/docker/Dockerfile.jvm
+        - name: IMAGE
+          value: >-
+            image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-web:$(params.IMAGE_TAG)
+        - name: TLSVERIFY
+          value: 'false'
+      runAfter:
+        - maven-run
+      taskRef:
+        kind: ClusterTask
+        name: buildah
+      workspaces:
+        - name: source
+          workspace: shared-workspace
+    - name: tag-test-image
+      params:
+        - name: SCRIPT
+          value: |
+            oc tag quarkuscoffeeshop-web:$(params.IMAGE_TAG) quarkuscoffeeshop-web:latest
+      runAfter:
+        - build-java-app-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc patch deployment/quarkuscoffeeshop-web  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-web","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-web:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
+      runAfter:
+        - tag-test-image
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+    - name: push-quarkuscoffeeshop-web-image-to-quay
+      params:
+        - name: srcImageURL
+          value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-web:$(params.IMAGE_TAG)"
+        - name: destImageURL
+          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-web:$(params.IMAGE_TAG)"
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: skopeo-copy
+  workspaces:
+    - name: shared-workspace
+    - name: maven-settings
+---
+# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/resources/git-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: homeoffice-backend-git
+  labels:
+    app: homeoffice-backend
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/hybrid-cloud-patterns/homeoffice-backend
+  - name: revision
+    value: "main"
+---
+# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/resources/image-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: homeoffice-backend-image
+  labels:
+    app: homeoffice-backend
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  type: image
+  params:
+  - name: url
+    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-backend
+---
+# Source: config-demo/templates/tekton-pipelines/homeoffice-ingress/resources/git-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: homeoffice-ingress-git
+  labels:
+    app: homeoffice-ingress
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/hybrid-cloud-patterns/homeoffice-ingress
+  - name: revision
+    value: "master"
+---
+# Source: config-demo/templates/tekton-pipelines/homeoffice-ingress/resources/image-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: homeoffice-ingress-image
+  labels:
+    app: homeoffice-ingress
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  type: image
+  params:
+  - name: url
+    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-ingress
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-barista/resources/git-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-barista-git
+  labels:
+    app: quarkuscoffeeshop-barista
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/quarkuscoffeeshop/quarkuscoffeeshop-barista
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-barista/resources/image-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-barista-image
+  labels:
+    app: quarkuscoffeeshop-barista
+spec:
+  type: image
+  params:
+  - name: url
+    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-barista
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-counter/resources/git-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-counter-git
+  labels:
+    app: quarkuscoffeeshop-counter
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-counter
+  - name: revision
+    value: "5.0.3-SNAPSHOT"
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-counter/resources/image-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-counter-image
+  labels:
+    app: quarkuscoffeeshop-counter
+spec:
+  type: image
+  params:
+  - name: url
+    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/resources/git-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-customerloyalty-git
+  labels:
+    app: quarkuscoffeeshop-customerloyalty
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/hybrid-cloud-patterns/customerloyalty
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/resources/image-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-customerloyalty-image
+  labels:
+    app: quarkuscoffeeshop-customerloyalty
+spec:
+  type: image
+  params:
+  - name: url
+    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customerloyalty
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/resources/git-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-customermocker-git
+  labels:
+    app: quarkuscoffeeshop-customermocker
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/hybrid-cloud-patterns}/quarkuscoffeeshop-customermocker
+  - name: revision
+    value: "master"
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/resources/image-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-customermocker-image
+  labels:
+    app: quarkuscoffeeshop-customermocker
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  type: image
+  params:
+  - name: url
+    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: nodejs-git
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  type: git
+  params:
+    - name: url
+      value: https://github.com/quarkuscoffeeshop/quarkuscoffeeshop-homeoffice-ui.git
+    - name: revision
+      value: main
+    - name: sslVerify
+      value: "false"
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources/git-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-homeoffice-ui-git
+  labels:
+    app: quarkuscoffeeshop-homeoffice-ui
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-homeoffice-ui
+  - name: revision
+    value: "main"
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources/image-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-homeoffice-ui-image
+  labels:
+    app: quarkuscoffeeshop-homeoffice-ui
+spec:
+  type: image
+  params:
+  - name: url
+    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-homeoffice-ui
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-inventory/resources/git-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-inventory-git
+  labels:
+    app: quarkuscoffeeshop-inventory
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-inventory
+  - name: revision
+    value: "5.0.0-SNAPSHOT"
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-inventory/resources/image-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-inventory-image
+  labels:
+    app: quarkuscoffeeshop-inventory
+spec:
+  type: image
+  params:
+  - name: url
+    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-inventory
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/resources/git-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-kitchen-git
+  labels:
+    app: quarkuscoffeeshop-kitchen
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-kitchen
+  - name: revision
+    value: "main"
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/resources/image-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-kitchen-image
+  labels:
+    app: quarkuscoffeeshop-kitchen
+spec:
+  type: image
+  params:
+  - name: url
+    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-kitchen
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/resources/git-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-majestic-monolith-git
+  labels:
+    app: quarkuscoffeeshop-majestic-monolith
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-majestic-monolith
+  - name: revision
+    value: "master"
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/resources/image-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-majestic-monolith-image
+  labels:
+    app: quarkuscoffeeshop-majestic-monolith
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  type: image
+  params:
+  - name: url
+    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-web/resources/git-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-web-git
+  labels:
+    app: quarkuscoffeeshop-web
+spec:
+  type: git
+  params:
+  - name: url
+    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-web
+  - name: revision
+    value: "5.0.3-SNAPSHOT"
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-web/resources/image-pipeline-resource.yaml
+apiVersion: tekton.dev/v1alpha1
+kind: PipelineResource
+metadata:
+  name: quarkuscoffeeshop-web-image
+  labels:
+    app: quarkuscoffeeshop-web
+spec:
+  type: image
+  params:
+  - name: url
+    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-web
+---
+# Source: config-demo/templates/tekton-pipelines/common-functions/tasks/git-clone.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: git-clone
+  labels:
+    app.kubernetes.io/version: "0.2"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/tags: git
+    tekton.dev/displayName: "git clone"
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  description: >-
+    These Tasks are Git tasks to work with repositories used by other tasks
+    in your Pipeline.
+
+    The git-clone Task will clone a repo from the provided url into the
+    output Workspace. By default the repo will be cloned into the root of
+    your Workspace. You can clone into a subdirectory by setting this Task's
+    subdirectory param.
+
+  workspaces:
+    - name: output
+      description: The git repo will be cloned onto the volume backing this workspace
+  params:
+    - name: url
+      description: git url to clone
+      type: string
+    - name: revision
+      description: git revision to checkout (branch, tag, sha, ref…)
+      type: string
+      default: ""
+    - name: refspec
+      description: (optional) git refspec to fetch before checking out revision
+      default: ""
+    - name: submodules
+      description: defines if the resource should initialize and fetch the submodules
+      type: string
+      default: "true"
+    - name: depth
+      description: performs a shallow clone where only the most recent commit(s) will be fetched
+      type: string
+      default: "1"
+    - name: sslVerify
+      description: defines if http.sslVerify should be set to true or false in the global git config
+      type: string
+      default: "true"
+    - name: subdirectory
+      description: subdirectory inside the "output" workspace to clone the git repo into
+      type: string
+      default: ""
+    - name: deleteExisting
+      description: clean out the contents of the repo's destination directory (if it already exists) before trying to clone the repo there
+      type: string
+      default: "true"
+    - name: httpProxy
+      description: git HTTP proxy server for non-SSL requests
+      type: string
+      default: ""
+    - name: httpsProxy
+      description: git HTTPS proxy server for SSL requests
+      type: string
+      default: ""
+    - name: noProxy
+      description: git no proxy - opt out of proxying HTTP/HTTPS requests
+      type: string
+      default: ""
+    - name: verbose
+      description: log the commands used during execution
+      type: string
+      default: "true"
+    - name: gitInitImage
+      description: the image used where the git-init binary is
+      type: string
+      default: "gcr.io/tekton-releases/github.com/tektoncd/pipeline/cmd/git-init:v0.18.1"
+  results:
+    - name: commit
+      description: The precise commit SHA that was fetched by this Task
+    - name: url
+      description: The precise URL that was fetched by this Task
+  steps:
+    - name: clone
+      image: $(params.gitInitImage)
+      script: |
+        #!/bin/sh
+        set -eu -o pipefail
+
+        if [[ "$(params.verbose)" == "true" ]] ; then
+          set -x
+        fi
+
+        CHECKOUT_DIR="$(workspaces.output.path)/$(params.subdirectory)"
+
+        cleandir() {
+          # Delete any existing contents of the repo directory if it exists.
+          #
+          # We don't just "rm -rf $CHECKOUT_DIR" because $CHECKOUT_DIR might be "/"
+          # or the root of a mounted volume.
+          if [[ -d "$CHECKOUT_DIR" ]] ; then
+            # Delete non-hidden files and directories
+            rm -rf "$CHECKOUT_DIR"/*
+            # Delete files and directories starting with . but excluding ..
+            rm -rf "$CHECKOUT_DIR"/.[!.]*
+            # Delete files and directories starting with .. plus any other character
+            rm -rf "$CHECKOUT_DIR"/..?*
+          fi
+        }
+
+        if [[ "$(params.deleteExisting)" == "true" ]] ; then
+          cleandir
+        fi
+
+        test -z "$(params.httpProxy)" || export HTTP_PROXY=$(params.httpProxy)
+        test -z "$(params.httpsProxy)" || export HTTPS_PROXY=$(params.httpsProxy)
+        test -z "$(params.noProxy)" || export NO_PROXY=$(params.noProxy)
+
+        /ko-app/git-init \
+          -url "$(params.url)" \
+          -revision "$(params.revision)" \
+          -refspec "$(params.refspec)" \
+          -path "$CHECKOUT_DIR" \
+          -sslVerify="$(params.sslVerify)" \
+          -submodules="$(params.submodules)" \
+          -depth "$(params.depth)"
+        cd "$CHECKOUT_DIR"
+        RESULT_SHA="$(git rev-parse HEAD)"
+        EXIT_CODE="$?"
+        if [ "$EXIT_CODE" != 0 ] ; then
+          exit $EXIT_CODE
+        fi
+        # ensure we don't add a trailing newline to the result
+        echo -n "$RESULT_SHA" > $(results.commit.path)
+        echo -n "$(params.url)" > $(results.url.path)
+---
+# Source: config-demo/templates/tekton-pipelines/common-functions/tasks/maven.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: maven
+  labels:
+    app.kubernetes.io/version: "0.2"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/tags: build-tool
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  description: >-
+    This Task can be used to run a Maven build.
+
+  workspaces:
+    - name: source
+      description: The workspace consisting of maven project.
+    - name: maven-settings
+      description: >-
+        The workspace consisting of the custom maven settings
+        provided by the user.
+  params:
+    - name: MAVEN_IMAGE
+      type: string
+      description: Maven base image
+      default: maven:3.6.3-openjdk-11
+    - name: GOALS
+      description: maven goals to run
+      type: array
+      default:
+        - "package"
+    - name: MAVEN_MIRROR_URL
+      description: The Maven repository mirror url
+      type: string
+      default: ""
+    - name: SERVER_USER
+      description: The username for the server
+      type: string
+      default: ""
+    - name: SERVER_PASSWORD
+      description: The password for the server
+      type: string
+      default: ""
+    - name: PROXY_USER
+      description: The username for the proxy server
+      type: string
+      default: ""
+    - name: PROXY_PASSWORD
+      description: The password for the proxy server
+      type: string
+      default: ""
+    - name: PROXY_PORT
+      description: Port number for the proxy server
+      type: string
+      default: ""
+    - name: PROXY_HOST
+      description: Proxy server Host
+      type: string
+      default: ""
+    - name: PROXY_NON_PROXY_HOSTS
+      description: Non proxy server host
+      type: string
+      default: ""
+    - name: PROXY_PROTOCOL
+      description: Protocol for the proxy ie http or https
+      type: string
+      default: "http"
+    - name: CONTEXT_DIR
+      type: string
+      description: >-
+        The context directory within the repository for sources on
+        which we want to execute maven goals.
+      default: "."
+  steps:
+    - name: mvn-settings
+      image: registry.access.redhat.com/ubi8/ubi-minimal:8.3
+      script: |
+        #!/usr/bin/env bash
+
+        [[ -f $(workspaces.maven-settings.path)/settings.xml ]] && \
+        echo 'using existing $(workspaces.maven-settings.path)/settings.xml' && exit 0
+
+        cat > $(workspaces.maven-settings.path)/settings.xml <<EOF
+        <settings>
+          <servers>
+            <!-- The servers added here are generated from environment variables. Don't change. -->
+            <!-- ### SERVER's USER INFO from ENV ### -->
+          </servers>
+          <mirrors>
+            <!-- The mirrors added here are generated from environment variables. Don't change. -->
+            <!-- ### mirrors from ENV ### -->
+          </mirrors>
+          <proxies>
+            <!-- The proxies added here are generated from environment variables. Don't change. -->
+            <!-- ### HTTP proxy from ENV ### -->
+          </proxies>
+        </settings>
+        EOF
+
+        xml=""
+        if [ -n "$(params.PROXY_HOST)" -a -n "$(params.PROXY_PORT)" ]; then
+          xml="<proxy>\
+            <id>genproxy</id>\
+            <active>true</active>\
+            <protocol>$(params.PROXY_PROTOCOL)</protocol>\
+            <host>$(params.PROXY_HOST)</host>\
+            <port>$(params.PROXY_PORT)</port>"
+          if [ -n "$(params.PROXY_USER)" -a -n "$(params.PROXY_PASSWORD)" ]; then
+            xml="$xml\
+                <username>$(params.PROXY_USER)</username>\
+                <password>$(params.PROXY_PASSWORD)</password>"
+          fi
+          if [ -n "$(params.PROXY_NON_PROXY_HOSTS)" ]; then
+            xml="$xml\
+                <nonProxyHosts>$(params.PROXY_NON_PROXY_HOSTS)</nonProxyHosts>"
+          fi
+          xml="$xml\
+              </proxy>"
+          sed -i "s|<!-- ### HTTP proxy from ENV ### -->|$xml|" $(workspaces.maven-settings.path)/settings.xml
+        fi
+
+        if [ -n "$(params.SERVER_USER)" -a -n "$(params.SERVER_PASSWORD)" ]; then
+          xml="<server>\
+            <id>serverid</id>"
+          xml="$xml\
+                <username>$(params.SERVER_USER)</username>\
+                <password>$(params.SERVER_PASSWORD)</password>"
+          xml="$xml\
+              </server>"
+          sed -i "s|<!-- ### SERVER's USER INFO from ENV ### -->|$xml|" $(workspaces.maven-settings.path)/settings.xml
+        fi
+
+        if [ -n "$(params.MAVEN_MIRROR_URL)" ]; then
+          xml="    <mirror>\
+            <id>mirror.default</id>\
+            <url>$(params.MAVEN_MIRROR_URL)</url>\
+            <mirrorOf>central</mirrorOf>\
+          </mirror>"
+          sed -i "s|<!-- ### mirrors from ENV ### -->|$xml|" $(workspaces.maven-settings.path)/settings.xml
+        fi
+
+    - name: mvn-goals
+      image: $(params.MAVEN_IMAGE)
+      workingDir: $(workspaces.source.path)/$(params.CONTEXT_DIR)
+      command: ["/usr/bin/mvn"]
+      args:
+        - -s
+        - $(workspaces.maven-settings.path)/settings.xml
+        - "$(params.GOALS)"
+---
+# Source: config-demo/templates/tekton-pipelines/common-functions/tasks/skopeo-copy-multi.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: skopeo-copy-multi
+  labels:
+    app.kubernetes.io/version: "0.2"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/categories: CLI
+    tekton.dev/tags: cli
+    tekton.dev/displayName: "skopeo copy"
+    tekton.dev/platforms: "linux/amd64,linux/s390x,linux/ppc64le,linux/arm64"
+spec:
+  description: >-
+    Skopeo is a command line tool for working with remote image registries.
+
+    Skopeo doesn’t require a daemon to be running while performing its operations.
+    In particular, the handy skopeo command called copy will ease the whole image
+    copy operation. The copy command will take care of copying the image from
+    internal.registry to production.registry. If your production registry requires
+    credentials to login in order to push the image, skopeo can handle that as well.
+
+  workspaces:
+    - name: images-url
+  params:
+    - name: srcImageURL
+      description: URL of the image to be copied to the destination registry
+      type: string
+      default: ""
+    - name: destImageURL
+      description: URL of the image where the image from source should be copied to
+      type: string
+      default: ""
+    - name: srcTLSverify
+      description: Verify the TLS on the src registry endpoint
+      type: string
+      default: "true"
+    - name: destTLSverify
+      description: Verify the TLS on the dest registry endpoint
+      type: string
+      default: "true"
+  steps:
+    - name: skopeo-copy
+      env:
+      - name: HOME
+        value: /tekton/home
+      image: quay.io/skopeo/stable:v1.9.0
+      script: |
+        # Function to copy multiple images.
+        #
+        copyimages() {
+          filename="$(workspaces.images-url.path)/url.txt"
+          while IFS= read -r line || [ -n "$line" ]
+          do
+            cmd=""
+            for url in $line
+            do
+              # echo $url
+              cmd="$cmd \
+                  $url"
+            done
+            skopeo copy "$cmd" --src-tls-verify="$(params.srcTLSverify)" --dest-tls-verify="$(params.destTLSverify)"
+            echo "$cmd"
+          done < "$filename"
+        }
+        #
+        # If single image is to be copied then, it can be passed through
+        # params in the taskrun.
+        if [ "$(params.srcImageURL)" != "" ] && [ "$(params.destImageURL)" != "" ] ; then
+          skopeo copy "$(params.srcImageURL)" "$(params.destImageURL)" --src-tls-verify="$(params.srcTLSverify)" --dest-tls-verify="$(params.destTLSverify)"
+        else
+          # If file is provided as a configmap in the workspace then multiple images can be copied.
+          #
+          copyimages
+        fi
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+---
+# Source: config-demo/templates/tekton-pipelines/common-functions/tasks/skopeo-copy.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: skopeo-copy
+  labels:
+    app.kubernetes.io/version: "0.2"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/categories: CLI
+    tekton.dev/tags: cli
+    tekton.dev/displayName: "skopeo copy"
+    tekton.dev/platforms: "linux/amd64,linux/s390x,linux/ppc64le,linux/arm64"
+spec:
+  description: >-
+    Skopeo is a command line tool for working with remote image registries.
+
+    Skopeo doesn’t require a daemon to be running while performing its operations.
+    In particular, the handy skopeo command called copy will ease the whole image
+    copy operation. The copy command will take care of copying the image from
+    internal.registry to production.registry. If your production registry requires
+    credentials to login in order to push the image, skopeo can handle that as well.
+
+  params:
+    - name: srcImageURL
+      description: URL of the image to be copied to the destination registry
+      type: string
+      default: ""
+    - name: destImageURL
+      description: URL of the image where the image from source should be copied to
+      type: string
+      default: ""
+    - name: srcTLSverify
+      description: Verify the TLS on the src registry endpoint
+      type: string
+      default: "true"
+    - name: destTLSverify
+      description: Verify the TLS on the dest registry endpoint
+      type: string
+      default: "true"
+  steps:
+    - name: skopeo-copy
+      env:
+      - name: HOME
+        value: /tekton/home
+      image: quay.io/skopeo/stable:v1.9.0
+      script: |
+        #
+        # If single image is to be copied then, it can be passed through
+        # params in the taskrun.
+        if [ "$(params.srcImageURL)" != "" ] && [ "$(params.destImageURL)" != "" ] ; then
+          skopeo copy "$(params.srcImageURL)" "$(params.destImageURL)" --src-tls-verify="$(params.srcTLSverify)" --dest-tls-verify="$(params.destTLSverify)"
+        else
+          # If file is provided as a configmap in the workspace then multiple images can be copied.
+          #
+          copyimages
+        fi
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 65532
+---
+# Source: config-demo/templates/tekton-pipelines/event-notification/send-to-webhook-slack.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: send-to-webhook-slack
+  labels:
+    app.kubernetes.io/version: "0.1"
+  annotations:
+    tekton.dev/pipelines.minVersion: "0.12.1"
+    tekton.dev/tags: messaging
+spec:
+  description: >-
+    These tasks post a simple message to a slack channel.
+
+    This task uses Incoming Webhooks of slack to send the message.
+
+  params:
+  - name: webhook-secret
+    type: string
+    description: secret name of the slack app webhook URL (key is url)
+  - name: message
+    type: string
+    description: plain text message
+  steps:
+  - name: post
+    image: docker.io/curlimages/curl:7.68.0@sha256:99a8e9629b3ae26efb977e1a98f4786d6bd730c5ab4dea64632e297d7c3e7151 #tag: 7.68.0
+    script: |
+      #!/bin/sh
+      /usr/bin/curl -X POST -H 'Content-type: application/json' --data '{"text":"$(params.message)"}' $URL
+    env:
+    - name: URL
+      valueFrom:
+        secretKeyRef:
+          name: $(params.webhook-secret)
+          key: url
+---
+# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/tektontasks/pushImageToQuay.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-homeoffice-backend-image-to-quay
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  resources:
+    inputs:
+      - name: image
+        type: image
+  params:
+    - default: quarkuscoffeeshop
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: quay.io/quarkuscoffeeshop/homeoffice-backend
+      description: The quay.io repository in which to store the image.
+      name: quay-io-repository
+      type: string
+    - default: $(inputs.params.quay-io-image-tag-name)
+      description: The tag to use to identify the image.
+      name: quay-io-image-tag-name
+      type: string
+    - default: overlay
+      description: The Buildah storage STORAGE_DRIVER
+      name: STORAGE_DRIVER
+      type: string
+  steps:
+    - command:
+        - podman
+        - pull
+        - '--tls-verify=false'
+        - >-
+          docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-backend:$(inputs.params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/podman
+      name: podman-pull-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - tag
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - >-
+          image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-backend:$(inputs.params.quay-io-image-tag-name)
+        - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-tag-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - images
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-list-images-after-tagging
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - push
+        - '--tls-verify=false'
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - '--authfile'
+        - /etc/secret-volume/.dockerconfigjson
+        - >-
+          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/buildah
+      name: push-homeoffice-backend-image-to-quay
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /etc/secret-volume
+          name: quay-auth-secret
+          readOnly: true
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+      workingDir: /quay
+  volumes:
+    - name: quay-auth-secret
+      secret:
+        secretName: quay-auth-secret
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: homeoffice-backend-shared-workspace-pvc
+---
+# Source: config-demo/templates/tekton-pipelines/homeoffice-ingress/tektontasks/pushImageToQuay.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-homeoffice-ingress-image-to-quay
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  resources:
+    inputs:
+      - name: image
+        type: image
+  params:
+    - default: quarkuscoffeeshop
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: quay.io/quarkuscoffeeshop/homeoffice-ingress
+      description: The quay.io repository in which to store the image.
+      name: quay-io-repository
+      type: string
+    - default: $(inputs.params.quay-io-image-tag-name)
+      description: The tag to use to identify the image.
+      name: quay-io-image-tag-name
+      type: string
+    - default: overlay
+      description: The Buildah storage STORAGE_DRIVER
+      name: STORAGE_DRIVER
+      type: string
+  steps:
+    - command:
+        - podman
+        - pull
+        - '--tls-verify=false'
+        - >-
+          docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-ingress:$(inputs.params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/podman
+      name: podman-pull-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - tag
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - >-
+          image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-ingress:$(inputs.params.quay-io-image-tag-name)
+        - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-tag-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - images
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-list-images-after-tagging
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - push
+        - '--tls-verify=false'
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - '--authfile'
+        - /etc/secret-volume/.dockerconfigjson
+        - >-
+          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/buildah
+      name: push-homeoffice-ingress-image-to-quay
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /etc/secret-volume
+          name: quay-auth-secret
+          readOnly: true
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+      workingDir: /quay
+  volumes:
+    - name: quay-auth-secret
+      secret:
+        secretName: quay-auth-secret
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: homeoffice-ingress-shared-workspace-pvc
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-barista/tektontasks/pushImageToQuay.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-quarkuscoffeeshop-barista-image-to-quay
+spec:
+  resources:
+    inputs:
+      - name: image
+        type: image
+  params:
+    - default: quarkuscoffeeshop
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-barista
+      description: The quay.io repository in which to store the image.
+      name: quay-io-repository
+      type: string
+    - default: $(inputs.params.quay-io-image-tag-name)
+      description: The tag to use to identify the image.
+      name: quay-io-image-tag-name
+      type: string
+    - default: overlay
+      description: The Buildah storage STORAGE_DRIVER
+      name: STORAGE_DRIVER
+      type: string
+  steps:
+    - command:
+        - podman
+        - pull
+        - '--tls-verify=false'
+        - >-
+          docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-barista:$(inputs.params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/podman
+      name: podman-pull-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - tag
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - >-
+          image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-barista:$(inputs.params.quay-io-image-tag-name)
+        - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-tag-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - images
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-list-images-after-tagging
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - push
+        - '--tls-verify=false'
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - '--authfile'
+        - /etc/secret-volume/.dockerconfigjson
+        - >-
+          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/buildah
+      name: push-quarkuscoffeeshop-barista-image-to-quay
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /etc/secret-volume
+          name: quay-auth-secret
+          readOnly: true
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+      workingDir: /quay
+  volumes:
+    - name: quay-auth-secret
+      secret:
+        secretName: quay-auth-secret
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: quarkuscoffeeshop-barista-shared-workspace-pvc
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-counter/tektontasks/pushImageToQuay.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-quarkuscoffeeshop-counter-image-to-quay
+spec:
+  resources:
+    inputs:
+      - name: image
+        type: image
+  params:
+    - default: quarkuscoffeeshop
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-counter
+      description: The quay.io repository in which to store the image.
+      name: quay-io-repository
+      type: string
+    - default: $(inputs.params.quay-io-image-tag-name)
+      description: The tag to use to identify the image.
+      name: quay-io-image-tag-name
+      type: string
+    - default: overlay
+      description: The Buildah storage STORAGE_DRIVER
+      name: STORAGE_DRIVER
+      type: string
+  steps:
+    - command:
+        - podman
+        - pull
+        - '--tls-verify=false'
+        - >-
+          docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter:$(inputs.params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/podman
+      name: podman-pull-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - tag
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - >-
+          image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter:$(inputs.params.quay-io-image-tag-name)
+        - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-tag-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - images
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-list-images-after-tagging
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - push
+        - '--tls-verify=false'
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - '--authfile'
+        - /etc/secret-volume/.dockerconfigjson
+        - >-
+          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/buildah
+      name: push-quarkuscoffeeshop-counter-image-to-quay
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /etc/secret-volume
+          name: quay-auth-secret
+          readOnly: true
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+      workingDir: /quay
+  volumes:
+    - name: quay-auth-secret
+      secret:
+        secretName: quay-auth-secret
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: quarkuscoffeeshop-counter-shared-workspace-pvc
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/tektontasks/pushImageToQuay.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-quarkuscoffeeshop-customerloyalty-image-to-quay
+spec:
+  resources:
+    inputs:
+      - name: image
+        type: image
+  params:
+    - default: quarkuscoffeeshop
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-customerloyalty
+      description: The quay.io repository in which to store the image.
+      name: quay-io-repository
+      type: string
+    - default: $(inputs.params.quay-io-image-tag-name)
+      description: The tag to use to identify the image.
+      name: quay-io-image-tag-name
+      type: string
+    - default: overlay
+      description: The Buildah storage STORAGE_DRIVER
+      name: STORAGE_DRIVER
+      type: string
+  steps:
+    - command:
+        - podman
+        - pull
+        - '--tls-verify=false'
+        - >-
+          docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customerloyalty:$(inputs.params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/podman
+      name: podman-pull-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - tag
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - >-
+          image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customerloyalty:$(inputs.params.quay-io-image-tag-name)
+        - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-tag-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - images
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-list-images-after-tagging
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - push
+        - '--tls-verify=false'
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - '--authfile'
+        - /etc/secret-volume/.dockerconfigjson
+        - >-
+          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/buildah
+      name: push-quarkuscoffeeshop-customerloyalty-image-to-quay
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /etc/secret-volume
+          name: quay-auth-secret
+          readOnly: true
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+      workingDir: /quay
+  volumes:
+    - name: quay-auth-secret
+      secret:
+        secretName: quay-auth-secret
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: quarkuscoffeeshop-customerloyalty-shared-workspace-pvc
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/tektontasks/pushImageToQuay.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-quarkuscoffeeshop-customermocker-image-to-quay
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  resources:
+    inputs:
+      - name: image
+        type: image
+  params:
+    - default: quarkuscoffeeshop
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-customermocker
+      description: The quay.io repository in which to store the image.
+      name: quay-io-repository
+      type: string
+    - default: $(inputs.params.quay-io-image-tag-name)
+      description: The tag to use to identify the image.
+      name: quay-io-image-tag-name
+      type: string
+    - default: overlay
+      description: The Buildah storage STORAGE_DRIVER
+      name: STORAGE_DRIVER
+      type: string
+  steps:
+    - command:
+        - podman
+        - pull
+        - '--tls-verify=false'
+        - >-
+          docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker:$(inputs.params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/podman
+      name: podman-pull-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - tag
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - >-
+          image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker:$(inputs.params.quay-io-image-tag-name)
+        - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-tag-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - images
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-list-images-after-tagging
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - push
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - '--authfile'
+        - /etc/secret-volume/.dockerconfigjson
+        - >-
+          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/buildah
+      name: push-quarkuscoffeeshop-customermocker-image-to-quay
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /etc/secret-volume
+          name: quay-auth-secret
+          readOnly: true
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+      workingDir: /quay
+  volumes:
+    - name: quay-auth-secret
+      secret:
+        secretName: quay-auth-secret
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: quarkuscoffeeshop-customermocker-shared-workspace-pvc
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/tektontasks/pushImageToQuay.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-image-to-quay
+spec:
+  resources:
+    inputs:
+      - name: image
+        type: image
+  params:
+    - default: quarkuscoffeeshop
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-homeoffice-ui
+      description: The quay.io repository in which to store the image.
+      name: quay-io-repository
+      type: string
+    - default: $(inputs.params.quay-io-image-tag-name)
+      description: The tag to use to identify the image.
+      name: quay-io-image-tag-name
+      type: string
+    - default: overlay
+      description: The Buildah storage STORAGE_DRIVER
+      name: STORAGE_DRIVER
+      type: string
+  steps:
+    - command:
+        - podman
+        - pull
+        - '--tls-verify=false'
+        - >-
+          docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-homeoffice-ui:$(inputs.params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/podman
+      name: podman-pull-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - tag
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - >-
+          image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-homeoffice-ui:$(inputs.params.quay-io-image-tag-name)
+        - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-tag-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - images
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-list-images-after-tagging
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - push
+        - '--tls-verify=false'
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - '--authfile'
+        - /etc/secret-volume/.dockerconfigjson
+        - >-
+          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/buildah
+      name: push-image-to-quay
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /etc/secret-volume
+          name: quay-auth-secret
+          readOnly: true
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+      workingDir: /quay
+  volumes:
+    - name: quay-auth-secret
+      secret:
+        secretName: quay-auth-secret
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: homeoffice-pipeline-cache
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/tektontasks/s2i-nodejs-task.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: s2i-nodejs
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  params:
+    - default: '14'
+      description: The version of the nodejs
+      name: VERSION
+      type: string
+    - default: 'http://homeoffice-backend/graphql'
+      description: The home office started endpoint
+      name: REACT_APP_GRAPHQL_ENDPOINT
+      type: string
+    - default: .
+      description: The location of the path to run s2i from.
+      name: PATH_CONTEXT
+      type: string
+    - default: 'true'
+      description: >-
+        Verify the TLS on the registry endpoint (for push/pull to a non-TLS
+        registry)
+      name: TLSVERIFY
+      type: string
+    - default: v1.0
+      description: image release tag
+      name: IMAGE_TAG
+      type: string
+  resources:
+    inputs:
+      - name: source
+        type: git
+    outputs:
+      - name: image
+        type: image
+  steps:
+    - args:
+        - >-
+          echo
+          "REACT_APP_GRAPHQL_ENDPOINT=$(inputs.params.REACT_APP_GRAPHQL_ENDPOINT)"
+          > env-file
+
+          echo "Generated Env file"
+
+          echo "------------------------------"
+
+          cat env-file
+
+          echo "------------------------------"
+      command:
+        - /bin/sh
+        - '-c'
+      image: quay.io/openshift-pipeline/s2i
+      name: gen-env-file
+      resources: {}
+      volumeMounts:
+        - mountPath: /env-params
+          name: envparams
+      workingDir: /env-params
+    - command:
+        - s2i
+        - build
+        - $(inputs.params.PATH_CONTEXT)
+        - registry.access.redhat.com/ubi8/nodejs-$(inputs.params.VERSION)
+        - '--as-dockerfile'
+        - /gen-source/Dockerfile.gen
+        - '--environment-file'
+        - /env-params/env-file
+      image: quay.io/openshift-pipeline/s2i
+      name: generate
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 500m
+          memory: 1Gi
+      volumeMounts:
+        - mountPath: /gen-source
+          name: gen-source
+        - mountPath: /env-params
+          name: envparams
+      workingDir: /workspace/source
+    - command:
+        - buildah
+        - bud
+        - '--tls-verify=$(inputs.params.TLSVERIFY)'
+        - '--layers'
+        - '-f'
+        - /gen-source/Dockerfile.gen
+        - '-t'
+        - '$(outputs.resources.image.url):$(inputs.params.IMAGE_TAG)'
+        - .
+      image: quay.io/buildah/stable
+      name: build
+      resources:
+        limits:
+          cpu: 500m
+          memory: 2Gi
+        requests:
+          cpu: 500m
+          memory: 2Gi
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: varlibcontainers
+        - mountPath: /gen-source
+          name: gen-source
+      workingDir: /gen-source
+    - command:
+        - buildah
+        - push
+        - '--tls-verify=$(inputs.params.TLSVERIFY)'
+        - '$(outputs.resources.image.url):$(inputs.params.IMAGE_TAG)'
+        - 'docker://$(outputs.resources.image.url):$(inputs.params.IMAGE_TAG)'
+      image: quay.io/buildah/stable
+      name: push
+      resources:
+        limits:
+          cpu: 500m
+          memory: 1Gi
+        requests:
+          cpu: 500m
+          memory: 1Gi
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: varlibcontainers
+  volumes:
+    - emptyDir: {}
+      name: varlibcontainers
+    - emptyDir: {}
+      name: gen-source
+    - emptyDir: {}
+      name: envparams
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-inventory/tektontasks/pushImageToQuay.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-quarkuscoffeeshop-inventory-image-to-quay
+spec:
+  resources:
+    inputs:
+      - name: image
+        type: image
+  params:
+    - default: quarkuscoffeeshop
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-inventory
+      description: The quay.io repository in which to store the image.
+      name: quay-io-repository
+      type: string
+    - default: $(inputs.params.quay-io-image-tag-name)
+      description: The tag to use to identify the image.
+      name: quay-io-image-tag-name
+      type: string
+    - default: overlay
+      description: The Buildah storage STORAGE_DRIVER
+      name: STORAGE_DRIVER
+      type: string
+  steps:
+    - command:
+        - podman
+        - pull
+        - '--tls-verify=false'
+        - >-
+          docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-inventory:$(inputs.params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/podman
+      name: podman-pull-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - tag
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - >-
+          image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-inventory:$(inputs.params.quay-io-image-tag-name)
+        - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-tag-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - images
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-list-images-after-tagging
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - push
+        - '--tls-verify=false'
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - '--authfile'
+        - /etc/secret-volume/.dockerconfigjson
+        - >-
+          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/buildah
+      name: push-quarkuscoffeeshop-inventory-image-to-quay
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /etc/secret-volume
+          name: quay-auth-secret
+          readOnly: true
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+      workingDir: /quay
+  volumes:
+    - name: quay-auth-secret
+      secret:
+        secretName: quay-auth-secret
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: quarkuscoffeeshop-inventory-shared-workspace-pvc
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/tektontasks/pushImageToQuay.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-quarkuscoffeeshop-kitchen-image-to-quay
+spec:
+  resources:
+    inputs:
+      - name: image
+        type: image
+  params:
+    - default: quarkuscoffeeshop
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-kitchen
+      description: The quay.io repository in which to store the image.
+      name: quay-io-repository
+      type: string
+    - default: $(inputs.params.quay-io-image-tag-name)
+      description: The tag to use to identify the image.
+      name: quay-io-image-tag-name
+      type: string
+    - default: overlay
+      description: The Buildah storage STORAGE_DRIVER
+      name: STORAGE_DRIVER
+      type: string
+  steps:
+    - command:
+        - podman
+        - pull
+        - '--tls-verify=false'
+        - >-
+          docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-kitchen:$(inputs.params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/podman
+      name: podman-pull-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - tag
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - >-
+          image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-kitchen:$(inputs.params.quay-io-image-tag-name)
+        - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-tag-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - images
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-list-images-after-tagging
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - push
+        - '--tls-verify=false'
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - '--authfile'
+        - /etc/secret-volume/.dockerconfigjson
+        - >-
+          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/buildah
+      name: push-quarkuscoffeeshop-kitchen-image-to-quay
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /etc/secret-volume
+          name: quay-auth-secret
+          readOnly: true
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+      workingDir: /quay
+  volumes:
+    - name: quay-auth-secret
+      secret:
+        secretName: quay-auth-secret
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: quarkuscoffeeshop-kitchen-shared-workspace-pvc
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/tektontasks/pushImageToQuay-latest.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay-latest
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  resources:
+    inputs:
+      - name: image
+        type: image
+  params:
+    - default: quarkuscoffeeshop
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-majestic-monolith
+      description: The quay.io repository in which to store the image.
+      name: quay-io-repository
+      type: string
+    - default: $(inputs.params.quay-io-image-tag-name)
+      description: The tag to use to identify the image.
+      name: quay-io-image-tag-name
+      type: string
+    - default: overlay
+      description: The Buildah storage STORAGE_DRIVER
+      name: STORAGE_DRIVER
+      type: string
+  steps:
+    - command:
+        - podman
+        - pull
+        - '--tls-verify=false'
+        - >-
+          docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:$(inputs.params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/podman
+      name: podman-pull-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - tag
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - >-
+          image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:$(inputs.params.quay-io-image-tag-name)
+        - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-tag-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - images
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-list-images-after-tagging
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - push
+        - '--tls-verify=false'
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - '--authfile'
+        - /etc/secret-volume/.dockerconfigjson
+        - >-
+          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/buildah
+      name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay-latest
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /etc/secret-volume
+          name: quay-auth-secret
+          readOnly: true
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+      workingDir: /quay
+  volumes:
+    - name: quay-auth-secret
+      secret:
+        secretName: quay-auth-secret
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: quarkuscoffeeshop-majestic-monolith-pipeline-shared-workspace-pvc
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/tektontasks/pushImageToQuay.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay
+  namespace: quarkuscoffeeshop-cicd
+spec:
+  resources:
+    inputs:
+      - name: image
+        type: image
+  params:
+    - default: quarkuscoffeeshop
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-majestic-monolith
+      description: The quay.io repository in which to store the image.
+      name: quay-io-repository
+      type: string
+    - default: $(inputs.params.quay-io-image-tag-name)
+      description: The tag to use to identify the image.
+      name: quay-io-image-tag-name
+      type: string
+    - default: overlay
+      description: The Buildah storage STORAGE_DRIVER
+      name: STORAGE_DRIVER
+      type: string
+  steps:
+    - command:
+        - podman
+        - pull
+        - '--tls-verify=false'
+        - >-
+          docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:$(inputs.params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/podman
+      name: podman-pull-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - tag
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - >-
+          image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:$(inputs.params.quay-io-image-tag-name)
+        - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-tag-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - images
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-list-images-after-tagging
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - push
+        - '--tls-verify=false'
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - '--authfile'
+        - /etc/secret-volume/.dockerconfigjson
+        - >-
+          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/buildah
+      name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /etc/secret-volume
+          name: quay-auth-secret
+          readOnly: true
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+      workingDir: /quay
+  volumes:
+    - name: quay-auth-secret
+      secret:
+        secretName: quay-auth-secret
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: quarkuscoffeeshop-majestic-monolith-pipeline-shared-workspace-pvc
+---
+# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-web/tektontasks/pushImageToQuay.yaml
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: push-quarkuscoffeeshop-web-image-to-quay
+spec:
+  resources:
+    inputs:
+      - name: image
+        type: image
+  params:
+    - default: quarkuscoffeeshop
+      description: >-
+        The quay.io account that matches the credentials stored in the mounted
+        secret.
+      name: quay-io-account
+      type: string
+    - default: quay.io/quarkuscoffeeshop/quarkuscoffeeshop-web
+      description: The quay.io repository in which to store the image.
+      name: quay-io-repository
+      type: string
+    - default: $(inputs.params.quay-io-image-tag-name)
+      description: The tag to use to identify the image.
+      name: quay-io-image-tag-name
+      type: string
+    - default: overlay
+      description: The Buildah storage STORAGE_DRIVER
+      name: STORAGE_DRIVER
+      type: string
+  steps:
+    - command:
+        - podman
+        - pull
+        - '--tls-verify=false'
+        - >-
+          docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-web:$(inputs.params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/podman
+      name: podman-pull-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - tag
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - >-
+          image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-web:$(inputs.params.quay-io-image-tag-name)
+        - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-tag-image
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - images
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+      image: registry.redhat.io/rhel8/buildah
+      name: buildah-list-images-after-tagging
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+    - command:
+        - buildah
+        - push
+        - '--tls-verify=false'
+        - '--storage-driver=$(params.STORAGE_DRIVER)'
+        - '--authfile'
+        - /etc/secret-volume/.dockerconfigjson
+        - >-
+          $(params.quay-io-repository):$(params.quay-io-image-tag-name)
+      image: registry.redhat.io/rhel8/buildah
+      name: push-quarkuscoffeeshop-web-image-to-quay
+      resources: {}
+      securityContext:
+        privileged: true
+      volumeMounts:
+        - mountPath: /etc/secret-volume
+          name: quay-auth-secret
+          readOnly: true
+        - mountPath: /var/lib/containers
+          name: pipeline-cache
+      workingDir: /quay
+  volumes:
+    - name: quay-auth-secret
+      secret:
+        secretName: quay-auth-secret
+    - name: pipeline-cache
+      persistentVolumeClaim:
+        claimName: quarkuscoffeeshop-web-shared-workspace-pvc
+---
+# Source: config-demo/templates/tekton-pipelines/event-notification/slack-alert.yml
+apiVersion: tekton.dev/v1beta1
+kind: TaskRun
+metadata:
+  name: run-send-to-webhook-slack
+spec:
+  params:
+  - name: webhook-secret
+    value: webhook-secret
+  - name: message
+    value: "Hello from Tekton!"
+  taskRef:
+    name: send-to-webhook-slack

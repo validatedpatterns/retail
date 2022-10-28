@@ -18,14 +18,18 @@ global:
   homeofficeIngress:
     revision: master
 
-  quarkuscoffeeshopHomeofficeUI:
+  homeofficeUI:
     revision: main
+    imageTag: latest
 
   quarkuscoffeeshopBarista:
     revision: main
 
   quarkuscoffeeshopCounter:
     revision: 5.0.3-SNAPSHOT
+
+  quarkuscoffeeshopCustomerloyalty:
+    imageTag: latest
 
   quarkuscoffeeshopCustomermocker:
     revision: master
