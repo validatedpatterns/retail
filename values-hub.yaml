@@ -53,12 +53,6 @@ clusterGroup:
         jsonPointers:
           - /spec/loggingCA
 
-    quarkuscoffeeshop-cicd:
-      name: quarkuscoffeeshop-cicd
-      namespace: quarkuscoffeeshop-cicd
-      project: hub
-      path: charts/hub/quarkuscoffeeshop-pipelines
-
     vault:
       name: vault
       namespace: vault
@@ -71,28 +65,19 @@ clusterGroup:
       project: hub
       path: common/golang-external-secrets
 
+    quarkuscoffeeshop-cicd:
+      name: quarkuscoffeeshop-cicd
+      namespace: quarkuscoffeeshop-cicd
+      project: hub
+      path: charts/hub/quarkuscoffeeshop-pipelines
+
     landing-page:
       name: landing-page
       namespace: landing-page
       project: hub
       path: charts/hub/landing-page
 
-    coffeeshopdb-store:
-      name: coffeeshopdb-store
-      namespace: coffeeshop-store
-      project: coffeeshop-store
-      path: charts/all/crunchy-pgcluster
-      extraValueFiles:
-        - /values-db-store.yaml
-
-    coffeeshopdb-homeoffice:
-      name: coffeeshopdb-homeoffice
-      namespace: coffeeshop-homeoffice
-      project: coffeeshop-homeoffice
-      path: charts/all/crunchy-pgcluster
-      extraValueFiles:
-        - /values-db-homeoffice.yaml
-
+    # Test coffeeshop (hub)
     coffeeshop-test:
       name: quarkuscoffeeshop-demo
       namespace: quarkuscoffeeshop-demo
@@ -120,6 +105,22 @@ clusterGroup:
       project: quarkuscoffeeshop-demo
       path: charts/all/quarkuscoffeeshop-kafka
 
+    # Homeoffice coffeeshop (hub)
+    coffeeshopdb-homeoffice:
+      name: coffeeshopdb-homeoffice
+      namespace: coffeeshop-homeoffice
+      project: coffeeshop-homeoffice
+      path: charts/all/crunchy-pgcluster
+      extraValueFiles:
+        - /values-db-homeoffice.yaml
+
+    coffeeshop-homeoffice-kafka:
+      name: coffeeshop-homeoffice-kafka
+      namespace: coffeeshop-homeoffice
+      project: coffeeshop-homeoffice
+      path: charts/all/quarkuscoffeeshop-kafka
+
+    # Store site "RALEIGH"
     coffeeshop-store:
       name: coffeeshop-store
       namespace: coffeeshop-store
@@ -130,17 +131,21 @@ clusterGroup:
           value: coffeeshop-store
         - name: Release.release-namespace
           value: coffeeshop-store
+        - name: storeid
+          value: RALEIGH
+
+    coffeeshopdb-store:
+      name: coffeeshopdb-store
+      namespace: coffeeshop-store
+      project: coffeeshop-store
+      path: charts/all/crunchy-pgcluster
+      extraValueFiles:
+        - /values-db-store.yaml
 
     coffeeshop-store-kafka:
       name: coffeeshop-store-kafka
       namespace: coffeeshop-store
       project: coffeeshop-store
-      path: charts/all/quarkuscoffeeshop-kafka
-
-    coffeeshop-homeoffice-kafka:
-      name: coffeeshop-homeoffice-kafka
-      namespace: coffeeshop-homeoffice
-      project: coffeeshop-homeoffice
       path: charts/all/quarkuscoffeeshop-kafka
 
   imperative:
