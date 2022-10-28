@@ -1,0 +1,68 @@
+clusterGroup:
+  name: store-atlanta
+  # Note: setting this to true stores the vault unseal keys inside a cluster secret and
+  # is fundamentally insecure
+  insecureUnsealVaultInsideCluster: true
+
+  namespaces:
+    - landing-page
+    - coffeeshop-store
+
+  subscriptions:
+    amqstreams:
+      name: amq-streams
+      namespace: openshift-operators
+      channel: stable
+
+    crunchypgo:
+      name: crunchy-postgres-operator
+      namespace: openshift-operators
+      channel: v5
+      source: certified-operators
+
+  projects:
+    - store
+    - coffeeshop-store
+
+  applications:
+    coffeeshop-store:
+      name: coffeeshop-store
+      namespace: coffeeshop-store
+      project: coffeeshop-store
+      path: charts/store/quarkuscoffeeshop-charts
+      overrides:
+        - name: projectnamespace
+          value: coffeeshop-store
+        - name: Release.release-namespace
+          value: coffeeshop-store
+        - name: storeid
+          value: ATLANTA
+
+    coffeeshopdb-store:
+      name: coffeeshopdb-store
+      namespace: coffeeshop-store
+      project: coffeeshop-store
+      path: charts/all/crunchy-pgcluster
+      extraValueFiles:
+        - /values-db-store.yaml
+
+    coffeeshop-store-kafka:
+      name: coffeeshop-store-kafka
+      namespace: coffeeshop-store
+      project: coffeeshop-store
+      path: charts/all/quarkuscoffeeshop-kafka
+
+  imperative:
+    # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
+    # The default schedule is every 10 minutes: imperative.schedule
+    # Total timeout of all jobs is 1h: imperative.activeDeadlineSeconds
+    # imagePullPolicy is set to always: imperative.imagePullPolicy
+    # For additional overrides that apply to the jobs, please refer to
+    # https://hybrid-cloud-patterns.io/imperative-actions/#additional-job-customizations
+    jobs: []
+    #- name: noop
+      # ansible playbook to be run
+    #  playbook: ansible/playbooks/noop.yml
+      # per playbook timeout in seconds
+   #   timeout: 234
+      # verbosity: "-v"
