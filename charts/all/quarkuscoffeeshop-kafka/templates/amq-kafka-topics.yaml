@@ -1,3 +1,17 @@
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: inventory
+  labels:
+    strimzi.io/cluster: cafe-cluster
+spec:
+  partitions: {{ .Values.partitions }}
+  replicas: {{ .Values.replicas }}
+  config:
+    retention.ms: 604800000
+    segment.bytes: 1073741824
+---
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
@@ -56,6 +70,19 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: orders-out
+  labels:
+    strimzi.io/cluster: cafe-cluster
+spec:
+  partitions: {{ .Values.partitions }}
+  replicas: {{ .Values.replicas }}
+  config:
+    retention.ms: 604800000
+    segment.bytes: 1073741824
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: orders-up
   labels:
     strimzi.io/cluster: cafe-cluster
 spec:
