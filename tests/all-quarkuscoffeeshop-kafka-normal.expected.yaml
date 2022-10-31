@@ -106,6 +106,20 @@ spec:
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
+  name: inventory
+  labels:
+    strimzi.io/cluster: cafe-cluster
+spec:
+  partitions: 10
+  replicas: 3
+  config:
+    retention.ms: 604800000
+    segment.bytes: 1073741824
+---
+# Source: quarkuscoffeeshop-store-kafka/templates/amq-kafka-topics.yaml
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
   name: barista-in
   labels:
     strimzi.io/cluster: cafe-cluster
@@ -165,6 +179,20 @@ apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
   name: orders-out
+  labels:
+    strimzi.io/cluster: cafe-cluster
+spec:
+  partitions: 10
+  replicas: 3
+  config:
+    retention.ms: 604800000
+    segment.bytes: 1073741824
+---
+# Source: quarkuscoffeeshop-store-kafka/templates/amq-kafka-topics.yaml
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: orders-up
   labels:
     strimzi.io/cluster: cafe-cluster
 spec:

@@ -17,6 +17,8 @@ data:
           <body>
             <h1>
             <a href="http://quarkuscoffeeshop-web-coffeeshop-store.local.example.com">Store Web Page</a>
+            <hr/>
+            <a href="http://kafdrop-coffeeshop-store.local.example.com">Kafdrop Kafka WebUI for Store</a>
             </h1>
           </body>
       </html>
