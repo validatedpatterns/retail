@@ -165,15 +165,15 @@ clusterGroup:
       # verbosity: "-v"
 
   managedClusterGroups:
-    store-raleigh:
-      name: store-raleigh
+    raleigh:
+      name: raleigh
       helmOverrides:
       # Values must be strings!
       - name: clusterGroup.isHubCluster
         value: "false"
       clusterSelector:
         matchLabels:
-          clusterGroup: store-raleigh
+          clusterGroup: raleigh
         matchExpressions:
         - key: vendor
           operator: In
