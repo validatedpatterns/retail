@@ -76,7 +76,7 @@ clusterGroup:
       name: landing-page
       namespace: landing-page
       project: hub
-      path: charts/hub/landing-page
+      path: charts/all/landing-page
 
     # Test coffeeshop (hub)
     coffeeshop-test:
