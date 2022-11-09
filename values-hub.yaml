@@ -120,6 +120,9 @@ clusterGroup:
       namespace: coffeeshop-homeoffice
       project: coffeeshop-homeoffice
       path: charts/all/quarkuscoffeeshop-kafka
+      overrides:
+        - name: kafkaClusterName
+          value: homeoffice-cluster
 
     coffeeshop-homeoffice-secrets:
       name: coffeeshop-secret-policies
