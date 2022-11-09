@@ -102,6 +102,76 @@ spec:
     storage:
       type: ephemeral
 ---
+# Source: quarkuscoffeeshop-store-kafka/templates/kafka-hub-ca-policy.yaml
+apiVersion: policy.open-cluster-management.io/v1
+kind: PlacementBinding
+metadata:
+  name: kafka-hub-ca-placement-binding
+placementRef:
+  name: kafka-hub-ca-placement
+  kind: PlacementRule
+  apiGroup: apps.open-cluster-management.io
+subjects:
+  - name: kafka-hub-ca-policy
+    kind: Policy
+    apiGroup: policy.open-cluster-management.io
+---
+# Source: quarkuscoffeeshop-store-kafka/templates/kafka-hub-ca-policy.yaml
+# We need to run this on any managed cluster but not on the HUB
+apiVersion: apps.open-cluster-management.io/v1
+kind: PlacementRule
+metadata:
+  name: kafka-hub-ca-placement
+spec:
+  clusterSelector: {
+  "matchExpressions": [
+    {
+      "key": "vendor",
+      "operator": "In",
+      "values": [
+        "OpenShift"
+      ]
+    }
+  ],
+  "matchLabels": {
+    "clusterGroup": "raleigh"
+  }
+}
+---
+# Source: quarkuscoffeeshop-store-kafka/templates/kafka-hub-ca-policy.yaml
+apiVersion: policy.open-cluster-management.io/v1
+kind: Policy
+metadata:
+  name: kafka-hub-ca-policy
+spec:
+  remediationAction: enforce
+  disabled: false
+  policy-templates:
+    - objectDefinition:
+        apiVersion: policy.open-cluster-management.io/v1
+        kind: ConfigurationPolicy
+        metadata:
+          name: kafka-hub-ca
+          annotations:
+            apps.open-cluster-management.io/deployables: "secret"
+        spec:
+          remediationAction: enforce
+          severity: med
+          namespaceSelector:
+            include:
+              - default
+          object-templates:
+            - complianceType: mustonlyhave
+              objectDefinition:
+                kind: Secret
+                type: Opaque
+                metadata:
+                  name: prod-kafka-cluster-cluster-ca-cert
+                  namespace: coffeeshop-store
+                apiVersion: v1
+                data:
+                  ca.crt: '{{hub index (lookup "v1" "Secret" "coffeeshop-store" "cafe-cluster-cluster-ca-cert").data "ca.crt" hub}}'
+---
 # Source: quarkuscoffeeshop-store-kafka/templates/kafdrop.yaml
 kind: Route
 apiVersion: route.openshift.io/v1
