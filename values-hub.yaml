@@ -121,11 +121,11 @@ clusterGroup:
       project: coffeeshop-homeoffice
       path: charts/all/quarkuscoffeeshop-kafka
 
-    coffeeshop-homeoffice-serets:
+    coffeeshop-homeoffice-secrets:
       name: coffeeshop-secret-policies
       namespace: coffeeshop-homeoffice
       project: coffeeshop-homeoffice
-      path: quarkuscoffeeshop-secret-policies
+      path: charts/hub/quarkuscoffeeshop-secret-policies
 
     # Store site "ATLANTA"
     coffeeshop-store:
