@@ -1,1 +1,10 @@
 ---
+global:
+  hubClusterDomain: hub.example.com
+  localClusterDomain: example.com
+
+clusterGroup:
+  isHubCluster: false
+
+
+
