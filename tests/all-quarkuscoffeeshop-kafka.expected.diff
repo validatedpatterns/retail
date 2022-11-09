@@ -1,0 +1,11 @@
+--- tests/all-quarkuscoffeeshop-kafka-naked.expected.yaml
++++ tests/all-quarkuscoffeeshop-kafka-normal.expected.yaml
+@@ -86,7 +86,7 @@
+         tls: false
+       - name: tls
+         port: 9093
+-        type: internal
++        type: route
+         tls: true
+     config:
+       default.replication.factor: 3

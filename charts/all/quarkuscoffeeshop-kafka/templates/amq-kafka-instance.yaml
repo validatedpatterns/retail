@@ -16,11 +16,11 @@ spec:
         tls: false
       - name: tls
         port: 9093
-{{- if .Values.clusterGroup.isHubCluster -}}
+{{- if .Values.clusterGroup.isHubCluster }}
         type: route
-{{- else -}}
+{{- else }}
         type: internal
-{{- end -}}
+{{- end }}
         tls: true
     config:
       default.replication.factor: 3
