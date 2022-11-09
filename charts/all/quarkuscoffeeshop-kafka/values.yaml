@@ -1,7 +1,10 @@
 ---
-partitions: 10
-replicas: 3
+global:
+  hubClusterDomain: hub.example.com
+  localClusterDomain: example.com
 
-# Maybe:
-# partitions: 3
-# replicas: 1
+clusterGroup:
+  isHubCluster: false
+
+
+
