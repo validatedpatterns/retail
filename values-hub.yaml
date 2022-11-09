@@ -148,6 +148,9 @@ clusterGroup:
       namespace: coffeeshop-store
       project: coffeeshop-store
       path: charts/all/quarkuscoffeeshop-kafka
+      overrides:
+        - name: clusterGroup.isHubCluster
+          value: "false"
 
   imperative:
     # NOTE: We *must* use lists and not hashes. As hashes lose ordering once parsed by helm
