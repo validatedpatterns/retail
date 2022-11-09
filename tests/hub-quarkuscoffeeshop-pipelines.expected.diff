@@ -1,5 +1,104 @@
 --- tests/hub-quarkuscoffeeshop-pipelines-naked.expected.yaml
 +++ tests/hub-quarkuscoffeeshop-pipelines-normal.expected.yaml
+@@ -451,7 +451,7 @@
+       description: Image Tag Value
+       name: IMAGE_TAG
+       type: string
+-    - default: quay.io/hybridcloudpatterns/homeoffice-backend
++    - default: quay.io/martjack/homeoffice-backend
+       name: quay-io-repository
+       type: string
+     - default: quay-auth-secret
+@@ -476,7 +476,7 @@
+     - name: fetch-repository
+       params:
+         - name: url
+-          value: 'https://github.com/hybrid-cloud-patterns/homeoffice-backend'
++          value: 'https://github.com/mhjacks/homeoffice-backend'
+         - name: subdirectory
+           value: ''
+         - name: deleteExisting
+@@ -586,7 +586,7 @@
+         secret.
+       name: quay-io-account
+       type: string
+-    - default: quay.io/hybridcloudpatterns/homeoffice-ingress
++    - default: quay.io/martjack/homeoffice-ingress
+       name: quay-io-repository
+       type: string
+     - default: latest
+@@ -605,7 +605,7 @@
+     - name: fetch-repository
+       params:
+         - name: url
+-          value: 'https://github.com/hybrid-cloud-patterns/homeoffice-ingress'
++          value: 'https://github.com/mhjacks/homeoffice-ingress'
+         - name: subdirectory
+           value: ''
+         - name: deleteExisting
+@@ -708,7 +708,7 @@
+       description: Image Tag Value
+       name: IMAGE_TAG
+       type: string
+-    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-barista
++    - default: quay.io/martjack/quarkuscoffeeshop-barista
+       name: quay-io-repository
+       type: string
+     - default: latest
+@@ -727,7 +727,7 @@
+     - name: fetch-repository
+       params:
+         - name: url
+-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-barista'
++          value: 'https://github.com/mhjacks/quarkuscoffeeshop-barista'
+         - name: subdirectory
+           value: ''
+         - name: deleteExisting
+@@ -803,7 +803,7 @@
+         - name: srcImageURL
+           value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-barista:$(params.IMAGE_TAG)"
+         - name: destImageURL
+-          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-barista:$(params.IMAGE_TAG)"
++          value: "docker://quay.io/martjack/quarkuscoffeeshop-barista:$(params.IMAGE_TAG)"
+       runAfter:
+         - push-to-test-env
+       taskRef:
+@@ -826,7 +826,7 @@
+       description: Image Tag Value
+       name: IMAGE_TAG
+       type: string
+-    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-counter
++    - default: quay.io/martjack/quarkuscoffeeshop-counter
+       name: quay-io-repository
+       type: string
+     - default: latest
+@@ -845,7 +845,7 @@
+     - name: fetch-repository
+       params:
+         - name: url
+-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-counter'
++          value: 'https://github.com/mhjacks/quarkuscoffeeshop-counter'
+         - name: subdirectory
+           value: ''
+         - name: revision
+@@ -921,7 +921,7 @@
+         - name: srcImageURL
+           value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter:$(params.IMAGE_TAG)"
+         - name: destImageURL
+-          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-counter:$(params.IMAGE_TAG)"
++          value: "docker://quay.io/martjack/quarkuscoffeeshop-counter:$(params.IMAGE_TAG)"
+       runAfter:
+         - push-to-test-env
+       taskRef:
+@@ -944,7 +944,7 @@
+       description: Image Tag Value
+       name: IMAGE_TAG
+       type: string
+-    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-customerloyalty
++    - default: quay.io/martjack/quarkuscoffeeshop-customerloyalty
+       name: quay-io-repository
+       type: string
+     - default: latest
 @@ -952,7 +952,7 @@
        type: string
      - name: revision
@@ -9,12 +108,256 @@
  
    resources:
      - name: app-git
-@@ -2141,7 +2141,7 @@
+@@ -963,7 +963,7 @@
+     - name: fetch-repository
+       params:
+         - name: url
+-          value: 'https://github.com/hybrid-cloud-patterns/customerloyalty'
++          value: 'https://github.com/mhjacks/customerloyalty'
+         - name: subdirectory
+           value: ''
+         - name: deleteExisting
+@@ -1039,7 +1039,7 @@
+         - name: srcImageURL
+           value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customerloyalty:$(params.IMAGE_TAG)"
+         - name: destImageURL
+-          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-customerloyalty:$(params.IMAGE_TAG)"
++          value: "docker://quay.io/martjack/quarkuscoffeeshop-customerloyalty:$(params.IMAGE_TAG)"
+       runAfter:
+         - push-to-test-env
+       taskRef:
+@@ -1062,7 +1062,7 @@
+       description: Image Tag Value
+       name: IMAGE_TAG
+       type: string
+-    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-customermocker
++    - default: quay.io/martjack/quarkuscoffeeshop-customermocker
+       name: quay-io-repository
+       type: string
+     - default: latest
+@@ -1081,7 +1081,7 @@
+     - name: fetch-repository
+       params:
+         - name: url
+-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-customermocker'
++          value: 'https://github.com/mhjacks/quarkuscoffeeshop-customermocker'
+         - name: subdirectory
+           value: ''
+         - name: revision
+@@ -1157,7 +1157,7 @@
+         - name: srcImageURL
+           value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker:$(params.IMAGE_TAG)"
+         - name: destImageURL
+-          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-customermocker:$(params.IMAGE_TAG)"
++          value: "docker://quay.io/martjack/quarkuscoffeeshop-customermocker:$(params.IMAGE_TAG)"
+       runAfter:
+         - push-to-test-env
+       taskRef:
+@@ -1271,7 +1271,7 @@
+       description: Image Tag Value
+       name: IMAGE_TAG
+       type: string
+-    - default: quay.io /hybridcloudpatterns/quarkuscoffeeshop-inventory
++    - default: quay.io /martjack/quarkuscoffeeshop-inventory
+       name: quay-io-repository
+       type: string
+     - default: latest
+@@ -1290,7 +1290,7 @@
+     - name: fetch-repository
+       params:
+         - name: url
+-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-inventory'
++          value: 'https://github.com/mhjacks/quarkuscoffeeshop-inventory'
+         - name: revision
+           value: $(params.revision)
+         - name: subdirectory
+@@ -1366,7 +1366,7 @@
+         - name: srcImageURL
+           value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-inventory:$(params.IMAGE_TAG)"
+         - name: destImageURL
+-          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-inventory:$(params.IMAGE_TAG)"
++          value: "docker://quay.io/martjack/quarkuscoffeeshop-inventory:$(params.IMAGE_TAG)"
+       runAfter:
+         - push-to-test-env
+       taskRef:
+@@ -1389,7 +1389,7 @@
+       description: Image Tag Value
+       name: IMAGE_TAG
+       type: string
+-    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-kitchen
++    - default: quay.io/martjack/quarkuscoffeeshop-kitchen
+       name: quay-io-repository
+       type: string
+     - default: latest
+@@ -1408,7 +1408,7 @@
+     - name: fetch-repository
+       params:
+         - name: url
+-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-kitchen'
++          value: 'https://github.com/mhjacks/quarkuscoffeeshop-kitchen'
+         - name: revision
+           value: $(params.revision)
+         - name: subdirectory
+@@ -1484,7 +1484,7 @@
+         - name: srcImageURL
+           value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-kitchen:$(params.IMAGE_TAG)"
+         - name: destImageURL
+-          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-kitchen:$(params.IMAGE_TAG)"
++          value: "docker://quay.io/martjack/quarkuscoffeeshop-kitchen:$(params.IMAGE_TAG)"
+       runAfter:
+         - push-to-test-env
+       taskRef:
+@@ -1508,10 +1508,10 @@
+       description: Image Tag Value
+       name: IMAGE_TAG
+       type: string
+-    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-majestic-monolith
++    - default: quay.io/martjack/quarkuscoffeeshop-majestic-monolith
+       name: quay-io-repository
+       type: string
+-    - default: "master"
++    - default: "main"
+       name: revision
+       type: string
+     - default: latest
+@@ -1527,7 +1527,7 @@
+     - name: fetch-repository
+       params:
+         - name: url
+-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-majestic-monolith'
++          value: 'https://github.com/mhjacks/quarkuscoffeeshop-majestic-monolith'
+         - name: subdirectory
+           value: ''
+         - name: deleteExisting
+@@ -1603,7 +1603,7 @@
+         - name: srcImageURL
+           value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:$(params.IMAGE_TAG)"
+         - name: destImageURL
+-          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-majestic-monolith:$(params.IMAGE_TAG)"
++          value: "docker://quay.io/martjack/quarkuscoffeeshop-majestic-monolith:$(params.IMAGE_TAG)"
+       runAfter:
+         - push-to-test-env
+       taskRef:
+@@ -1837,7 +1837,7 @@
+       description: Image Tag Value
+       name: IMAGE_TAG
+       type: string
+-    - default: quay.io/hybridcloudpatterns/quarkuscoffeeshop-web
++    - default: quay.io/martjack/quarkuscoffeeshop-web
+       name: quay-io-repository
+       type: string
+     - default: latest
+@@ -1856,7 +1856,7 @@
+     - name: fetch-repository
+       params:
+         - name: url
+-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-web'
++          value: 'https://github.com/mhjacks/quarkuscoffeeshop-web'
+         - name: revision
+           value: $(params.revision)
+         - name: subdirectory
+@@ -1932,7 +1932,7 @@
+         - name: srcImageURL
+           value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-web:$(params.IMAGE_TAG)"
+         - name: destImageURL
+-          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-web:$(params.IMAGE_TAG)"
++          value: "docker://quay.io/martjack/quarkuscoffeeshop-web:$(params.IMAGE_TAG)"
+       runAfter:
+         - push-to-test-env
+       taskRef:
+@@ -1954,7 +1954,7 @@
+   type: git
+   params:
    - name: url
-     value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-homeoffice-ui
+-    value: https://github.com/hybrid-cloud-patterns/homeoffice-backend
++    value: https://github.com/mhjacks/homeoffice-backend
+   - name: revision
+     value: "main"
+ ---
+@@ -1984,7 +1984,7 @@
+   type: git
+   params:
+   - name: url
+-    value: https://github.com/hybrid-cloud-patterns/homeoffice-ingress
++    value: https://github.com/mhjacks/homeoffice-ingress
+   - name: revision
+     value: "master"
+ ---
+@@ -2039,7 +2039,7 @@
+   type: git
+   params:
+   - name: url
+-    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-counter
++    value: https://github.com/mhjacks/quarkuscoffeeshop-counter
+   - name: revision
+     value: "5.0.3-SNAPSHOT"
+ ---
+@@ -2067,7 +2067,7 @@
+   type: git
+   params:
+   - name: url
+-    value: https://github.com/hybrid-cloud-patterns/customerloyalty
++    value: https://github.com/mhjacks/customerloyalty
+ ---
+ # Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/resources/image-pipeline-resource.yaml
+ apiVersion: tekton.dev/v1alpha1
+@@ -2094,7 +2094,7 @@
+   type: git
+   params:
+   - name: url
+-    value: https://github.com/hybrid-cloud-patterns}/quarkuscoffeeshop-customermocker
++    value: https://github.com/mhjacks}/quarkuscoffeeshop-customermocker
+   - name: revision
+     value: "master"
+ ---
+@@ -2139,9 +2139,9 @@
+   type: git
+   params:
+   - name: url
+-    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-homeoffice-ui
++    value: https://github.com/mhjacks/quarkuscoffeeshop-homeoffice-ui
    - name: revision
 -    value: "main"
 +    value: "master"
  ---
  # Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources/image-pipeline-resource.yaml
  apiVersion: tekton.dev/v1alpha1
+@@ -2167,7 +2167,7 @@
+   type: git
+   params:
+   - name: url
+-    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-inventory
++    value: https://github.com/mhjacks/quarkuscoffeeshop-inventory
+   - name: revision
+     value: "5.0.0-SNAPSHOT"
+ ---
+@@ -2195,7 +2195,7 @@
+   type: git
+   params:
+   - name: url
+-    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-kitchen
++    value: https://github.com/mhjacks/quarkuscoffeeshop-kitchen
+   - name: revision
+     value: "main"
+ ---
+@@ -2224,9 +2224,9 @@
+   type: git
+   params:
+   - name: url
+-    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-majestic-monolith
++    value: https://github.com/mhjacks/quarkuscoffeeshop-majestic-monolith
+   - name: revision
+-    value: "master"
++    value: "main"
+ ---
+ # Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/resources/image-pipeline-resource.yaml
+ apiVersion: tekton.dev/v1alpha1
+@@ -2253,7 +2253,7 @@
+   type: git
+   params:
+   - name: url
+-    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-web
++    value: https://github.com/mhjacks/quarkuscoffeeshop-web
+   - name: revision
+     value: "5.0.3-SNAPSHOT"
+ ---
