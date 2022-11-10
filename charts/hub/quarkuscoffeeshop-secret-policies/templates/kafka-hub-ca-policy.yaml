@@ -26,11 +26,11 @@ spec:
                 kind: Secret
                 type: Opaque
                 metadata:
-                  name: prod-kafka-cluster-cluster-ca-cert
+                  name: homeoffice-kafka-cluster-cluster-ca-cert
                   namespace: coffeeshop-store
                 apiVersion: v1
                 data:
-                  ca.crt: '{{ `{{hub index (lookup "v1" "Secret" "coffeeshop-store" "cafe-cluster-cluster-ca-cert").data "ca.crt" hub}}` }}'
+                  ca.crt: '{{ `{{hub index (lookup "v1" "Secret" "coffeeshop-homeoffice" "homeoffice-cluster-cluster-ca-cert").data "ca.crt" hub}}` }}'
 ---
 apiVersion: policy.open-cluster-management.io/v1
 kind: PlacementBinding
@@ -51,13 +51,10 @@ kind: PlacementRule
 metadata:
   name: kafka-hub-ca-placement
 spec:
-{{- if .clusterSelector }}
-  clusterSelector: {{ .clusterSelector | toPrettyJson }}
-{{- else }}
   clusterSelector:
-    matchLabels:
-    {{- range .labels }}
-      {{ .name }}: {{ .value }}
-    {{- end }}
-{{- end }}
+    matchExpressions:
+      - key: vendor
+        operator: in
+        values:
+          - OpenShift
 {{- end }}
