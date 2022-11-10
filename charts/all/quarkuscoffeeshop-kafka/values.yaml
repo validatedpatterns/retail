@@ -8,4 +8,13 @@ clusterGroup:
 
 kafkaClusterName: cafe-cluster
 
+mirrorMaker:
+  enabled: true
+
+  certSecretName: homeoffice-kafka-cluster-cluster-ca-cert
+
+  localKafkaBootstrapHost: cafe-cluster-kafka-bootstrap
+  localKafkaBootstrapPort: 9092
+
+  remoteKafkaBootstrapHost: homeoffice-cluster-kafka-tls-bootstrap-coffeeshop-homeoffice
 

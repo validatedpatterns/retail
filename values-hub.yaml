@@ -123,6 +123,8 @@ clusterGroup:
       overrides:
         - name: kafkaClusterName
           value: homeoffice-cluster
+        - name: mirrorMaker.enabled
+          value: "false"
 
     coffeeshop-homeoffice-secrets:
       name: coffeeshop-secret-policies

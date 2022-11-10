@@ -9,3 +9,12 @@
          tls: true
      config:
        default.replication.factor: 3
+@@ -121,7 +121,7 @@
+     timeoutSeconds: 2
+   producer:
+     bootstrapServers: >-
+-      homeoffice-cluster-kafka-tls-bootstrap-coffeeshop-homeoffice.hub.example.com:443
++      homeoffice-cluster-kafka-tls-bootstrap-coffeeshop-homeoffice.apps.hub.example.com:443
+     tls:
+       trustedCertificates:
+         - certificate: ca.crt

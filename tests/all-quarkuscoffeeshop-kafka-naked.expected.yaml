@@ -102,6 +102,39 @@ spec:
     storage:
       type: ephemeral
 ---
+# Source: quarkuscoffeeshop-store-kafka/templates/mirror-maker.yaml
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaMirrorMaker
+metadata:
+  name: store-to-homeoffice-mm
+spec:
+  consumer:
+    bootstrapServers: >-
+      cafe-cluster-kafka-bootstrap:9092
+    groupId: my-source-group-id
+  include: .*
+  livenessProbe:
+    failureThreshold: 2
+    initialDelaySeconds: 1
+    periodSeconds: 1
+    successThreshold: 1
+    timeoutSeconds: 2
+  producer:
+    bootstrapServers: >-
+      homeoffice-cluster-kafka-tls-bootstrap-coffeeshop-homeoffice.hub.example.com:443
+    tls:
+      trustedCertificates:
+        - certificate: ca.crt
+          secretName: homeoffice-kafka-cluster-cluster-ca-cert
+  readinessProbe:
+    failureThreshold: 2
+    initialDelaySeconds: 0
+    periodSeconds: 1
+    successThreshold: 2
+    timeoutSeconds: 2
+  replicas: 1
+  version: 3.1.0
+---
 # Source: quarkuscoffeeshop-store-kafka/templates/kafdrop.yaml
 kind: Route
 apiVersion: route.openshift.io/v1
