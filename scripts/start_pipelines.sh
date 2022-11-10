@@ -3,7 +3,7 @@
 # Separate homeoffice componenents from store ones
 homeoffice_apps=('homeoffice-backend' 'homeoffice-ingress' 'quarkuscoffeeshop-homeoffice-ui')
 
-store_apps=('quarkuscoffeeshop-barista' 'quarkuscoffeeshop-counter' 'quarkuscoffeeshop-counter' 'quarkuscoffeeshop-customermocker' 'quarkuscoffeeshop-inventory' 'quarkuscoffeeshop-kitchen' 'quarkuscoffeeshop-majestic-monolith' 'quarkuscoffeeshop-web' 'quarkuscoffeeshop-customerloyalty')
+store_apps=('quarkuscoffeeshop-barista' 'quarkuscoffeeshop-counter' 'quarkuscoffeeshop-counter' 'quarkuscoffeeshop-customermocker' 'quarkuscoffeeshop-inventory' 'quarkuscoffeeshop-kitchen' 'quarkuscoffeeshop-majestic-monolith' 'quarkuscoffeeshop-web' 'quarkuscoffeeshop-customerloyalty' 'homeoffice-backend' 'homeoffice-ingress' 'quarkuscoffeeshop-homeoffice-ui')
 namespace='quarkuscoffeeshop-cicd'
 
 for app in ${store_apps[@]}; do

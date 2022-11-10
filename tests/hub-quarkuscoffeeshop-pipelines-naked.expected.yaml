@@ -541,7 +541,7 @@ spec:
       params:
         - name: SCRIPT
           value: |
-            oc patch deployment/homeoffice-backend  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"homeoffice-backend","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-backend:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-homeoffice
+            oc patch deployment/homeoffice-backend  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"homeoffice-backend","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-backend:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
       runAfter:
         - tag-test-image
       taskRef:
@@ -670,7 +670,7 @@ spec:
       params:
         - name: SCRIPT
           value: |
-            oc patch deployment/homeoffice-ingress  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"homeoffice-ingress","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-ingress:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-homeoffice
+            oc patch deployment/homeoffice-ingress  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"homeoffice-ingress","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-ingress:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
       runAfter:
         - tag-test-image
       taskRef:
@@ -1236,7 +1236,7 @@ spec:
       params:
         - name: SCRIPT
           value: |
-            oc patch deployment/quarkuscoffeeshop-homeoffice-ui  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-homeoffice-ui","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-homeoffice-ui:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-homeoffice
+            oc patch deployment/quarkuscoffeeshop-homeoffice-ui  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-homeoffice-ui","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-homeoffice-ui:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
       runAfter:
         - tag-test-image
       taskRef:

@@ -66,7 +66,7 @@ spec:
       params:
         - name: SCRIPT
           value: |
-            oc patch deployment/quarkuscoffeeshop-homeoffice-ui  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-homeoffice-ui","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-homeoffice-ui:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-homeoffice
+            oc patch deployment/quarkuscoffeeshop-homeoffice-ui  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-homeoffice-ui","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-homeoffice-ui:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
       runAfter:
         - tag-test-image
       taskRef:
