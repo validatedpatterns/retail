@@ -112,6 +112,9 @@ clusterGroup:
       namespace: coffeeshop-homeoffice
       project: coffeeshop-homeoffice
       path: charts/hub/quarkuscoffeeshop-homeoffice-charts
+      overrides:
+        - name: projectnamespace
+          value: "coffeeshop-homeoffice"
 
     coffeeshopdb-homeoffice:
       name: coffeeshopdb-homeoffice
@@ -120,9 +123,6 @@ clusterGroup:
       path: charts/all/crunchy-pgcluster
       extraValueFiles:
         - /values-db-homeoffice.yaml
-      overrides:
-        - name: projectnamespace
-          value: "coffeeshop-homeoffice"
 
     coffeeshop-homeoffice-kafka:
       name: coffeeshop-homeoffice-kafka
