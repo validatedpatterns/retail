@@ -476,7 +476,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-patterns/homeoffice-backend'
+          value: 'https://github.com/hybrid-cloud-demos/homeoffice-backend'
         - name: subdirectory
           value: ''
         - name: deleteExisting
@@ -605,7 +605,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-patterns/homeoffice-ingress'
+          value: 'https://github.com/hybrid-cloud-demos/homeoffice-ingress'
         - name: subdirectory
           value: ''
         - name: deleteExisting
@@ -727,7 +727,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-barista'
+          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-barista'
         - name: subdirectory
           value: ''
         - name: deleteExisting
@@ -845,7 +845,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-counter'
+          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-counter'
         - name: subdirectory
           value: ''
         - name: revision
@@ -963,7 +963,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-patterns/customerloyalty'
+          value: 'https://github.com/hybrid-cloud-demos/customerloyalty'
         - name: subdirectory
           value: ''
         - name: deleteExisting
@@ -1081,7 +1081,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-customermocker'
+          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-customermocker'
         - name: subdirectory
           value: ''
         - name: revision
@@ -1290,7 +1290,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-inventory'
+          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-inventory'
         - name: revision
           value: $(params.revision)
         - name: subdirectory
@@ -1408,7 +1408,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-kitchen'
+          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-kitchen'
         - name: revision
           value: $(params.revision)
         - name: subdirectory
@@ -1527,7 +1527,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-majestic-monolith'
+          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-majestic-monolith'
         - name: subdirectory
           value: ''
         - name: deleteExisting
@@ -1856,7 +1856,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-web'
+          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-web'
         - name: revision
           value: $(params.revision)
         - name: subdirectory
@@ -1954,7 +1954,7 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/hybrid-cloud-patterns/homeoffice-backend
+    value: https://github.com/hybrid-cloud-demos/homeoffice-backend
   - name: revision
     value: "main"
 ---
@@ -1984,7 +1984,7 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/hybrid-cloud-patterns/homeoffice-ingress
+    value: https://github.com/hybrid-cloud-demos/homeoffice-ingress
   - name: revision
     value: "master"
 ---
@@ -2039,7 +2039,7 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-counter
+    value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-counter
   - name: revision
     value: "5.0.3-SNAPSHOT"
 ---
@@ -2067,7 +2067,7 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/hybrid-cloud-patterns/customerloyalty
+    value: https://github.com/hybrid-cloud-demos/customerloyalty
 ---
 # Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
@@ -2094,7 +2094,7 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/hybrid-cloud-patterns}/quarkuscoffeeshop-customermocker
+    value: https://github.com/hybrid-cloud-demos}/quarkuscoffeeshop-customermocker
   - name: revision
     value: "master"
 ---
@@ -2139,7 +2139,7 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-homeoffice-ui
+    value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-homeoffice-ui
   - name: revision
     value: "main"
 ---
@@ -2167,7 +2167,7 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-inventory
+    value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-inventory
   - name: revision
     value: "5.0.0-SNAPSHOT"
 ---
@@ -2195,7 +2195,7 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-kitchen
+    value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-kitchen
   - name: revision
     value: "main"
 ---
@@ -2224,7 +2224,7 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-majestic-monolith
+    value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-majestic-monolith
   - name: revision
     value: "master"
 ---
@@ -2253,7 +2253,7 @@ spec:
   type: git
   params:
   - name: url
-    value: https://github.com/hybrid-cloud-patterns/quarkuscoffeeshop-web
+    value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-web
   - name: revision
     value: "5.0.3-SNAPSHOT"
 ---
