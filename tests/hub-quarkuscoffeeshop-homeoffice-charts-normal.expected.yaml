@@ -44,6 +44,18 @@ spec:
           env:
             - name: KAFKA_BOOTSTRAP_URLS
               value: homeoffice-cluster-kafka-bootstrap:9092
+            - name: PGSQL_URL
+              value: 'jdbc:postgresql://homeofficedb-primary.quarkuscoffeeshop-demo.svc:5432/homeofficedb?currentSchema=homeoffice'
+            - name: PGSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: homeofficedb-pguser-homeofficeuser
+                  key: user
+            - name: PGSQL_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: homeofficedb-pguser-homeofficeuser
+                  key: password
 ---
 # Source: quarkuscoffeeshop-homeoffice-charts/templates/deployment.yaml
 apiVersion: apps/v1
