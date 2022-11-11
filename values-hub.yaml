@@ -120,6 +120,9 @@ clusterGroup:
       path: charts/all/crunchy-pgcluster
       extraValueFiles:
         - /values-db-homeoffice.yaml
+      overrides:
+        - name: projectnamespace
+          value: "coffeeshop-homeoffice"
 
     coffeeshop-homeoffice-kafka:
       name: coffeeshop-homeoffice-kafka

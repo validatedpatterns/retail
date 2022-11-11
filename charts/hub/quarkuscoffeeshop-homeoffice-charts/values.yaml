@@ -6,8 +6,8 @@
 projectnamespace: quarkuscoffeeshop-demo
 domain: ocp4.example.com
 kafka_cluster_name: homeoffice-cluster
-pgsql_url: 'jdbc:postgresql://coffeeshopdb-primary.coffeeshop-homeoffice.svc:5432/coffeeshopdb?currentSchema=coffeeshop'
-pgsql_username: coffeshopadmin
+pgsql_url: 'jdbc:postgresql://homeofficedb-primary.coffeeshop-homeoffice.svc:5432/homoefficedb?currentSchema=homeoffice'
+pgsql_username: homeofficeuser
 pgsql_password: 'changepassword'
 replica_count:
   ingress: 1
