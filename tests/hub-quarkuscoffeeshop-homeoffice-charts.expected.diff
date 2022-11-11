@@ -4,8 +4,26 @@
      spec:
        containers:
          - name: homeoffice-ingress
--          image: quay.io/hybrid-cloud-patterns-demo/quarkuscoffeeshop-barista:latest
-+          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-barista:latest
+-          image: quay.io/hybrid-cloud-patterns-demo/quarkuscoffeeshop-ingress:latest
++          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-ingress:latest
+           imagePullPolicy: Always
+           env:
+             - name: KAFKA_BOOTSTRAP_URLS
+@@ -73,7 +73,7 @@
+     spec:
+       containers:
+         - name: homeoffice-ingress
+-          image: quay.io/hybrid-cloud-patterns-demo/quarkuscoffeeshop-homeoffice-ui:latest
++          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-homeoffice-ui:latest
+           imagePullPolicy: Always
+           env:
+             - name: KAFKA_BOOTSTRAP_URLS
+@@ -107,7 +107,7 @@
+     spec:
+       containers:
+         - name: homeoffice-ingress
+-          image: quay.io/hybrid-cloud-patterns-demo/quarkuscoffeeshop-backedn:latest
++          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-backedn:latest
            imagePullPolicy: Always
            env:
              - name: KAFKA_BOOTSTRAP_URLS

@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -15,7 +16,7 @@ spec:
     metadata:
       name: homeoffice-ingress-deployment
       labels:
-        app: homeoffice-inggress
+        app: homeoffice-ingress
         release: {{ .Release.Name }}
         app.kubernetes.io/component: homeoffice-ingress
         app.kubernetes.io/instance: homeoffice-ingress
@@ -25,7 +26,73 @@ spec:
     spec:
       containers:
         - name: homeoffice-ingress
-          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-barista:{{ .Values.global.homeofficeIngress.imageTag }}
+          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-ingress:{{ .Values.global.homeofficeIngress.imageTag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: KAFKA_BOOTSTRAP_URLS
+              value: {{ .Values.kafka_cluster_name }}-kafka-bootstrap:9092
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkuscoffeeshop-homeoffice-ui
+  labels:
+    app: homeoffice-ui
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replica_count.ui }}
+  selector:
+    matchLabels:
+      app: homeoffice-ui
+  template:
+    metadata:
+      name: homeoffice-ui-deployment
+      labels:
+        app: homeoffice-ui
+        release: {{ .Release.Name }}
+        app.kubernetes.io/component: homeoffice-ui
+        app.kubernetes.io/instance: homeoffice-ui
+        app.kubernetes.io/part-of: quarkus-cafe
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: {{ .Values.projectnamespace }}
+    spec:
+      containers:
+        - name: homeoffice-ingress
+          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-homeoffice-ui:{{ .Values.global.homeofficeUI.imageTag }}
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          env:
+            - name: KAFKA_BOOTSTRAP_URLS
+              value: {{ .Values.kafka_cluster_name }}-kafka-bootstrap:9092
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkuscoffeeshop-homeoffice-backend
+  labels:
+    app: homeoffice-backend
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replica_count.backend }}
+  selector:
+    matchLabels:
+      app: homeoffice-backend
+  template:
+    metadata:
+      name: homeoffice-backend-deployment
+      labels:
+        app: homeoffice-ui
+        release: {{ .Release.Name }}
+        app.kubernetes.io/component: homeoffice-backend
+        app.kubernetes.io/instance: homeoffice-backend
+        app.kubernetes.io/part-of: quarkus-cafe
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: {{ .Values.projectnamespace }}
+    spec:
+      containers:
+        - name: homeoffice-ingress
+          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-backedn:{{ .Values.global.homeofficeBackend.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: KAFKA_BOOTSTRAP_URLS

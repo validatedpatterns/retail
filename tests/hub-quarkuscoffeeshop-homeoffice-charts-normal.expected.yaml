@@ -29,7 +29,7 @@ spec:
     metadata:
       name: homeoffice-ingress-deployment
       labels:
-        app: homeoffice-inggress
+        app: homeoffice-ingress
         release: hub-quarkuscoffeeshop-homeoffice-charts
         app.kubernetes.io/component: homeoffice-ingress
         app.kubernetes.io/instance: homeoffice-ingress
@@ -39,7 +39,75 @@ spec:
     spec:
       containers:
         - name: homeoffice-ingress
-          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-barista:latest
+          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-ingress:latest
+          imagePullPolicy: Always
+          env:
+            - name: KAFKA_BOOTSTRAP_URLS
+              value: homeoffice-cluster-kafka-bootstrap:9092
+---
+# Source: quarkuscoffeeshop-homeoffice-charts/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkuscoffeeshop-homeoffice-ui
+  labels:
+    app: homeoffice-ui
+    chart: quarkuscoffeeshop-homeoffice-charts-3.5.0
+    release: hub-quarkuscoffeeshop-homeoffice-charts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homeoffice-ui
+  template:
+    metadata:
+      name: homeoffice-ui-deployment
+      labels:
+        app: homeoffice-ui
+        release: hub-quarkuscoffeeshop-homeoffice-charts
+        app.kubernetes.io/component: homeoffice-ui
+        app.kubernetes.io/instance: homeoffice-ui
+        app.kubernetes.io/part-of: quarkus-cafe
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: quarkuscoffeeshop-demo
+    spec:
+      containers:
+        - name: homeoffice-ingress
+          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-homeoffice-ui:latest
+          imagePullPolicy: Always
+          env:
+            - name: KAFKA_BOOTSTRAP_URLS
+              value: homeoffice-cluster-kafka-bootstrap:9092
+---
+# Source: quarkuscoffeeshop-homeoffice-charts/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkuscoffeeshop-homeoffice-backend
+  labels:
+    app: homeoffice-backend
+    chart: quarkuscoffeeshop-homeoffice-charts-3.5.0
+    release: hub-quarkuscoffeeshop-homeoffice-charts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homeoffice-backend
+  template:
+    metadata:
+      name: homeoffice-backend-deployment
+      labels:
+        app: homeoffice-ui
+        release: hub-quarkuscoffeeshop-homeoffice-charts
+        app.kubernetes.io/component: homeoffice-backend
+        app.kubernetes.io/instance: homeoffice-backend
+        app.kubernetes.io/part-of: quarkus-cafe
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: quarkuscoffeeshop-demo
+    spec:
+      containers:
+        - name: homeoffice-ingress
+          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-backedn:latest
           imagePullPolicy: Always
           env:
             - name: KAFKA_BOOTSTRAP_URLS
