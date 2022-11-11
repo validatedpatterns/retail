@@ -31,14 +31,14 @@ spec:
           env:
             - name: KAFKA_BOOTSTRAP_URLS
               value: {{ .Values.kafka_cluster_name }}-kafka-bootstrap:9092
-            - name: PGSQL_URL
+            - name: POSTGRESQL_JDBC_URL
               value: 'jdbc:postgresql://homeofficedb-primary.{{ .Values.projectnamespace }}.svc:5432/homeofficedb?currentSchema=homeoffice'
-            - name: PGSQL_USER
+            - name: POSTGRESQL_USER
               valueFrom:
                 secretKeyRef:
                   name: homeofficedb-pguser-homeofficeuser
                   key: user
-            - name: PGSQL_PASS
+            - name: POSTGRESQL_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: homeofficedb-pguser-homeofficeuser
