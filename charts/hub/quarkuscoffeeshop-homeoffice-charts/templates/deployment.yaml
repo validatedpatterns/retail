@@ -26,7 +26,7 @@ spec:
     spec:
       containers:
         - name: homeoffice-ingress
-          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-ingress:{{ .Values.global.homeofficeIngress.imageTag }}
+          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/homeoffice-ingress:{{ .Values.global.homeofficeIngress.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: KAFKA_BOOTSTRAP_URLS
@@ -92,7 +92,7 @@ spec:
     spec:
       containers:
         - name: homeoffice-ingress
-          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-backedn:{{ .Values.global.homeofficeBackend.imageTag }}
+          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/homeoffice-backend:{{ .Values.global.homeofficeBackend.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: KAFKA_BOOTSTRAP_URLS
