@@ -107,6 +107,12 @@ clusterGroup:
       path: charts/all/quarkuscoffeeshop-kafka
 
     # Homeoffice coffeeshop (hub)
+    coffeeshop-homeoffice:
+      name: coffeeshop-homeoffice
+      namespace: coffeeshop-homeoffice
+      project: coffeeshop-homeoffice
+      path: charts/hub/quarkuscoffeeshop-homeoffice-charts
+
     coffeeshopdb-homeoffice:
       name: coffeeshopdb-homeoffice
       namespace: coffeeshop-homeoffice
