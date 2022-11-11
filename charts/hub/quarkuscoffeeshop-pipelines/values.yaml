@@ -2,7 +2,7 @@
 global:
   git:
     hostname: github.com
-    account: hybrid-cloud-patterns
+    account: quarkuscoffeeshop
     username: hybrid-cloud-patterns
     email: SOMEWHERE@EXAMPLE.COM
     dev_revision: main
