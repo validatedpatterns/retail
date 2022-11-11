@@ -97,7 +97,7 @@ spec:
     metadata:
       name: homeoffice-backend-deployment
       labels:
-        app: homeoffice-ui
+        app: homeoffice-backend
         release: hub-quarkuscoffeeshop-homeoffice-charts
         app.kubernetes.io/component: homeoffice-backend
         app.kubernetes.io/instance: homeoffice-backend
@@ -106,7 +106,7 @@ spec:
         app.openshift.io/runtime-namespace: quarkuscoffeeshop-demo
     spec:
       containers:
-        - name: homeoffice-ingress
+        - name: homeoffice-backend
           image: quay.io/hybridcloudpatterns/homeoffice-backend:latest
           imagePullPolicy: Always
           env:

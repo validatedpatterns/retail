@@ -21,7 +21,7 @@
 @@ -107,7 +107,7 @@
      spec:
        containers:
-         - name: homeoffice-ingress
+         - name: homeoffice-backend
 -          image: quay.io/hybrid-cloud-patterns-demo/homeoffice-backend:latest
 +          image: quay.io/hybridcloudpatterns/homeoffice-backend:latest
            imagePullPolicy: Always

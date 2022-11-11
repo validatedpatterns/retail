@@ -82,7 +82,7 @@ spec:
     metadata:
       name: homeoffice-backend-deployment
       labels:
-        app: homeoffice-ui
+        app: homeoffice-backend
         release: {{ .Release.Name }}
         app.kubernetes.io/component: homeoffice-backend
         app.kubernetes.io/instance: homeoffice-backend
@@ -91,7 +91,7 @@ spec:
         app.openshift.io/runtime-namespace: {{ .Values.projectnamespace }}
     spec:
       containers:
-        - name: homeoffice-ingress
+        - name: homeoffice-backend
           image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/homeoffice-backend:{{ .Values.global.homeofficeBackend.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
