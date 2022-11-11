@@ -97,7 +97,6 @@ spec:
           env:
             - name: KAFKA_BOOTSTRAP_URLS
               value: {{ .Values.kafka_cluster_name }}-kafka-bootstrap:9092
-env:
             - name: PGSQL_URL
               value: 'jdbc:postgresql://homeofficedb-primary.{{ .Values.projectnamespace }}.svc:5432/homeofficedb?currentSchema=homeoffice'
             - name: PGSQL_USER
