@@ -11,3 +11,16 @@ spec:
     name: quarkuscoffeeshop-homeoffice-ui
   tls:
     termination: edge
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: quarkuscoffeeshop-homeoffice-backend
+spec:
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: quarkuscoffeeshop-homeoffice-backend
+  tls:
+    termination: edge

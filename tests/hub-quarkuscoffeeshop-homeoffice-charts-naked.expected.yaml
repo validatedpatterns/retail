@@ -30,6 +30,25 @@ spec:
       port: 8080
       protocol: TCP
 ---
+# Source: quarkuscoffeeshop-homeoffice-charts/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: quarkuscoffeeshop-backend
+  labels:
+    app:  homeoffice-backend
+    chart: quarkuscoffeeshop-homeoffice-charts-3.5.0
+    release: hub-quarkuscoffeeshop-homeoffice-charts
+spec:
+  selector:
+    app:  homeoffice-backend
+    release: hub-quarkuscoffeeshop-homeoffice-charts
+  type: ClusterIP
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+---
 # Source: quarkuscoffeeshop-homeoffice-charts/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -167,6 +186,20 @@ spec:
   to:
     kind: Service
     name: quarkuscoffeeshop-homeoffice-ui
+  tls:
+    termination: edge
+---
+# Source: quarkuscoffeeshop-homeoffice-charts/templates/route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: quarkuscoffeeshop-homeoffice-backend
+spec:
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: quarkuscoffeeshop-homeoffice-backend
   tls:
     termination: edge
 ---

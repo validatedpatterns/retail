@@ -1,6 +1,6 @@
 --- tests/hub-quarkuscoffeeshop-homeoffice-charts-naked.expected.yaml
 +++ tests/hub-quarkuscoffeeshop-homeoffice-charts-normal.expected.yaml
-@@ -58,7 +58,7 @@
+@@ -77,7 +77,7 @@
      spec:
        containers:
          - name: homeoffice-ingress
@@ -9,7 +9,7 @@
            imagePullPolicy: Always
            env:
              - name: KAFKA_BOOTSTRAP_URLS
-@@ -104,7 +104,7 @@
+@@ -123,7 +123,7 @@
      spec:
        containers:
          - name: homeoffice-ingress
@@ -18,7 +18,7 @@
            imagePullPolicy: Always
            env:
              - name: KAFKA_BOOTSTRAP_URLS
-@@ -138,7 +138,7 @@
+@@ -157,7 +157,7 @@
      spec:
        containers:
          - name: homeoffice-backend
