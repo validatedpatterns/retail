@@ -11,6 +11,25 @@ metadata:
     app.kubernetes.io/version: "5.0.3"
     app.kubernetes.io/managed-by: Helm
 ---
+# Source: quarkuscoffeeshop-homeoffice-charts/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: quarkuscoffeeshop-homeoffice-ui
+  labels:
+    app:  homeoffice-ui
+    chart: quarkuscoffeeshop-homeoffice-charts-3.5.0
+    release: hub-quarkuscoffeeshop-homeoffice-charts
+spec:
+  selector:
+    app:  homeoffice-ui
+    release: hub-quarkuscoffeeshop-homeoffice-charts
+  type: ClusterIP
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+---
 # Source: quarkuscoffeeshop-homeoffice-charts/templates/deployment.yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -136,6 +155,20 @@ spec:
                 secretKeyRef:
                   name: homeofficedb-pguser-homeofficeuser
                   key: password
+---
+# Source: quarkuscoffeeshop-homeoffice-charts/templates/route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: quarkuscoffeeshop-homeoffice-ui
+spec:
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: quarkuscoffeeshop-homeoffice-ui
+  tls:
+    termination: edge
 ---
 # Source: quarkuscoffeeshop-homeoffice-charts/templates/tests/test-connection.yaml
 apiVersion: v1
