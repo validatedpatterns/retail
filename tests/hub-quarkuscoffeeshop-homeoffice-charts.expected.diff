@@ -1,0 +1,11 @@
+--- tests/hub-quarkuscoffeeshop-homeoffice-charts-naked.expected.yaml
++++ tests/hub-quarkuscoffeeshop-homeoffice-charts-normal.expected.yaml
+@@ -39,7 +39,7 @@
+     spec:
+       containers:
+         - name: homeoffice-ingress
+-          image: quay.io/hybrid-cloud-patterns-demo/quarkuscoffeeshop-barista:latest
++          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-barista:latest
+           imagePullPolicy: Always
+           env:
+             - name: KAFKA_BOOTSTRAP_URLS

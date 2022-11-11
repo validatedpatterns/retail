@@ -1,0 +1,67 @@
+---
+# Source: quarkuscoffeeshop-homeoffice-charts/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: hub-quarkuscoffeeshop-homeoffice-charts
+  labels:
+    helm.sh/chart: quarkuscoffeeshop-homeoffice-charts-3.5.0
+    app.kubernetes.io/name: quarkuscoffeeshop-homeoffice-charts
+    app.kubernetes.io/instance: hub-quarkuscoffeeshop-homeoffice-charts
+    app.kubernetes.io/version: "5.0.3"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: quarkuscoffeeshop-homeoffice-charts/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homeoffice-ingress
+  labels:
+    app: homeoffice-ingress
+    chart: quarkuscoffeeshop-homeoffice-charts-3.5.0
+    release: hub-quarkuscoffeeshop-homeoffice-charts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: homeoffice-ingress
+  template:
+    metadata:
+      name: homeoffice-ingress-deployment
+      labels:
+        app: homeoffice-inggress
+        release: hub-quarkuscoffeeshop-homeoffice-charts
+        app.kubernetes.io/component: homeoffice-ingress
+        app.kubernetes.io/instance: homeoffice-ingress
+        app.kubernetes.io/part-of: quarkus-cafe
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: quarkuscoffeeshop-demo
+    spec:
+      containers:
+        - name: homeoffice-ingress
+          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-barista:latest
+          imagePullPolicy: Always
+          env:
+            - name: KAFKA_BOOTSTRAP_URLS
+              value: homeoffice-cluster-kafka-bootstrap:9092
+---
+# Source: quarkuscoffeeshop-homeoffice-charts/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "hub-quarkuscoffeeshop-homeoffice-charts-test-connection"
+  labels:
+    helm.sh/chart: quarkuscoffeeshop-homeoffice-charts-3.5.0
+    app.kubernetes.io/name: quarkuscoffeeshop-homeoffice-charts
+    app.kubernetes.io/instance: hub-quarkuscoffeeshop-homeoffice-charts
+    app.kubernetes.io/version: "5.0.3"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['hub-quarkuscoffeeshop-homeoffice-charts:80']
+  restartPolicy: Never

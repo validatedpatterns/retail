@@ -9,6 +9,10 @@ kafka_cluster_name: homeoffice-cluster
 pgsql_url: 'jdbc:postgresql://coffeeshopdb-primary.coffeeshop-homeoffice.svc:5432/coffeeshopdb?currentSchema=coffeeshop'
 pgsql_username: coffeshopadmin
 pgsql_password: 'changepassword'
+replica_count:
+  ingress: 1
+  backend: 1
+  ui: 1
 quarkus_log_level: INFO
 quarkuscoffeeshop_log_level: DEBUG
 
@@ -16,18 +20,6 @@ quarkuscoffeeshop_log_level: DEBUG
 Release:
   Name: quarkuscoffeeshop-deployment
   release-namespace: quarkuscoffeeshop-demo
-
-homeofficeBackend:
-  revision: main
-  imageTag: latest
-
-homeofficeIngress:
-  revision: master
-  imageTag: latest
-
-homeofficeUI:
-  revision: master
-  imageTag: latest
 
 replicaCount: 1
 
@@ -103,3 +95,20 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+global:
+  imageregistry:
+    hostname: quay.io
+    account: hybrid-cloud-patterns-demo
+
+  homeofficeBackend:
+    revision: main
+    imageTag: latest
+
+  homeofficeIngress:
+    revision: master
+    imageTag: latest
+
+  homeofficeUI:
+    revision: master
+    imageTag: latest

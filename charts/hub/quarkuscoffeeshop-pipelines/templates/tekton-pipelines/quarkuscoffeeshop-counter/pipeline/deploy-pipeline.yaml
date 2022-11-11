@@ -99,7 +99,7 @@ spec:
       params:
         - name: SCRIPT
           value: |
-            oc patch deployment/quarkuscoffeeshop-counter  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-counter","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo
+            oc patch deployment/quarkuscoffeeshop-counter  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-counter","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo || /bin/true
       runAfter:
         - tag-test-image
       taskRef:
