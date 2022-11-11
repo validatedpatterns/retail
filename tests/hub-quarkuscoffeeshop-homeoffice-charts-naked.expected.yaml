@@ -126,8 +126,8 @@ spec:
           image: quay.io/hybrid-cloud-patterns-demo/quarkuscoffeeshop-homeoffice-ui:latest
           imagePullPolicy: Always
           env:
-            - name: KAFKA_BOOTSTRAP_URLS
-              value: homeoffice-cluster-kafka-bootstrap:9092
+            - name: REACT_APP_GRAPHQL_ENDPOINT
+              value: 'http://quarkuscoffeeshop-backend.coffeeshop-homeoffice.svc:8080/graphql'
 ---
 # Source: quarkuscoffeeshop-homeoffice-charts/templates/deployment.yaml
 apiVersion: apps/v1

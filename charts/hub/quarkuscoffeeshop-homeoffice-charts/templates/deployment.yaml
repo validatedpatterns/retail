@@ -74,8 +74,8 @@ spec:
           image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-homeoffice-ui:{{ .Values.global.homeofficeUI.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-            - name: KAFKA_BOOTSTRAP_URLS
-              value: {{ .Values.kafka_cluster_name }}-kafka-bootstrap:9092
+            - name: REACT_APP_GRAPHQL_ENDPOINT
+              value: 'http://quarkuscoffeeshop-backend.coffeeshop-homeoffice.svc:8080/graphql'
 ---
 apiVersion: apps/v1
 kind: Deployment
