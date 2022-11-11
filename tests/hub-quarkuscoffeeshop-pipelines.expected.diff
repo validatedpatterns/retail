@@ -1,6 +1,6 @@
 --- tests/hub-quarkuscoffeeshop-pipelines-naked.expected.yaml
 +++ tests/hub-quarkuscoffeeshop-pipelines-normal.expected.yaml
-@@ -952,7 +952,7 @@
+@@ -944,7 +944,7 @@
        type: string
      - name: revision
        type: string
@@ -9,7 +9,7 @@
  
    resources:
      - name: app-git
-@@ -2141,7 +2141,7 @@
+@@ -2133,7 +2133,7 @@
    - name: url
      value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-homeoffice-ui
    - name: revision
