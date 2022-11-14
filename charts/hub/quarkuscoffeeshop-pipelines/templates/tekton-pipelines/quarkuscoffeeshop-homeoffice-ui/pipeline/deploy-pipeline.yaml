@@ -60,7 +60,7 @@ spec:
       runAfter:
         - build-nodejsapp
       taskRef:
-        kind: Task
+        kind: ClusterTask
         name: openshift-client
     - name: push-to-test-env
       params:
