@@ -39,3 +39,19 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: admin
+---
+# The s2i tasks need privileged SCC to run
+kind: ClusterRole
+metadata:
+  name: pipelines-scc-clusterrole
+  namespace: {{ .Values.buildNamespace }}
+rules:
+  - apiGroups:
+    - security.openshift.io
+    resourceNames:
+      - pipelines-scc
+      - privileged
+    resources:
+      - securiycontextconstraints
+    verbs:
+      - use

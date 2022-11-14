@@ -292,6 +292,23 @@ spec:
       storage: 5Gi
 ---
 # Source: config-demo/templates/tekton-pipelines/sa/pipeline-sa.yaml
+# The s2i tasks need privileged SCC to run
+kind: ClusterRole
+metadata:
+  name: pipelines-scc-clusterrole
+  namespace: quarkuscoffeeshop-cicd
+rules:
+  - apiGroups:
+    - security.openshift.io
+    resourceNames:
+      - pipelines-scc
+      - privileged
+    resources:
+      - securiycontextconstraints
+    verbs:
+      - use
+---
+# Source: config-demo/templates/tekton-pipelines/sa/pipeline-sa.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
