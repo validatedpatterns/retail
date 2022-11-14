@@ -349,7 +349,6 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: priv-pipeline-scc-clusterrole
-  namespace: quarkuscoffeeshop-cicd
 ---
 # Source: config-demo/templates/tekton-pipelines/sa/pipeline-sa.yaml
 apiVersion: rbac.authorization.k8s.io/v1
