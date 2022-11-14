@@ -15,7 +15,7 @@ global:
     dev_revision: main
 
   imageregistry:
-    account: martjack
+    account: hybridcloudpatterns
     hostname: quay.io
     type: quay
 
