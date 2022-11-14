@@ -64,4 +64,3 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: priv-pipeline-scc-clusterrole
-  namespace: {{ .Values.buildNamespace }}
