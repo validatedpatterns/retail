@@ -10,14 +10,6 @@ metadata:
 secrets:
   - name: quay-auth-secret
 ---
-# Source: config-demo/templates/tekton-pipelines/sa/pipelines-sa.yaml
-apiVersion: v1
-kind: ServiceAccount
-metadata:
-  name: quarkuscoffeeshop-pipelines
-secrets:
-  - name: quay-user-pass
----
 # Source: config-demo/templates/tekton-pipelines/event-notification/webhook-secret.yaml
 kind: Secret
 apiVersion: v1
