@@ -1,6 +1,6 @@
 --- tests/hub-quarkuscoffeeshop-pipelines-naked.expected.yaml
 +++ tests/hub-quarkuscoffeeshop-pipelines-normal.expected.yaml
-@@ -962,7 +962,7 @@
+@@ -1026,7 +1026,7 @@
        type: string
      - name: revision
        type: string

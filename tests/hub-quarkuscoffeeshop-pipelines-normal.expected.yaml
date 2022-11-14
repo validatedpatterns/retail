@@ -10,13 +10,14 @@ metadata:
 secrets:
   - name: quay-auth-secret
 ---
-# Source: config-demo/templates/tekton-pipelines/sa/pipelines-sa.yaml
+# Source: config-demo/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: quarkuscoffeeshop-pipelines
+  # We need a non-default service account to use the privileged security context constraints
+  name: priv-pipeline
 secrets:
-  - name: quay-user-pass
+  - name: quay-auth-secret
 ---
 # Source: config-demo/templates/tekton-pipelines/event-notification/webhook-secret.yaml
 kind: Secret
@@ -317,6 +318,39 @@ rules:
     verbs:
       - use
 ---
+# Source: config-demo/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
+# The s2i tasks need privileged SCC to run
+kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: priv-pipeline-scc-clusterrole
+  namespace: quarkuscoffeeshop-cicd
+rules:
+  - apiGroups:
+    - security.openshift.io
+    resourceNames:
+      - privileged
+    resources:
+      - securiycontextconstraints
+    verbs:
+      - use
+---
+# Source: config-demo/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: priv-pipeline-crb
+  namespace: quarkuscoffeeshop-demo
+subjects:
+  - kind: ServiceAccount
+    name: priv-pipeline
+    namespace: quarkuscoffeeshop-cicd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: priv-pipeline-scc-clusterrole
+  namespace: quarkuscoffeeshop-cicd
+---
 # Source: config-demo/templates/tekton-pipelines/sa/pipeline-sa.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -344,6 +378,36 @@ metadata:
 subjects:
   - kind: ServiceAccount
     name: pipeline
+    namespace: quarkuscoffeeshop-cicd
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+---
+# Source: config-demo/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: priv-pipeline-edit
+  namespace: openshift
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+subjects:
+  - kind: ServiceAccount
+    name: priv-pipeline
+    namespace: quarkuscoffeeshop-cicd
+---
+# Source: config-demo/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: priv-admin
+  namespace: quarkuscoffeeshop-demo
+subjects:
+  - kind: ServiceAccount
+    name: priv-pipeline
     namespace: quarkuscoffeeshop-cicd
 roleRef:
   apiGroup: rbac.authorization.k8s.io
