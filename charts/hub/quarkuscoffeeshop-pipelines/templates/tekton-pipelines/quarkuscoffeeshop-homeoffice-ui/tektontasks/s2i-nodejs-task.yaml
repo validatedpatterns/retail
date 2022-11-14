@@ -101,8 +101,8 @@ spec:
         requests:
           cpu: 500m
           memory: 2Gi
-      securityContext:
-        privileged: false
+      #securityContext:
+      #  privileged: false
       volumeMounts:
         - mountPath: /var/lib/containers
           name: varlibcontainers
