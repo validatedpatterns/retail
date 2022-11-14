@@ -12,7 +12,7 @@ secrets:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: pipeline-edit
+  name: priv-pipeline-edit
   namespace: openshift
 roleRef:
   apiGroup: rbac.authorization.k8s.io
@@ -26,7 +26,7 @@ subjects:
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: admin
+  name: priv-admin
   namespace: {{ .Values.testNamespace }}
 subjects:
   - kind: ServiceAccount
