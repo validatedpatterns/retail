@@ -26,7 +26,7 @@ for app in ${privbuild_apps[@]}; do
     workspacepvc="$app-shared-workspace-pvc"
     gitresource="$app-git"
     imageresource="$app-image"
-    tkn pipeline start -s quarkuscoffeeshop-pipelines $pipeline -n $namespace \
+    tkn pipeline start -s priv-pipeline $pipeline -n $namespace \
         --resource 'app-git'="$gitresource" \
         --resource image="$imageresource" \
         --workspace name='shared-workspace',claimName="$workspacepvc" \
