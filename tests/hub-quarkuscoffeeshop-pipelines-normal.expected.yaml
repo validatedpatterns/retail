@@ -10,6 +10,14 @@ metadata:
 secrets:
   - name: quay-auth-secret
 ---
+# Source: config-demo/templates/tekton-pipelines/sa/pipelines-sa.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: quarkuscoffeeshop-pipelines
+secrets:
+  - name: quay-user-pass
+---
 # Source: config-demo/templates/tekton-pipelines/event-notification/webhook-secret.yaml
 kind: Secret
 apiVersion: v1
@@ -2143,7 +2151,7 @@ spec:
   - name: url
     value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-homeoffice-ui
   - name: revision
-    value: "master"
+    value: "main"
 ---
 # Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
