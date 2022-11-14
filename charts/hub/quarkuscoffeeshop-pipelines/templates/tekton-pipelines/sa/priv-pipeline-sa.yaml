@@ -2,9 +2,7 @@
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  # pipeline is configured in the openshift-pipelines namespace as the default serviceaccount for pipelineruns
-  # So let's use that as our primary serviceaccount
-  # To change this setting, edit the configmap config-defaults in ns openshift-pipelines
+  # We need a non-default service account to use the privileged security context constraints
   name: priv-pipeline
 secrets:
   - name: quay-auth-secret
@@ -37,20 +35,6 @@ roleRef:
   kind: ClusterRole
   name: admin
 ---
-kind: ClusterRoleBinding
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: priv-pipeline-crb
-  namespace: {{ .Values.testNamespace }}
-subjects:
-  - kind: ServiceAccount
-    name: priv-pipeline
-    namespace: {{ .Values.buildNamespace }}
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: priv-pipeline-scc-clusterrole
----
 # The s2i tasks need privileged SCC to run
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
@@ -66,3 +50,18 @@ rules:
       - securiycontextconstraints
     verbs:
       - use
+---
+kind: ClusterRoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: priv-pipeline-crb
+  namespace: {{ .Values.testNamespace }}
+subjects:
+  - kind: ServiceAccount
+    name: priv-pipeline
+    namespace: {{ .Values.buildNamespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: priv-pipeline-scc-clusterrole
+  namespace: {{ .Values.buildNamespace }}
