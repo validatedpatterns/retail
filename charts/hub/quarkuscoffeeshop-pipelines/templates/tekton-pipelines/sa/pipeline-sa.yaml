@@ -42,6 +42,7 @@ roleRef:
 ---
 # The s2i tasks need privileged SCC to run
 kind: ClusterRole
+apiVersion: rbac.authorization.k8s.io/v1
 metadata:
   name: pipelines-scc-clusterrole
   namespace: {{ .Values.buildNamespace }}
