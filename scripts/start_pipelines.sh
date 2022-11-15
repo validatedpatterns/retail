@@ -18,18 +18,6 @@ for app in ${apps[@]}; do
         --use-param-defaults
 done
 
-# These apps require a privileged build pipeline
-privbuild_apps=('quarkuscoffeeshop-homeoffice-ui')
-for app in ${privbuild_apps[@]}; do
-    pipeline="build-and-push-$app"
-    mavenpvc="$app-maven-settings-pvc"
-    workspacepvc="$app-shared-workspace-pvc"
-    gitresource="$app-git"
-    imageresource="$app-image"
-    tkn pipeline start -s priv-pipeline $pipeline -n $namespace \
-        --resource 'app-git'="$gitresource" \
-        --resource image="$imageresource" \
-        --workspace name='shared-workspace',claimName="$workspacepvc" \
-        --workspace name='maven-settings',claimName="$mavenpvc" \
-        --use-param-defaults
+for plr in $(ls charts/hub/quarkuscoffeeshop-pipelines/extra/*.yaml); do
+    oc create -f $plr
 done
