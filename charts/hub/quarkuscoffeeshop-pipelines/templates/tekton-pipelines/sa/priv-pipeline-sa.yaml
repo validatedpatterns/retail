@@ -35,6 +35,34 @@ roleRef:
   kind: ClusterRole
   name: admin
 ---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: priv-imagebuilder-cicd
+  namespace: {{ .Values.buildNamespace }}
+subjects:
+  - kind: ServiceAccount
+    name: priv-pipeline
+    namespace: {{ .Values.buildNamespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:image-builder
+---
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: priv-imagebuilder-demo
+  namespace: {{ .Values.testNamespace }}
+subjects:
+  - kind: ServiceAccount
+    name: priv-pipeline
+    namespace: {{ .Values.buildNamespace }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:image-builder
+---
 # The s2i tasks need privileged SCC to run
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
@@ -43,7 +71,7 @@ metadata:
   namespace: {{ .Values.buildNamespace }}
 rules:
   - apiGroups:
-    - security.openshift.io
+      - security.openshift.io
     resourceNames:
       - privileged
     resources:
@@ -51,11 +79,11 @@ rules:
     verbs:
       - use
 ---
-kind: ClusterRoleBinding
+kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: priv-pipeline-crb
-  namespace: {{ .Values.testNamespace }}
+  name: priv-pipeline
+  namespace: {{ .Values.buildNamespace }}
 subjects:
   - kind: ServiceAccount
     name: priv-pipeline
