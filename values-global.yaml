@@ -28,7 +28,7 @@ global:
     imageTag: latest
 
   homeofficeUI:
-    revision: main
+    revision: fixbuild
     imageTag: latest
 
   quarkuscoffeeshopBarista:
