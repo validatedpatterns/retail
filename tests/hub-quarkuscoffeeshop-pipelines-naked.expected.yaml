@@ -3516,7 +3516,7 @@ metadata:
   namespace: quarkuscoffeeshop-cicd
 spec:
   params:
-    - default: '14'
+    - default: '16'
       description: The version of the nodejs
       name: VERSION
       type: string
