@@ -1364,7 +1364,7 @@ spec:
         - push-to-test-env
       taskRef:
         kind: Task
-        name: push-image-to-quay
+        name: skopeo-copy
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-inventory/pipeline/deploy-pipeline.yaml
 apiVersion: tekton.dev/v1alpha1
