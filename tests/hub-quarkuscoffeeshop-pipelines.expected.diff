@@ -9,12 +9,12 @@
  
    resources:
      - name: app-git
-@@ -2244,7 +2244,7 @@
+@@ -2249,7 +2249,7 @@
    - name: url
      value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-homeoffice-ui
    - name: revision
 -    value: "main"
 +    value: "fixbuild"
  ---
- # Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources/image-pipeline-resource.yaml
+ # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources/image-pipeline-resource.yaml
  apiVersion: tekton.dev/v1alpha1

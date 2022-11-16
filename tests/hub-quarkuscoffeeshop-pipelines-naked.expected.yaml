@@ -1,5 +1,5 @@
 ---
-# Source: config-demo/templates/tekton-pipelines/sa/pipeline-sa.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/pipeline-sa.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -10,7 +10,7 @@ metadata:
 secrets:
   - name: quay-auth-secret
 ---
-# Source: config-demo/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -19,7 +19,7 @@ metadata:
 secrets:
   - name: quay-auth-secret
 ---
-# Source: config-demo/templates/tekton-pipelines/event-notification/webhook-secret.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/event-notification/webhook-secret.yaml
 kind: Secret
 apiVersion: v1
 metadata:
@@ -27,7 +27,7 @@ metadata:
 stringData:
   url: https://replace-me-with-an-external-secret.com
 ---
-# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/pvc/maven-source-pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-backend/pvc/maven-source-pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -40,7 +40,7 @@ spec:
     requests:
       storage: 500Mi
 ---
-# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/pvc/pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-backend/pvc/pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -53,7 +53,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-# Source: config-demo/templates/tekton-pipelines/homeoffice-ingress/pvc/maven-source-pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-ingress/pvc/maven-source-pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -66,7 +66,7 @@ spec:
     requests:
       storage: 500Mi
 ---
-# Source: config-demo/templates/tekton-pipelines/homeoffice-ingress/pvc/pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-ingress/pvc/pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -79,7 +79,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-barista/pvc/maven-source-pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-barista/pvc/maven-source-pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -92,7 +92,7 @@ spec:
     requests:
       storage: 500Mi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-barista/pvc/pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-barista/pvc/pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -105,7 +105,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-counter/pvc/maven-source-pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-counter/pvc/maven-source-pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -118,7 +118,7 @@ spec:
     requests:
       storage: 500Mi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-counter/pvc/pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-counter/pvc/pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -131,7 +131,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/pvc/maven-source-pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/pvc/maven-source-pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -144,7 +144,7 @@ spec:
     requests:
       storage: 500Mi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/pvc/pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/pvc/pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -157,7 +157,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/pvc/maven-source-pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/pvc/maven-source-pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -170,7 +170,7 @@ spec:
     requests:
       storage: 500Mi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/pvc/pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/pvc/pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -183,7 +183,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/pvc/pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/pvc/pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -196,7 +196,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-inventory/pvc/maven-source-pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-inventory/pvc/maven-source-pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -209,7 +209,7 @@ spec:
     requests:
       storage: 500Mi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-inventory/pvc/pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-inventory/pvc/pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -222,7 +222,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/pvc/maven-source-pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/pvc/maven-source-pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -235,7 +235,7 @@ spec:
     requests:
       storage: 500Mi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/pvc/pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/pvc/pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -248,7 +248,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pvc/maven-source-pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pvc/maven-source-pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -261,7 +261,7 @@ spec:
     requests:
       storage: 500Mi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pvc/pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pvc/pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -274,7 +274,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-web/pvc/maven-source-pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-web/pvc/maven-source-pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -287,7 +287,7 @@ spec:
     requests:
       storage: 500Mi
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-web/pvc/pvc.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-web/pvc/pvc.yml
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -300,7 +300,7 @@ spec:
     requests:
       storage: 5Gi
 ---
-# Source: config-demo/templates/tekton-pipelines/sa/pipeline-sa.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/pipeline-sa.yaml
 # The s2i tasks need privileged SCC to run
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
@@ -318,7 +318,7 @@ rules:
     verbs:
       - use
 ---
-# Source: config-demo/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
 # The s2i tasks need privileged SCC to run
 kind: ClusterRole
 apiVersion: rbac.authorization.k8s.io/v1
@@ -335,7 +335,7 @@ rules:
     verbs:
       - use
 ---
-# Source: config-demo/templates/tekton-pipelines/sa/pipeline-sa.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/pipeline-sa.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -353,7 +353,7 @@ subjects:
   #  name: pipeline
   #  namespace: quarkuscoffeeshop-demo
 ---
-# Source: config-demo/templates/tekton-pipelines/sa/pipeline-sa.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/pipeline-sa.yaml
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -368,7 +368,7 @@ roleRef:
   kind: ClusterRole
   name: admin
 ---
-# Source: config-demo/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -383,7 +383,7 @@ subjects:
     name: priv-pipeline
     namespace: quarkuscoffeeshop-cicd
 ---
-# Source: config-demo/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -398,7 +398,7 @@ roleRef:
   kind: ClusterRole
   name: admin
 ---
-# Source: config-demo/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -413,7 +413,7 @@ roleRef:
   kind: ClusterRole
   name: system:image-builder
 ---
-# Source: config-demo/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -428,7 +428,7 @@ roleRef:
   kind: ClusterRole
   name: system:image-builder
 ---
-# Source: config-demo/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -443,7 +443,7 @@ roleRef:
   kind: ClusterRole
   name: priv-pipeline-scc-clusterrole
 ---
-# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/tektontasks/s2i-quarkus-task.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-backend/tektontasks/s2i-quarkus-task.yaml
 #---
 #apiVersion: tekton.dev/v1alpha1
 #kind: Task
@@ -526,7 +526,7 @@ roleRef:
 #    - name: gen-source
 #      emptyDir: {}
 ---
-# Source: config-demo/templates/quay-auth-secret.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/quay-auth-secret.yaml
 apiVersion: "external-secrets.io/v1beta1"
 kind: ExternalSecret
 metadata:
@@ -548,7 +548,7 @@ spec:
   - extract:
       key: secret/data/hub/imageregistry
 ---
-# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/pipeline/deploy-pipeline.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-backend/pipeline/deploy-pipeline.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
@@ -673,7 +673,7 @@ spec:
     - name: shared-workspace
     - name: maven-settings
 ---
-# Source: config-demo/templates/tekton-pipelines/homeoffice-ingress/pipeline/deploy-pipeline.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-ingress/pipeline/deploy-pipeline.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
@@ -798,7 +798,7 @@ spec:
     - name: shared-workspace
     - name: maven-settings
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-barista/pipeline/deploy-pipeline.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-barista/pipeline/deploy-pipeline.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
@@ -916,7 +916,7 @@ spec:
     - name: shared-workspace
     - name: maven-settings
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-counter/pipeline/deploy-pipeline.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-counter/pipeline/deploy-pipeline.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
@@ -1034,7 +1034,7 @@ spec:
     - name: shared-workspace
     - name: maven-settings
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/pipeline/deploy-pipeline.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/pipeline/deploy-pipeline.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
@@ -1152,7 +1152,7 @@ spec:
     - name: shared-workspace
     - name: maven-settings
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/pipeline/deploy-pipeline.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/pipeline/deploy-pipeline.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
@@ -1270,7 +1270,7 @@ spec:
     - name: shared-workspace
     - name: maven-settings
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/pipeline/deploy-pipeline.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/pipeline/deploy-pipeline.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
@@ -1345,12 +1345,17 @@ spec:
       taskRef:
         kind: ClusterTask
         name: openshift-client
-    - name: push-image-to-quay
+    - name: push-quarkuscoffeeshop-homeoffice-ui-image-to-quay
       params:
-        - name: quay-io-repository
-          value: $(params.quay-io-repository)
-        - name: quay-io-image-tag-name
-          value: $(params.quay-io-image-tag-name)
+        - name: srcImageURL
+          value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-homeoffice-ui:$(params.IMAGE_TAG)"
+        - name: destImageURL
+          value: "docker://quay.io/hybridcloudpatterns/quarkuscoffeeshop-homeoffice-ui:$(params.IMAGE_TAG)"
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: skopeo-copy
       resources:
         inputs:
           - name: image
@@ -1361,7 +1366,7 @@ spec:
         kind: Task
         name: push-image-to-quay
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-inventory/pipeline/deploy-pipeline.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-inventory/pipeline/deploy-pipeline.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
@@ -1479,7 +1484,7 @@ spec:
     - name: shared-workspace
     - name: maven-settings
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/pipeline/deploy-pipeline.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/pipeline/deploy-pipeline.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
@@ -1597,7 +1602,7 @@ spec:
     - name: shared-workspace
     - name: maven-settings
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pipeline/deploy-pipeline.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pipeline/deploy-pipeline.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
@@ -1716,7 +1721,7 @@ spec:
     - name: shared-workspace
     - name: maven-settings
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pipeline/deploy-to-edge-pipeline.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pipeline/deploy-to-edge-pipeline.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
@@ -1927,7 +1932,7 @@ spec:
     - name: shared-workspace
     - name: maven-settings
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-web/pipeline/deploy-pipeline.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-web/pipeline/deploy-pipeline.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: Pipeline
 metadata:
@@ -2045,7 +2050,7 @@ spec:
     - name: shared-workspace
     - name: maven-settings
 ---
-# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/resources/git-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-backend/resources/git-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2061,7 +2066,7 @@ spec:
   - name: revision
     value: "main"
 ---
-# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/resources/image-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-backend/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2075,7 +2080,7 @@ spec:
   - name: url
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-backend
 ---
-# Source: config-demo/templates/tekton-pipelines/homeoffice-ingress/resources/git-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-ingress/resources/git-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2091,7 +2096,7 @@ spec:
   - name: revision
     value: "master"
 ---
-# Source: config-demo/templates/tekton-pipelines/homeoffice-ingress/resources/image-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-ingress/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2105,7 +2110,7 @@ spec:
   - name: url
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-ingress
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-barista/resources/git-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-barista/resources/git-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2118,7 +2123,7 @@ spec:
   - name: url
     value: https://github.com/quarkuscoffeeshop/quarkuscoffeeshop-barista
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-barista/resources/image-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-barista/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2131,7 +2136,7 @@ spec:
   - name: url
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-barista
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-counter/resources/git-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-counter/resources/git-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2146,7 +2151,7 @@ spec:
   - name: revision
     value: "5.0.3-SNAPSHOT"
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-counter/resources/image-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-counter/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2159,7 +2164,7 @@ spec:
   - name: url
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/resources/git-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/resources/git-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2172,7 +2177,7 @@ spec:
   - name: url
     value: https://github.com/hybrid-cloud-demos/customerloyalty
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/resources/image-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2185,7 +2190,7 @@ spec:
   - name: url
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customerloyalty
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/resources/git-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/resources/git-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2201,7 +2206,7 @@ spec:
   - name: revision
     value: "master"
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/resources/image-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2215,7 +2220,7 @@ spec:
   - name: url
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2231,7 +2236,7 @@ spec:
     - name: sslVerify
       value: "false"
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources/git-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources/git-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2246,7 +2251,7 @@ spec:
   - name: revision
     value: "main"
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources/image-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2259,7 +2264,7 @@ spec:
   - name: url
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-homeoffice-ui
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-inventory/resources/git-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-inventory/resources/git-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2274,7 +2279,7 @@ spec:
   - name: revision
     value: "5.0.0-SNAPSHOT"
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-inventory/resources/image-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-inventory/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2287,7 +2292,7 @@ spec:
   - name: url
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-inventory
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/resources/git-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/resources/git-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2302,7 +2307,7 @@ spec:
   - name: revision
     value: "main"
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/resources/image-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2315,7 +2320,7 @@ spec:
   - name: url
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-kitchen
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/resources/git-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/resources/git-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2331,7 +2336,7 @@ spec:
   - name: revision
     value: "master"
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/resources/image-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2345,7 +2350,7 @@ spec:
   - name: url
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-web/resources/git-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-web/resources/git-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2360,7 +2365,7 @@ spec:
   - name: revision
     value: "5.0.3-SNAPSHOT"
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-web/resources/image-pipeline-resource.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-web/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
 kind: PipelineResource
 metadata:
@@ -2373,7 +2378,7 @@ spec:
   - name: url
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-web
 ---
-# Source: config-demo/templates/tekton-pipelines/common-functions/tasks/git-clone.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/common-functions/tasks/git-clone.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -2508,7 +2513,7 @@ spec:
         echo -n "$RESULT_SHA" > $(results.commit.path)
         echo -n "$(params.url)" > $(results.url.path)
 ---
-# Source: config-demo/templates/tekton-pipelines/common-functions/tasks/maven.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/common-functions/tasks/maven.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -2659,7 +2664,7 @@ spec:
         - $(workspaces.maven-settings.path)/settings.xml
         - "$(params.GOALS)"
 ---
-# Source: config-demo/templates/tekton-pipelines/common-functions/tasks/skopeo-copy-multi.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/common-functions/tasks/skopeo-copy-multi.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -2739,7 +2744,7 @@ spec:
         runAsNonRoot: true
         runAsUser: 65532
 ---
-# Source: config-demo/templates/tekton-pipelines/common-functions/tasks/skopeo-copy.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/common-functions/tasks/skopeo-copy.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -2800,7 +2805,7 @@ spec:
         runAsNonRoot: true
         runAsUser: 65532
 ---
-# Source: config-demo/templates/tekton-pipelines/event-notification/send-to-webhook-slack.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/event-notification/send-to-webhook-slack.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -2836,7 +2841,7 @@ spec:
           name: $(params.webhook-secret)
           key: url
 ---
-# Source: config-demo/templates/tekton-pipelines/homeoffice-backend/tektontasks/pushImageToQuay.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-backend/tektontasks/pushImageToQuay.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -2937,7 +2942,7 @@ spec:
       persistentVolumeClaim:
         claimName: homeoffice-backend-shared-workspace-pvc
 ---
-# Source: config-demo/templates/tekton-pipelines/homeoffice-ingress/tektontasks/pushImageToQuay.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-ingress/tektontasks/pushImageToQuay.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -3038,7 +3043,7 @@ spec:
       persistentVolumeClaim:
         claimName: homeoffice-ingress-shared-workspace-pvc
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-barista/tektontasks/pushImageToQuay.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-barista/tektontasks/pushImageToQuay.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -3138,7 +3143,7 @@ spec:
       persistentVolumeClaim:
         claimName: quarkuscoffeeshop-barista-shared-workspace-pvc
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-counter/tektontasks/pushImageToQuay.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-counter/tektontasks/pushImageToQuay.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -3238,7 +3243,7 @@ spec:
       persistentVolumeClaim:
         claimName: quarkuscoffeeshop-counter-shared-workspace-pvc
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/tektontasks/pushImageToQuay.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/tektontasks/pushImageToQuay.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -3338,7 +3343,7 @@ spec:
       persistentVolumeClaim:
         claimName: quarkuscoffeeshop-customerloyalty-shared-workspace-pvc
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/tektontasks/pushImageToQuay.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/tektontasks/pushImageToQuay.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -3438,7 +3443,7 @@ spec:
       persistentVolumeClaim:
         claimName: quarkuscoffeeshop-customermocker-shared-workspace-pvc
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/tektontasks/pushImageToQuay.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/tektontasks/pushImageToQuay.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -3538,7 +3543,7 @@ spec:
       persistentVolumeClaim:
         claimName: homeoffice-pipeline-cache
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/tektontasks/s2i-nodejs-task.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/tektontasks/s2i-nodejs-task.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -3678,7 +3683,7 @@ spec:
     - emptyDir: {}
       name: envparams
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-inventory/tektontasks/pushImageToQuay.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-inventory/tektontasks/pushImageToQuay.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -3778,7 +3783,7 @@ spec:
       persistentVolumeClaim:
         claimName: quarkuscoffeeshop-inventory-shared-workspace-pvc
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/tektontasks/pushImageToQuay.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/tektontasks/pushImageToQuay.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -3878,7 +3883,7 @@ spec:
       persistentVolumeClaim:
         claimName: quarkuscoffeeshop-kitchen-shared-workspace-pvc
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/tektontasks/pushImageToQuay-latest.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/tektontasks/pushImageToQuay-latest.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -3979,7 +3984,7 @@ spec:
       persistentVolumeClaim:
         claimName: quarkuscoffeeshop-majestic-monolith-pipeline-shared-workspace-pvc
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/tektontasks/pushImageToQuay.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/tektontasks/pushImageToQuay.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -4080,7 +4085,7 @@ spec:
       persistentVolumeClaim:
         claimName: quarkuscoffeeshop-majestic-monolith-pipeline-shared-workspace-pvc
 ---
-# Source: config-demo/templates/tekton-pipelines/quarkuscoffeeshop-web/tektontasks/pushImageToQuay.yaml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-web/tektontasks/pushImageToQuay.yaml
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
@@ -4180,7 +4185,7 @@ spec:
       persistentVolumeClaim:
         claimName: quarkuscoffeeshop-web-shared-workspace-pvc
 ---
-# Source: config-demo/templates/tekton-pipelines/event-notification/slack-alert.yml
+# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/event-notification/slack-alert.yml
 apiVersion: tekton.dev/v1beta1
 kind: TaskRun
 metadata:

@@ -72,12 +72,17 @@ spec:
       taskRef:
         kind: ClusterTask
         name: openshift-client
-    - name: push-image-to-quay
+    - name: push-quarkuscoffeeshop-homeoffice-ui-image-to-quay
       params:
-        - name: quay-io-repository
-          value: $(params.quay-io-repository)
-        - name: quay-io-image-tag-name
-          value: $(params.quay-io-image-tag-name)
+        - name: srcImageURL
+          value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-homeoffice-ui:$(params.IMAGE_TAG)"
+        - name: destImageURL
+          value: "docker://{{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-homeoffice-ui:$(params.IMAGE_TAG)"
+      runAfter:
+        - push-to-test-env
+      taskRef:
+        kind: Task
+        name: skopeo-copy
       resources:
         inputs:
           - name: image
