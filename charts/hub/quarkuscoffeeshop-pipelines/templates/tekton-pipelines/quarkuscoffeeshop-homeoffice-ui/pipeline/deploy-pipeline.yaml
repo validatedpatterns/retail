@@ -83,10 +83,6 @@ spec:
       taskRef:
         kind: Task
         name: skopeo-copy
-      resources:
-        inputs:
-          - name: image
-            resource: image
       runAfter:
         - push-to-test-env
       taskRef:
