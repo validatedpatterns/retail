@@ -22,8 +22,6 @@ spec:
   taskRunSpecs:
     - pipelineTaskName: build-nodejsapp
       taskServiceAccountName: priv-pipeline
-    - pipelineTaskName: push-image-to-quay
-      taskServiceAccountName: priv-pipeline
   timeout: 1h0m0s
   workspaces:
     - name: shared-workspace
