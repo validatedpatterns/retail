@@ -318,23 +318,6 @@ rules:
     verbs:
       - use
 ---
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
-# The s2i tasks need privileged SCC to run
-kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: priv-pipeline-scc-clusterrole
-  namespace: quarkuscoffeeshop-cicd
-rules:
-  - apiGroups:
-      - security.openshift.io
-    resourceNames:
-      - privileged
-    resources:
-      - securiycontextconstraints
-    verbs:
-      - use
----
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/pipeline-sa.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
@@ -429,6 +412,7 @@ roleRef:
   name: system:image-builder
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/priv-pipeline-sa.yaml
+# The s2i tasks need privileged SCC to run
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -441,7 +425,7 @@ subjects:
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: priv-pipeline-scc-clusterrole
+  name: system:openshift:scc:privileged
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/homeoffice-backend/tektontasks/s2i-quarkus-task.yaml
 #---
