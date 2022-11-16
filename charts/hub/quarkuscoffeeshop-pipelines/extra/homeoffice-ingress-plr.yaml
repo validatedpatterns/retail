@@ -1,0 +1,29 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  namespace: quarkuscoffeeshop-cicd
+  generateName: homeoffice-ingress-
+  labels:
+    app: homeoffice-ingress
+    argocd.argoproj.io/instance: quarkuscoffeeshop-cicd
+    tekton.dev/pipeline: build-and-push-homeoffice-ingress
+spec:
+  pipelineRef:
+    name: build-and-push-homeoffice-ingress
+  resources:
+    - name: app-git
+      resourceRef:
+        name: homeoffice-ingress-git
+    - name: image
+      resourceRef:
+        name: homeoffice-ingress-image
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
+  workspaces:
+    - name: shared-workspace
+      persistentVolumeClaim:
+        claimName: homeoffice-ingress-shared-workspace-pvc
+    - name: maven-settings
+      persistentVolumeClaim:
+        claimName: homeoffice-ingress-maven-settings-pvc

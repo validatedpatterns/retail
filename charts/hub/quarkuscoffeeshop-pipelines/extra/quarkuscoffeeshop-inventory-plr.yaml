@@ -1,0 +1,29 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  namespace: quarkuscoffeeshop-cicd
+  generateName: quarkuscoffeeshop-inventory-
+  labels:
+    app: quarkuscoffeeshop-inventory
+    argocd.argoproj.io/instance: quarkuscoffeeshop-cicd
+    tekton.dev/pipeline: build-and-push-quarkuscoffeeshop-inventory
+spec:
+  pipelineRef:
+    name: build-and-push-quarkuscoffeeshop-inventory
+  resources:
+    - name: app-git
+      resourceRef:
+        name: quarkuscoffeeshop-inventory-git
+    - name: image
+      resourceRef:
+        name: quarkuscoffeeshop-inventory-image
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
+  workspaces:
+    - name: shared-workspace
+      persistentVolumeClaim:
+        claimName: quarkuscoffeeshop-inventory-shared-workspace-pvc
+    - name: maven-settings
+      persistentVolumeClaim:
+        claimName: quarkuscoffeeshop-inventory-maven-settings-pvc

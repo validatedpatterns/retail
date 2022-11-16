@@ -1,0 +1,29 @@
+---
+apiVersion: tekton.dev/v1beta1
+kind: PipelineRun
+metadata:
+  namespace: quarkuscoffeeshop-cicd
+  generateName: quarkuscoffeeshop-customerloyalty-
+  labels:
+    app: quarkuscoffeeshop-customerloyalty
+    argocd.argoproj.io/instance: quarkuscoffeeshop-cicd
+    tekton.dev/pipeline: build-and-push-quarkuscoffeeshop-customerloyalty
+spec:
+  pipelineRef:
+    name: build-and-push-quarkuscoffeeshop-customerloyalty
+  resources:
+    - name: app-git
+      resourceRef:
+        name: quarkuscoffeeshop-customerloyalty-git
+    - name: image
+      resourceRef:
+        name: quarkuscoffeeshop-customerloyalty-image
+  serviceAccountName: pipeline
+  timeout: 1h0m0s
+  workspaces:
+    - name: shared-workspace
+      persistentVolumeClaim:
+        claimName: quarkuscoffeeshop-customerloyalty-shared-workspace-pvc
+    - name: maven-settings
+      persistentVolumeClaim:
+        claimName: quarkuscoffeeshop-customerloyalty-maven-settings-pvc

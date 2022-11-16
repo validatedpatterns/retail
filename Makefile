@@ -22,6 +22,10 @@ post-install:
 	  make vault-init; \
 	fi
 	make load-secrets
+	make start-pipelines
+
+start-pipelines:
+	./scripts/start_pipelines.sh
 
 common-test:
 	make -C common -f common/Makefile test
