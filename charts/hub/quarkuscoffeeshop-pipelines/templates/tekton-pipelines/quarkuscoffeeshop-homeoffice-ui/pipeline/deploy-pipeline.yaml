@@ -91,4 +91,4 @@ spec:
         - push-to-test-env
       taskRef:
         kind: Task
-        name: push-image-to-quay
+        name: skopeo-copy
