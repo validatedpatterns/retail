@@ -1320,11 +1320,6 @@ spec:
       taskRef:
         kind: Task
         name: skopeo-copy
-      runAfter:
-        - push-to-test-env
-      taskRef:
-        kind: Task
-        name: skopeo-copy
     - name: push-to-test-env
       params:
         - name: SCRIPT
