@@ -95,16 +95,6 @@ spec:
       taskRef:
         kind: ClusterTask
         name: openshift-client
-    - name: push-to-test-env
-      params:
-        - name: SCRIPT
-          value: |
-            oc patch deployment/quarkuscoffeeshop-customermocker  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-customermocker","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo || /bin/true
-      runAfter:
-        - tag-test-image
-      taskRef:
-        kind: ClusterTask
-        name: openshift-client
     - name: push-quarkuscoffeeshop-customermocker-image-to-quay
       params:
         - name: srcImageURL
@@ -112,10 +102,20 @@ spec:
         - name: destImageURL
           value: "docker://{{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-customermocker:$(params.IMAGE_TAG)"
       runAfter:
-        - push-to-test-env
+        - tag-test-image
       taskRef:
         kind: Task
         name: skopeo-copy
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc rollout restart -n quarkuscoffeeshop-demo deployment quarkuscoffeeshop-customermocker || /bin/true
+      runAfter:
+        - push-quarkuscoffeeshop-customermocker-image-to-quay
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
   workspaces:
     - name: shared-workspace
     - name: maven-settings

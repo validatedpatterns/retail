@@ -102,16 +102,6 @@ spec:
       taskRef:
         kind: ClusterTask
         name: openshift-client
-    - name: push-to-test-env
-      params:
-        - name: SCRIPT
-          value: |
-            oc patch deployment/homeoffice-ingress  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"homeoffice-ingress","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/homeoffice-ingress:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo || /bin/true
-      runAfter:
-        - tag-test-image
-      taskRef:
-        kind: ClusterTask
-        name: openshift-client
     - name: push-homeoffice-ingress-image-to-quay
       params:
         - name: srcImageURL
@@ -119,10 +109,20 @@ spec:
         - name: destImageURL
           value: "docker://{{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/homeoffice-ingress:$(params.IMAGE_TAG)"
       runAfter:
-        - push-to-test-env  
+        - tag-test-image
       taskRef:
-        kind: Task 
+        kind: Task
         name: skopeo-copy
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc rollout restart -n quarkuscoffeeshop-demo deployment homeoffice-ingress || /bin/true
+      runAfter:
+        - push-homeoffice-ingress-image-to-quay
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
   workspaces:
     - name: shared-workspace
     - name: maven-settings

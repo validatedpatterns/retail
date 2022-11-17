@@ -62,16 +62,6 @@ spec:
       taskRef:
         kind: ClusterTask
         name: openshift-client
-    - name: push-to-test-env
-      params:
-        - name: SCRIPT
-          value: |
-            oc patch deployment/quarkuscoffeeshop-homeoffice-ui  --patch='{"spec":{"template":{"spec":{"containers":[{"name":"quarkuscoffeeshop-homeoffice-ui","image":"image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-homeoffice-ui:'$(params.IMAGE_TAG)'"}]}}}}' -n quarkuscoffeeshop-demo || /bin/true
-      runAfter:
-        - tag-test-image
-      taskRef:
-        kind: ClusterTask
-        name: openshift-client
     - name: push-quarkuscoffeeshop-homeoffice-ui-image-to-quay
       params:
         - name: srcImageURL
@@ -79,7 +69,7 @@ spec:
         - name: destImageURL
           value: "docker://{{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-homeoffice-ui:$(params.IMAGE_TAG)"
       runAfter:
-        - push-to-test-env
+        - tag-test-image
       taskRef:
         kind: Task
         name: skopeo-copy
@@ -88,3 +78,13 @@ spec:
       taskRef:
         kind: Task
         name: skopeo-copy
+    - name: push-to-test-env
+      params:
+        - name: SCRIPT
+          value: |
+            oc rollout restart -n quarkuscoffeeshop-demo deployment quarkuscoffeeshop-homeoffice-ui || /bin/true
+      runAfter:
+        - push-quarkuscoffeeshop-homeoffice-ui-image-to-quay
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
