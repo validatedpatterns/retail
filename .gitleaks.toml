@@ -1,1 +1,1 @@
-common/.gitleaks.toml
+.github/linters/.gitleaks.toml
