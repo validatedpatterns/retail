@@ -110,7 +110,7 @@ spec:
             - name: KAFKA_BOOTSTRAP_URLS
               value: {{ .Values.kafka_cluster_name }}-kafka-bootstrap:9092
             - name: POSTGRESQL_JDBC_URL
-              value: 'jdbc:postgresql://homeofficedb-primary.{{ .Values.projectnamespace }}.svc:5432/homeofficedb?currentSchema=homeoffice'
+              value: 'jdbc:postgresql://{{ .Values.pgsql_dbname }}-primary.{{ .Values.projectnamespace }}.svc:5432/{{ .Values.pgsql_dbname }}?currentSchema=homeoffice'
             - name: POSTGRESQL_USER
               valueFrom:
                 secretKeyRef:
