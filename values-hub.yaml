@@ -102,6 +102,8 @@ clusterGroup:
           value: "quarkuscoffeeshop-demo"
         - name: pgsql_dbname
           value: "coffeeshopdb"
+        - name: kafka_cluster_name
+          value: "cafe-cluster"
 
     coffeeshopdb-test:
       name: quarkuscoffeeshopdb-demo
