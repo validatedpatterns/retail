@@ -1,0 +1,47 @@
+--- tests/store-quarkuscoffeeshop-charts-naked.expected.yaml
++++ tests/store-quarkuscoffeeshop-charts-normal.expected.yaml
+@@ -338,7 +338,7 @@
+               protocol: TCP
+           env:
+             - name: REST_URL
+-              value: http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.
++              value: http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.apps.region.example.com
+             # This may not work.
+             - name: QUARKUS_LOG_LEVEL
+               value: INFO
+@@ -458,13 +458,13 @@
+             - name: KAFKA_BOOTSTRAP_SERVERS
+               value: cafe-cluster-kafka-bootstrap:9092
+             - name: REST_URL
+-              value: http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.
++              value: http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.apps.region.example.com
+             - name: STREAM_URL
+-              value:  http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo./dashboard/stream
++              value:  http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.apps.region.example.com/dashboard/stream
+             - name: LOYALTY_STREAM_URL
+-              value: http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo./dashboard/loyaltystream
++              value: http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.apps.region.example.com/dashboard/loyaltystream
+             - name: CORS_ORIGINS
+-              value: http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo./,https://quarkuscoffeeshop-web-tls-quarkuscoffeeshop-demo.
++              value: http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.apps.region.example.com/,https://quarkuscoffeeshop-web-tls-quarkuscoffeeshop-demo.apps.region.example.com
+             - name: STORE_ID
+               value: ATLANTA
+ ---
+@@ -552,13 +552,13 @@
+             - name: QUARKUSCOFFEESHOP_LOG_LEVEL
+               value: DEBUG
+             - name: REST_URL
+-              value: http://quarkuscoffeeshop-majestic-monolith-quarkuscoffeeshop-demo.
++              value: http://quarkuscoffeeshop-majestic-monolith-quarkuscoffeeshop-demo.apps.region.example.com
+             - name: STREAM_URL
+-              value:  http://quarkuscoffeeshop-majestic-monolith-quarkuscoffeeshop-demo./dashboard/stream
++              value:  http://quarkuscoffeeshop-majestic-monolith-quarkuscoffeeshop-demo.apps.region.example.com/dashboard/stream
+             - name: LOYALTY_STREAM_URL
+-              value: http://quarkuscoffeeshop-majestic-monolith-quarkuscoffeeshop-demo./dashboard/loyaltystream
++              value: http://quarkuscoffeeshop-majestic-monolith-quarkuscoffeeshop-demo.apps.region.example.com/dashboard/loyaltystream
+             - name: CORS_ORIGINS
+-              value: http://quarkuscoffeeshop-majestic-monolith-quarkuscoffeeshop-demo./,https://quarkuscoffeeshop-majestic-monolith-tls-quarkuscoffeeshop-demo.
++              value: http://quarkuscoffeeshop-majestic-monolith-quarkuscoffeeshop-demo.apps.region.example.com/,https://quarkuscoffeeshop-majestic-monolith-tls-quarkuscoffeeshop-demo.apps.region.example.com
+             - name: STORE_ID
+               value: ATLANTA
+ ---

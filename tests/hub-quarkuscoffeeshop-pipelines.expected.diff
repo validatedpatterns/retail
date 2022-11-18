@@ -9,7 +9,7 @@
  
    resources:
      - name: app-git
-@@ -2214,7 +2214,7 @@
+@@ -2211,7 +2211,7 @@
    - name: url
      value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-homeoffice-ui
    - name: revision

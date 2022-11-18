@@ -95,9 +95,6 @@ spec:
       taskRef:
         kind: ClusterTask
         name: openshift-client
-      taskRef:
-        kind: ClusterTask
-        name: openshift-client
     - name: push-quarkuscoffeeshop-customerloyalty-image-to-quay
       params:
         - name: srcImageURL

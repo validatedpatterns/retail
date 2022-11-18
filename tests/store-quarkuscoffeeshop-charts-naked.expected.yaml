@@ -1,0 +1,645 @@
+---
+# Source: quarkuscoffeeshop-charts/templates/serviceaccount.yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: store-quarkuscoffeeshop-charts
+  labels:
+    helm.sh/chart: quarkuscoffeeshop-charts-3.5.0
+    app.kubernetes.io/name: quarkuscoffeeshop-charts
+    app.kubernetes.io/instance: store-quarkuscoffeeshop-charts
+    app.kubernetes.io/version: "5.0.3"
+    app.kubernetes.io/managed-by: Helm
+---
+# Source: quarkuscoffeeshop-charts/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: quarkuscoffeeshop-barista
+  labels:
+    app:  quarkuscoffeeshop-barista
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  selector:
+    app:  quarkuscoffeeshop-barista
+    release: store-quarkuscoffeeshop-charts
+  type: ClusterIP
+  ports:
+    - name: 8778-tcp
+      port: 8778
+      protocol: TCP
+      targetPort: 8778
+    - name: 9779-tcp
+      port: 9779
+      protocol: TCP
+      targetPort: 9779
+---
+# Source: quarkuscoffeeshop-charts/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: quarkuscoffeeshop-core
+  labels:
+    app: quarkuscoffeeshop-core
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  selector:
+    app: quarkuscoffeeshop-core
+    release: store-quarkuscoffeeshop-charts
+  type: ClusterIP
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+---
+# Source: quarkuscoffeeshop-charts/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: quarkuscoffeeshop-customermocker
+  labels:
+    app: quarkuscoffeeshop-customermocker
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  selector:
+    app: quarkuscoffeeshop-customermocker
+    release: store-quarkuscoffeeshop-charts
+  type: ClusterIP
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+---
+# Source: quarkuscoffeeshop-charts/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: quarkuscoffeeshop-kitchen
+  labels:
+    app: quarkuscoffeeshop-kitchen
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  selector:
+    app: quarkuscoffeeshop-kitchen
+    release: store-quarkuscoffeeshop-charts
+  type: ClusterIP
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+---
+# Source: quarkuscoffeeshop-charts/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: quarkuscoffeeshop-inventory
+  labels:
+    app: quarkuscoffeeshop-inventory
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  selector:
+    app: quarkuscoffeeshop-inventory
+  type: ClusterIP
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+---
+# Source: quarkuscoffeeshop-charts/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: quarkuscoffeeshop-customerloyalty
+  labels:
+    app: quarkuscoffeeshop-customerloyalty
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  selector:
+    app: quarkuscoffeeshop-customerloyalty
+  type: ClusterIP
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+---
+# Source: quarkuscoffeeshop-charts/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: quarkuscoffeeshop-web
+  labels:
+    app: quarkuscoffeeshop-web
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  selector:
+    app: quarkuscoffeeshop-web
+  type: ClusterIP
+  ports:
+    - name: 8080-tcp
+      port: 8080
+      protocol: TCP
+      targetPort: 8080
+#---
+#apiVersion: v1
+#kind: Service
+#metadata:
+#  name: quarkuscoffeeshop-mm
+#  labels:
+#    app: quarkuscoffeeshop-mm
+#    chart: quarkuscoffeeshop-charts-3.5.0
+#    release: store-quarkuscoffeeshop-charts
+#spec:
+#  selector:
+#    app: quarkuscoffeeshop-mm
+#  type: ClusterIP
+#  ports:
+#    - name: 8080-tcp
+#      port: 8080
+#      protocol: TCP
+#      targetPort: 8080
+---
+# Source: quarkuscoffeeshop-charts/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkuscoffeeshop-barista
+  labels:
+    app: quarkuscoffeeshop-barista
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quarkuscoffeeshop-barista
+  template:
+    metadata:
+      name: quarkuscoffeeshop-barista-deployment
+      labels:
+        app:  quarkuscoffeeshop-barista
+        release: store-quarkuscoffeeshop-charts
+        app.kubernetes.io/component: quarkuscoffeeshop-barista
+        app.kubernetes.io/instance: quarkuscoffeeshop-barista
+        app.kubernetes.io/part-of: quarkus-cafe
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: quarkuscoffeeshop-demo
+    spec:
+      containers:
+        - name: quarkuscoffeeshop-barista
+          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-barista:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8778
+              protocol: TCP
+            - containerPort: 9779
+              protocol: TCP
+          env:
+            - name: KAFKA_BOOTSTRAP_URLS
+              value: cafe-cluster-kafka-bootstrap:9092
+---
+# Source: quarkuscoffeeshop-charts/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkuscoffeeshop-inventory
+  labels:
+    app: quarkuscoffeeshop-inventory
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quarkuscoffeeshop-inventory
+  template:
+    metadata:
+      name: quarkuscoffeeshop-inventory-deployment
+      labels:
+        app:  quarkuscoffeeshop-inventory
+        release: store-quarkuscoffeeshop-charts
+        app.kubernetes.io/component: quarkuscoffeeshop-inventory
+        app.kubernetes.io/instance: quarkuscoffeeshop-inventory
+        app.kubernetes.io/part-of: quarkus-cafe
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: quarkuscoffeeshop-demo
+    spec:
+      containers:
+        - name: quarkuscoffeeshop-inventory
+          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-inventory:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8778
+              protocol: TCP
+            - containerPort: 9779
+              protocol: TCP
+          env:
+            - name: KAFKA_BOOTSTRAP_URLS
+              value: cafe-cluster-kafka-bootstrap:9092
+---
+# Source: quarkuscoffeeshop-charts/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkuscoffeeshop-counter
+  labels:
+    app: quarkuscoffeeshop-counter
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quarkuscoffeeshop-counter
+  template:
+    metadata:
+      name: quarkuscoffeeshop-counter-deployment
+      labels:
+        app:  quarkuscoffeeshop-counter
+        release: store-quarkuscoffeeshop-charts
+        app.kubernetes.io/component: quarkuscoffeeshop-counter
+        app.kubernetes.io/instance: quarkuscoffeeshop-counter
+        app.kubernetes.io/part-of: quarkus-cafe
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: quarkuscoffeeshop-demo
+    spec:
+      containers:
+        - name: quarkuscoffeeshop-counter
+          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-counter:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: KAFKA_BOOTSTRAP_URLS
+              value: 'cafe-cluster-kafka-bootstrap:9092'
+            - name: PGSQL_URL
+              value: 'jdbc:postgresql://coffeeshopdb-primary.quarkuscoffeeshop-demo.svc:5432/coffeeshopdb?currentSchema=coffeeshop'
+            - name: PGSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: user
+            - name: PGSQL_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: password
+            - name: LOG_SQL
+              value: 'true'
+            - name: QUARKUS_LOG_LEVEL
+              value: INFO
+            - name: QUARKUSCOFFEESHOP_LOG_LEVEL
+              value: DEBUG
+---
+# Source: quarkuscoffeeshop-charts/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkuscoffeeshop-customermocker
+  labels:
+    app: quarkuscoffeeshop-customermocker
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quarkuscoffeeshop-customermocker
+  template:
+    metadata:
+      name: quarkuscoffeeshop-customermocker-deployment
+      labels:
+        app:  quarkuscoffeeshop-customermocker
+        release: store-quarkuscoffeeshop-charts
+        app.kubernetes.io/component: quarkuscoffeeshop-customermocker
+        app.kubernetes.io/instance: quarkuscoffeeshop-customermocker
+        app.kubernetes.io/part-of: quarkus-cafe
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: quarkuscoffeeshop-demo
+    spec:
+      containers:
+        - name: quarkuscoffeeshop-customermocker
+          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-customermocker:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: REST_URL
+              value: http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.
+            # This may not work.
+            - name: QUARKUS_LOG_LEVEL
+              value: INFO
+            - name: QUARKUSCOFFEESHOP_LOG_LEVEL
+              value: DEBUG
+---
+# Source: quarkuscoffeeshop-charts/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkuscoffeeshop-kitchen
+  labels:
+    app: quarkuscoffeeshop-kitchen
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quarkuscoffeeshop-kitchen
+  template:
+    metadata:
+      name: quarkuscoffeeshop-kitchen-deployment
+      labels:
+        app:  quarkuscoffeeshop-kitchen
+        release: store-quarkuscoffeeshop-charts
+        app.kubernetes.io/component: quarkuscoffeeshop-kitchen
+        app.kubernetes.io/instance: quarkuscoffeeshop-kitchen
+        app.kubernetes.io/part-of: quarkus-cafe
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: quarkuscoffeeshop-demo
+    spec:
+      containers:
+        - name: quarkuscoffeeshop-kitchen
+          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-kitchen:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: KAFKA_BOOTSTRAP_URLS
+              value: cafe-cluster-kafka-bootstrap:9092
+---
+# Source: quarkuscoffeeshop-charts/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkuscoffeeshop-customerloyalty
+  labels:
+    app: quarkuscoffeeshop-customerloyalty
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quarkuscoffeeshop-customerloyalty
+  template:
+    metadata:
+      name: quarkuscoffeeshop-customerloyalty-deployment
+      labels:
+        app:  quarkuscoffeeshop-customerloyalty
+        release: store-quarkuscoffeeshop-charts
+        app.kubernetes.io/component: quarkuscoffeeshop-customerloyalty
+        app.kubernetes.io/instance: quarkuscoffeeshop-customerloyalty
+        app.kubernetes.io/part-of: quarkus-cafe
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: quarkuscoffeeshop-demo
+    spec:
+      containers:
+        - name: quarkuscoffeeshop-customerloyalty
+          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-customerloyalty:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: KAFKA_BOOTSTRAP_URLS
+              value: cafe-cluster-kafka-bootstrap:9092
+            - name: QUARKUS_LOG_LEVEL
+              value: INFO
+---
+# Source: quarkuscoffeeshop-charts/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkuscoffeeshop-web
+  labels:
+    app: quarkuscoffeeshop-web
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quarkuscoffeeshop-web
+  template:
+    metadata:
+      name: quarkuscoffeeshop-web
+      labels:
+        app: quarkuscoffeeshop-web
+        release: store-quarkuscoffeeshop-charts
+        app.kubernetes.io/component: quarkuscoffeeshop-web
+        app.kubernetes.io/instance: quarkuscoffeeshop-web
+        app.kubernetes.io/part-of: quarkuscoffeeshop
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: quarkuscoffeeshop-demo
+    spec:
+      containers:
+        - name: quarkuscoffeeshop-web
+          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-web:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: KAFKA_BOOTSTRAP_SERVERS
+              value: cafe-cluster-kafka-bootstrap:9092
+            - name: REST_URL
+              value: http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.
+            - name: STREAM_URL
+              value:  http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo./dashboard/stream
+            - name: LOYALTY_STREAM_URL
+              value: http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo./dashboard/loyaltystream
+            - name: CORS_ORIGINS
+              value: http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo./,https://quarkuscoffeeshop-web-tls-quarkuscoffeeshop-demo.
+            - name: STORE_ID
+              value: ATLANTA
+---
+# Source: quarkuscoffeeshop-charts/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: quarkuscoffeeshop-majestic-monolith
+  labels:
+    app: quarkuscoffeeshop-majestic-monolith
+    chart: quarkuscoffeeshop-charts-3.5.0
+    release: store-quarkuscoffeeshop-charts
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: quarkuscoffeeshop-majestic-monolith
+  template:
+    metadata:
+      name: quarkuscoffeeshop-majestic-monolith
+      labels:
+        app:  quarkuscoffeeshop-majestic-monolith
+        release: store-quarkuscoffeeshop-charts
+        app.kubernetes.io/component: quarkuscoffeeshop-majestic-monolith
+        app.kubernetes.io/instance: quarkuscoffeeshop-majestic-monolith
+        app.kubernetes.io/part-of: quarkus-cafe
+        quarkus-cafe: ""
+        app.openshift.io/runtime-namespace: quarkuscoffeeshop-demo
+    spec:
+      containers:
+        - name: quarkuscoffeeshop-majestic-monolith
+          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-majestic-monolith:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          env:
+            - name: KAFKA_BOOTSTRAP_URLS
+              value: 'cafe-cluster-kafka-bootstrap:9092'
+            - name: PGSQL_URL
+              value: 'jdbc:postgresql://coffeeshopdb-primary.quarkuscoffeeshop-demo.svc:5432/coffeeshopdb?currentSchema=coffeeshop'
+            - name: PGSQL_URL_KITCHEN
+              value: 'jdbc:postgresql://coffeeshopdb-primary.quarkuscoffeeshop-demo.svc:5432/coffeeshopdb?currentSchema=coffeeshop'
+            - name: PGSQL_URL_BARISTA
+              value: 'jdbc:postgresql://coffeeshopdb-primary.quarkuscoffeeshop-demo.svc:5432/coffeeshopdb?currentSchema=coffeeshop'
+            - name: PGSQL_USER
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: user
+            - name: PGSQL_USER_BARISTA
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: user
+            - name: PGSQL_USER_KITCHEN
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: user
+            - name: PGSQL_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: password
+            - name: PGSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: password
+            - name: PGSQL_PASSWORD_BARISTA
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: password
+            - name: PGSQL_PASSWORD_KITCHEN
+              valueFrom:
+                secretKeyRef:
+                  name: coffeeshopdb-pguser-coffeeshopuser
+                  key: password
+            - name: LOG_SQL
+              value: 'true'
+            - name: QUARKUS_LOG_LEVEL
+              value: INFO
+            - name: QUARKUSCOFFEESHOP_LOG_LEVEL
+              value: DEBUG
+            - name: REST_URL
+              value: http://quarkuscoffeeshop-majestic-monolith-quarkuscoffeeshop-demo.
+            - name: STREAM_URL
+              value:  http://quarkuscoffeeshop-majestic-monolith-quarkuscoffeeshop-demo./dashboard/stream
+            - name: LOYALTY_STREAM_URL
+              value: http://quarkuscoffeeshop-majestic-monolith-quarkuscoffeeshop-demo./dashboard/loyaltystream
+            - name: CORS_ORIGINS
+              value: http://quarkuscoffeeshop-majestic-monolith-quarkuscoffeeshop-demo./,https://quarkuscoffeeshop-majestic-monolith-tls-quarkuscoffeeshop-demo.
+            - name: STORE_ID
+              value: ATLANTA
+---
+# Source: quarkuscoffeeshop-charts/templates/route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: quarkuscoffeeshop-web
+spec:
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: quarkuscoffeeshop-web
+#---
+#apiVersion: route.openshift.io/v1
+#kind: Route
+#metadata:
+#  name: quarkuscoffeeshop-web-tls
+#spec:
+#  port:
+#    targetPort: 8080-tcp
+#  to:
+#    kind: Service
+#    name: quarkuscoffeeshop-web
+#  tls:
+#    termination: edge
+#---
+#apiVersion: route.openshift.io/v1
+#kind: Route
+#metadata:
+#  name: quarkuscoffeeshop-mm
+#spec:
+#  port:
+#    targetPort: 8080-tcp
+#  to:
+#    kind: Service
+#    name: quarkuscoffeeshop-mm
+#---
+#apiVersion: route.openshift.io/v1
+#kind: Route
+#metadata:
+#  name: quarkuscoffeeshop-mm-tls
+#spec:
+#  port:
+#    targetPort: 8080-tcp
+#  to:
+#    kind: Service
+#    name: quarkuscoffeeshop-mm
+#  tls:
+#    termination: edge
+---
+# Source: quarkuscoffeeshop-charts/templates/route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: quarkuscoffeeshop-customermocker
+spec:
+  port:
+    targetPort: 8080-tcp
+  to:
+    kind: Service
+    name: quarkuscoffeeshop-customermocker
+---
+# Source: quarkuscoffeeshop-charts/templates/tests/test-connection.yaml
+apiVersion: v1
+kind: Pod
+metadata:
+  name: "store-quarkuscoffeeshop-charts-test-connection"
+  labels:
+    helm.sh/chart: quarkuscoffeeshop-charts-3.5.0
+    app.kubernetes.io/name: quarkuscoffeeshop-charts
+    app.kubernetes.io/instance: store-quarkuscoffeeshop-charts
+    app.kubernetes.io/version: "5.0.3"
+    app.kubernetes.io/managed-by: Helm
+  annotations:
+    "helm.sh/hook": test-success
+spec:
+  containers:
+    - name: wget
+      image: busybox
+      command: ['wget']
+      args: ['store-quarkuscoffeeshop-charts:80']
+  restartPolicy: Never

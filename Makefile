@@ -33,7 +33,7 @@ common-test:
 test:
 	make -f common/Makefile CHARTS="$(wildcard charts/all/*)" PATTERN_OPTS="-f values-global.yaml -f values-hub.yaml" test
 	make -f common/Makefile CHARTS="$(wildcard charts/hub/*)" PATTERN_OPTS="-f values-global.yaml -f values-hub.yaml" test
-	#make -f common/Makefile CHARTS="$(wildcard charts/region/*)" PATTERN_OPTS="-f values-region-one.yaml" test
+	make -f common/Makefile CHARTS="$(wildcard charts/store/*)" PATTERN_OPTS="-f values-global.yaml -f values-hub.yaml" test
 
 helmlint:
 	# no regional charts just yet: "$(wildcard charts/region/*)"
@@ -41,8 +41,9 @@ helmlint:
 
 .PHONY: kubeval
 kubeconform:
-	make -f common/Makefile CHARTS="$(wildcard charts/all/*)" kubeconform
-	make -f common/Makefile CHARTS="$(wildcard charts/hub/*)" kubeconform
+	make -f common/Makefile KUBECONFORM_SKIP='-skip PostgresCluster,Kafka,KafkaMirrorMaker' CHARTS="$(wildcard charts/all/*)" kubeconform
+	make -f common/Makefile KUBECONFORM_SKIP='-skip Task,TaskRun,Pipeline,PipelineResource,PipelineRun' CHARTS="$(wildcard charts/hub/*)" kubeconform
+	make -f common/Makefile CHARTS="$(wildcard charts/store/*)" kubeconform
 
 super-linter: ## Runs super linter locally
 	make -f common/Makefile DISABLE_LINTERS="-e VALIDATE_ANSIBLE=false" super-linter
