@@ -18,19 +18,21 @@ data:
             <h1>
             <a href="http://quarkuscoffeeshop-web-coffeeshop-store.apps.region.example.com">Store Web Page</a>
             <hr/>
+            <a href="http://kafdrop-coffeeshop-store.apps.region.example.com">Kafdrop Kafka WebUI for Store</a>
+            <hr/>
             <a href="https://quarkuscoffeeshop-homeoffice-ui-coffeeshop-homeoffice.apps.region.example.com">Homeoffice Analytics Web Page</a>
             <hr/>
             <a href="http://kafdrop-coffeeshop-homeoffice.apps.hub.example.com">Kafdrop Kafka WebUI for Homeoffice</a>
-            <hr/>
-            <a href="http://kafdrop-coffeeshop-store.apps.region.example.com">Kafdrop Kafka WebUI for Store</a>
             </h1>
             <hr/>
+            <h2>
             <a href="http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.apps.hub.example.com">TEST Web Page</a>
             <hr/>
             <a href="https://quarkuscoffeeshop-homeoffice-ui-quarkuscoffeeshop-demo.apps.hub.example.com">TEST Homeoffice Analytics Web Page</a>
             <hr/>
             <a href="http://kafdrop-quarkuscoffeeshop-demo.apps.region.example.com">TEST Kafdrop Kafka WebUI </a>
             <hr/>
+            </h2>
           </body>
       </html>
 ---

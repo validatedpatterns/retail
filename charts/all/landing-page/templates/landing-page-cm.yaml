@@ -16,18 +16,20 @@ data:
             <h1>
             <a href="http://quarkuscoffeeshop-web-coffeeshop-store.{{ .Values.global.localClusterDomain }}">Store Web Page</a>
             <hr/>
+            <a href="http://kafdrop-coffeeshop-store.{{ .Values.global.localClusterDomain }}">Kafdrop Kafka WebUI for Store</a>
+            <hr/>
             <a href="https://quarkuscoffeeshop-homeoffice-ui-coffeeshop-homeoffice.{{ .Values.global.localClusterDomain }}">Homeoffice Analytics Web Page</a>
             <hr/>
             <a href="http://kafdrop-coffeeshop-homeoffice.{{ .Values.global.hubClusterDomain }}">Kafdrop Kafka WebUI for Homeoffice</a>
-            <hr/>
-            <a href="http://kafdrop-coffeeshop-store.{{ .Values.global.localClusterDomain }}">Kafdrop Kafka WebUI for Store</a>
             </h1>
             <hr/>
+            <h2>
             <a href="http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.{{ .Values.global.hubClusterDomain }}">TEST Web Page</a>
             <hr/>
             <a href="https://quarkuscoffeeshop-homeoffice-ui-quarkuscoffeeshop-demo.{{ .Values.global.hubClusterDomain }}">TEST Homeoffice Analytics Web Page</a>
             <hr/>
             <a href="http://kafdrop-quarkuscoffeeshop-demo.{{ .Values.global.localClusterDomain }}">TEST Kafdrop Kafka WebUI </a>
             <hr/>
+            </h2>
           </body>
       </html>
