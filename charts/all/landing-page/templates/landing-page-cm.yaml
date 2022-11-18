@@ -24,7 +24,7 @@ data:
             </h1>
             <hr/>
             <h2>
-            <a href="http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.{{ .Values.global.hubClusterDomain }}">TEST Web Page</a>
+            <a href="http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.{{ .Values.global.hubClusterDomain }}">TEST Store Web Page</a>
             <hr/>
             <a href="https://quarkuscoffeeshop-homeoffice-ui-quarkuscoffeeshop-demo.{{ .Values.global.hubClusterDomain }}">TEST Homeoffice Analytics Web Page</a>
             <hr/>
