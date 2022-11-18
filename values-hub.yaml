@@ -99,7 +99,7 @@ clusterGroup:
       path: charts/hub/quarkuscoffeeshop-homeoffice-charts
       overrides:
         - name: projectnamespace
-          value: "coffeeshop-demo"
+          value: "quarkuscoffeeshop-demo"
 
     coffeeshopdb-test:
       name: quarkuscoffeeshopdb-demo
