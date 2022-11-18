@@ -102,6 +102,16 @@ dbInitSQL: |-
   grant all on all tables in schema "kitchen" to coffeeshopuser;
   grant all on all tables in schema "kitchen" to coffeeshopadmin;
 
+  DROP SCHEMA IF EXISTS homeoffice;
+  CREATE SCHEMA homeoffice;
+  DROP SCHEMA IF EXISTS coffeeshop;
+  CREATE SCHEMA coffeeshop;
+  DROP SCHEMA IF EXISTS coffeeshop-backend;
+  CREATE SCHEMA coffeeshop-backend;
+  GRANT ALL on ALL TABLES in SCHEMA "homeoffice" to homeofficeuser;
+  GRANT ALL on ALL TABLES in SCHEMA "coffeeshop" to homeofficeuser;
+  GRANT ALL on ALL TABLES in SCHEMA "coffeeshop-backend" to homeofficeuser;
+
   \c homeofficedb;
   DROP SCHEMA IF EXISTS homeoffice;
   CREATE SCHEMA homeoffice;

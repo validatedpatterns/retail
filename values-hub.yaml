@@ -100,6 +100,8 @@ clusterGroup:
       overrides:
         - name: projectnamespace
           value: "quarkuscoffeeshop-demo"
+        - name: pgsql_dbname
+          value: "coffeeshopdb"
 
     coffeeshopdb-test:
       name: quarkuscoffeeshopdb-demo
