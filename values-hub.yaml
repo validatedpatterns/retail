@@ -92,19 +92,31 @@ clusterGroup:
         - name: storeid
           value: TEST
 
+    coffeeshop-homeoffice-test:
+      name: coffeeshop-homeoffice-test
+      namespace: coffeeshop-demo
+      project: coffeeshop-demo
+      path: charts/hub/quarkuscoffeeshop-homeoffice-charts
+      overrides:
+        - name: projectnamespace
+          value: "coffeeshop-demo"
+
     coffeeshopdb-test:
       name: quarkuscoffeeshopdb-demo
       namespace: quarkuscoffeeshop-demo
       project: quarkuscoffeeshop-demo
       path: charts/all/crunchy-pgcluster
       extraValueFiles:
-        - /values-db-store.yaml
+        - /values-db-test.yaml
 
     coffeeshop-test-kafka:
       name: coffeeshop-test-kafka
       namespace: quarkuscoffeeshop-demo
       project: quarkuscoffeeshop-demo
       path: charts/all/quarkuscoffeeshop-kafka
+      overrides:
+        - name: mirrorMaker.enabled
+          value: "false"
 
     # Homeoffice coffeeshop (hub)
     coffeeshop-homeoffice:
