@@ -24,6 +24,13 @@ data:
             <hr/>
             <a href="http://kafdrop-coffeeshop-store.apps.region.example.com">Kafdrop Kafka WebUI for Store</a>
             </h1>
+            <hr/>
+            <a href="http://quarkuscoffeeshop-web-quarkuscoffeeshop-demo.apps.hub.example.com">TEST Web Page</a>
+            <hr/>
+            <a href="https://quarkuscoffeeshop-homeoffice-ui-quarkuscoffeeshop-demo.apps.hub.example.com">TEST Homeoffice Analytics Web Page</a>
+            <hr/>
+            <a href="http://kafdrop-quarkuscoffeeshop-demo.apps.region.example.com">TEST Kafdrop Kafka WebUI </a>
+            <hr/>
           </body>
       </html>
 ---
