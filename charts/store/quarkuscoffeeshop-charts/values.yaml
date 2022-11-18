@@ -34,46 +34,51 @@ Release:
   Name: quarkuscoffeeshop-deployment
   release-namespace: quarkuscoffeeshop-demo
 
-homeofficeBackend:
-  revision: main
-  imageTag: latest
+global:
+  imageregistry:
+    hostname: quay.io
+    account: hybridcloudpatterns
 
-homeofficeIngress:
-  revision: master
-  imageTag: latest
+  homeofficeBackend:
+    revision: main
+    imageTag: latest
 
-homeofficeUI:
-  revision: master
-  imageTag: latest
+  homeofficeIngress:
+    revision: master
+    imageTag: latest
 
-quarkuscoffeeshopBarista:
-  revision: main
-  imageTag: latest
+  homeofficeUI:
+    revision: master
+    imageTag: latest
 
-quarkuscoffeeshopCounter:
-  revision: 5.0.3-SNAPSHOT
-  imageTag: latest
+  quarkuscoffeeshopBarista:
+    revision: main
+    imageTag: latest
 
-quarkuscoffeeshopCustomermocker:
-  revision: master
-  imageTag: latest
+  quarkuscoffeeshopCounter:
+    revision: 5.0.3-SNAPSHOT
+    imageTag: latest
 
-quarkuscoffeeshopInventory:
-  revision: '5.0.0-SNAPSHOT'
-  imageTag: latest
+  quarkuscoffeeshopCustomermocker:
+    revision: master
+    imageTag: latest
 
-quarkuscoffeeshopKitchen:
-  revision: main
-  # revision: '5.0.0-SNAPSHOT'
-  imageTag: latest
+  quarkuscoffeeshopInventory:
+    revision: '5.0.0-SNAPSHOT'
+    imageTag: latest
 
-quarkuscoffeeshopMajesticMonolith:
-  revision: master
-  imageTag: latest
+  quarkuscoffeeshopKitchen:
+    revision: main
+    # revision: '5.0.0-SNAPSHOT'
+    imageTag: latest
 
-quarkuscoffeeshopWeb:
-  revision: '5.0.3-SNAPSHOT'
-  imageTag: latest
+  quarkuscoffeeshopMajesticMonolith:
+    revision: master
+    imageTag: latest
+
+  quarkuscoffeeshopWeb:
+    revision: '5.0.3-SNAPSHOT'
+    imageTag: latest
 
 replicaCount: 1
 
