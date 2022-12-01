@@ -122,12 +122,12 @@ spec:
         app.openshift.io/runtime-namespace: quarkuscoffeeshop-demo
     spec:
       containers:
-        - name: homeoffice-ingress
+        - name: homeoffice-ui
           image: quay.io/hybrid-cloud-patterns-demo/quarkuscoffeeshop-homeoffice-ui:latest
           imagePullPolicy: Always
           env:
             - name: REACT_APP_GRAPHQL_ENDPOINT
-              value: 'http://quarkuscoffeeshop-backend.coffeeshop-homeoffice.svc:8080/graphql'
+              value: 'http://quarkuscoffeeshop-backend.coffeeshop-homeoffice.svc:8080/graphql-ui'
 ---
 # Source: quarkuscoffeeshop-homeoffice-charts/templates/deployment.yaml
 apiVersion: apps/v1

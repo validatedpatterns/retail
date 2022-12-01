@@ -70,12 +70,12 @@ spec:
         app.openshift.io/runtime-namespace: {{ .Values.projectnamespace }}
     spec:
       containers:
-        - name: homeoffice-ingress
+        - name: homeoffice-ui
           image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-homeoffice-ui:{{ .Values.global.homeofficeUI.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
             - name: REACT_APP_GRAPHQL_ENDPOINT
-              value: 'http://quarkuscoffeeshop-backend.coffeeshop-homeoffice.svc:8080/graphql'
+              value: 'http://quarkuscoffeeshop-backend.coffeeshop-homeoffice.svc:8080/graphql-ui'
 ---
 apiVersion: apps/v1
 kind: Deployment
