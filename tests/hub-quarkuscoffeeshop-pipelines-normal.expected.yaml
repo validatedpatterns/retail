@@ -2211,7 +2211,7 @@ spec:
   - name: url
     value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-homeoffice-ui
   - name: revision
-    value: "fixbuild"
+    value: "main"
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-homeoffice-ui/resources/image-pipeline-resource.yaml
 apiVersion: tekton.dev/v1alpha1
