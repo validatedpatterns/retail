@@ -1,7 +1,7 @@
 #!/bin/bash
 
 build_ns=quarkuscoffeeshop-cicd
-pipelines=('build-and-push-homeoffice-backend' 'build-and-push-homeoffice-ingress' 'build-and-push-quarkuscoffeeshop-barista' 'build-and-push-quarkuscoffeeshop-counter' 'build-and-push-quarkuscoffeeshop-customerloyalty' 'build-and-push-quarkuscoffeeshop-customermocker' 'build-and-push-quarkuscoffeeshop-homeoffice-ui' 'build-and-push-quarkuscoffeeshop-inventory' 'build-and-push-quarkuscoffeeshop-kitchen' 'build-and-push-quarkuscoffeeshop-majestic-monolith' 'build-and-push-quarkuscoffeeshop-web')
+pipelines=('build-and-push-quarkuscoffeeshop-barista' 'build-and-push-quarkuscoffeeshop-counter' 'build-and-push-quarkuscoffeeshop-customerloyalty' 'build-and-push-quarkuscoffeeshop-customermocker' 'build-and-push-quarkuscoffeeshop-inventory' 'build-and-push-quarkuscoffeeshop-kitchen' 'build-and-push-quarkuscoffeeshop-majestic-monolith' 'build-and-push-quarkuscoffeeshop-web')
 
 echo "Checking for resources to be available to start pipelines"
 retry=0
