@@ -1,6 +1,0 @@
-apiVersion: v2
-description: A Helm chart to distribute secrets around a cluster
-keywords:
-- pattern
-name: quarkuscoffeeshop-secret-policies
-version: 0.0.1

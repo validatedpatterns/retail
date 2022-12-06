@@ -12,16 +12,6 @@ global:
     hostname: quay.io
     type: quay
 
-  homeofficeBackend:
-    revision: main
-
-  homeofficeIngress:
-    revision: master
-
-  homeofficeUI:
-    revision: main
-    imageTag: latest
-
   quarkuscoffeeshopBarista:
     revision: main
 
