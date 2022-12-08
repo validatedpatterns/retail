@@ -236,42 +236,6 @@ spec:
       storage: 5Gi
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/pipeline-sa.yaml
-# The s2i tasks need privileged SCC to run
-kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: pipelines-scc-clusterrole
-  namespace: quarkuscoffeeshop-cicd
-rules:
-  - apiGroups:
-    - security.openshift.io
-    resourceNames:
-      - pipelines-scc
-      - privileged
-    resources:
-      - securiycontextconstraints
-    verbs:
-      - use
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/pipeline-sa.yaml
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: pipeline-edit
-  namespace: openshift
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: edit
-subjects:
-  - kind: ServiceAccount
-    name: pipeline
-    namespace: quarkuscoffeeshop-cicd
-  #- kind: ServiceAccount
-  #  name: pipeline
-  #  namespace: quarkuscoffeeshop-demo
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/sa/pipeline-sa.yaml
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:

@@ -9,23 +9,6 @@ metadata:
 secrets:
   - name: quay-auth-secret
 ---
-apiVersion: rbac.authorization.k8s.io/v1
-kind: RoleBinding
-metadata:
-  name: pipeline-edit
-  namespace: openshift
-roleRef:
-  apiGroup: rbac.authorization.k8s.io
-  kind: ClusterRole
-  name: edit
-subjects:
-  - kind: ServiceAccount
-    name: pipeline
-    namespace: {{ .Values.buildNamespace }}
-  #- kind: ServiceAccount
-  #  name: pipeline
-  #  namespace: quarkuscoffeeshop-demo
----
 kind: RoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
@@ -39,20 +22,3 @@ roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
   name: admin
----
-# The s2i tasks need privileged SCC to run
-kind: ClusterRole
-apiVersion: rbac.authorization.k8s.io/v1
-metadata:
-  name: pipelines-scc-clusterrole
-  namespace: {{ .Values.buildNamespace }}
-rules:
-  - apiGroups:
-    - security.openshift.io
-    resourceNames:
-      - pipelines-scc
-      - privileged
-    resources:
-      - securiycontextconstraints
-    verbs:
-      - use
