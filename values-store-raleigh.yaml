@@ -12,12 +12,10 @@ clusterGroup:
     amqstreams:
       name: amq-streams
       namespace: openshift-operators
-      channel: stable
 
     crunchypgo:
       name: crunchy-postgres-operator
       namespace: openshift-operators
-      channel: v5
       source: certified-operators
 
   projects:
