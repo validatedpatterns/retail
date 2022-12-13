@@ -12,8 +12,8 @@ help:
 install upgrade: operator-deploy post-install ## installs the pattern, inits the vault and loads the secrets
 	echo "Installed"
 
-legacy-install legacy-upgrade: deploy post-install ## installs the pattern, inits the vault and loads the secrets
-	echo "Installed (legacy)"
+install-no-pipelines: operator-deploy
+	echo "Installed without pipeline setup"
 
 post-install:
 	@if grep -v -e '^\s\+#' "values-hub.yaml" | grep -q -e "insecureUnsealVaultInsideCluster:\s\+true"; then \
