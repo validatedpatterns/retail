@@ -2,23 +2,28 @@
 default: help
 
 .PHONY: help
-# No need to add a comment here as help is described in common/
+##@ Pattern tasks
 help:
-	@printf "$$(grep -hE '^\S+:.*##' $(MAKEFILE_LIST) common/Makefile | sort | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\\x1b[36m\1\\x1b[m:\2/' | column -c2 -t -s :)\n"
+	@make -f common/Makefile MAKEFILE_LIST="Makefile common/Makefile" help
+
 
 %:
 	make -f common/Makefile $*
 
-install upgrade: operator-deploy post-install ## installs the pattern, inits the vault and loads the secrets
+.PHONY: install upgrade
+install upgrade: operator-deploy post-install ## installs the pattern, loads the secrets and starts the pipelines
 	echo "Installed"
 
-install-no-pipelines: operator-deploy
+.PHONY: install-no-pipelines
+install-no-pipelines: operator-deploy ## installs the pattern
 	echo "Installed without pipeline setup"
 
+.PHONY: post-install
 post-install:
 	make load-secrets
 	make start-pipelines
 
+.PHONY: start-pipelines
 start-pipelines:
 	./scripts/start_pipelines.sh
 
