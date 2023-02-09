@@ -2,48 +2,37 @@
 default: help
 
 .PHONY: help
-# No need to add a comment here as help is described in common/
+##@ Pattern tasks
 help:
-	@printf "$$(grep -hE '^\S+:.*##' $(MAKEFILE_LIST) common/Makefile | sort | sed -e 's/:.*##\s*/:/' -e 's/^\(.\+\):\(.*\)/\\x1b[36m\1\\x1b[m:\2/' | column -c2 -t -s :)\n"
+	@make -f common/Makefile MAKEFILE_LIST="Makefile common/Makefile" help
+
 
 %:
 	make -f common/Makefile $*
 
-install upgrade: operator-deploy post-install ## installs the pattern, inits the vault and loads the secrets
+.PHONY: install upgrade
+install upgrade: operator-deploy post-install ## installs the pattern, loads the secrets and starts the pipelines
 	echo "Installed"
 
-install-no-pipelines: operator-deploy
+.PHONY: install-no-pipelines
+install-no-pipelines: operator-deploy ## installs the pattern
 	echo "Installed without pipeline setup"
 
+.PHONY: post-install
 post-install:
-	@if grep -v -e '^\s\+#' "values-hub.yaml" | grep -q -e "insecureUnsealVaultInsideCluster:\s\+true"; then \
-	  echo "Skipping 'make vault-init' as we're unsealing the vault from inside the cluster"; \
-	else \
-	  make vault-init; \
-	fi
 	make load-secrets
 	make start-pipelines
 
+.PHONY: start-pipelines
 start-pipelines:
 	./scripts/start_pipelines.sh
 
-common-test:
-	make -C common -f common/Makefile test
-
+.PHONY: test
 test:
-	make -f common/Makefile CHARTS="$(wildcard charts/all/*)" PATTERN_OPTS="-f values-global.yaml -f values-hub.yaml" test
-	make -f common/Makefile CHARTS="$(wildcard charts/hub/*)" PATTERN_OPTS="-f values-global.yaml -f values-hub.yaml" test
-	make -f common/Makefile CHARTS="$(wildcard charts/store/*)" PATTERN_OPTS="-f values-global.yaml -f values-hub.yaml" test
+	@make -f common/Makefile PATTERN_OPTS="-f values-global.yaml -f values-hub.yaml" test
 
-helmlint:
-	# no regional charts just yet: "$(wildcard charts/region/*)"
-	@for t in "$(wildcard charts/*/*)"; do helm lint $$t; if [ $$? != 0 ]; then exit 1; fi; done
-
-.PHONY: kubeval
+.PHONY: kubeconform
 kubeconform:
 	make -f common/Makefile KUBECONFORM_SKIP='-skip PostgresCluster,Kafka,KafkaMirrorMaker' CHARTS="$(wildcard charts/all/*)" kubeconform
 	make -f common/Makefile KUBECONFORM_SKIP='-skip Task,TaskRun,Pipeline,PipelineResource,PipelineRun' CHARTS="$(wildcard charts/hub/*)" kubeconform
 	make -f common/Makefile CHARTS="$(wildcard charts/store/*)" kubeconform
-
-super-linter: ## Runs super linter locally
-	make -f common/Makefile DISABLE_LINTERS="-e VALIDATE_ANSIBLE=false" super-linter
