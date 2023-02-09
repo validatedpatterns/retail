@@ -32,17 +32,6 @@ vault_hub_ttl: "15m"
 vault_pki_max_lease_ttl: "8760h"
 external_secrets_ns: golang-external-secrets
 external_secrets_sa: golang-external-secrets
-```
-
-Use the local file system (output_file variable) to store the vault's unseal keys.
-If set to false they will be stored inside a secret defined by `unseal_secret`
-in the `imperative` namespace:
-
-```yaml
-file_unseal: true
-# token inside a secret in the cluster.
-# *Note* that this is fundamentally unsafe
-output_file: "common/pattern-vault.init"
 unseal_secret: "vaultkeys"
 unseal_namespace: "imperative"
 ```
@@ -56,7 +45,8 @@ This relies on [kubernetes.core](https://docs.ansible.com/ansible/latest/collect
 Currently this role supports two formats: version 1.0 (which is the assumed default when not specified) and version 2.0.
 The latter is more fatureful and supports generating secrets directly into the vault and also prompting the user for a secret.
 By default, the first file that will looked up is `~/values-secret-<patternname>.yaml` and should that not exist it will look
-for `~/values-secret.yaml`.
+for `~/values-secret.yaml`. The paths can be overridden by setting the environment variable `VALUES_SECRET` to the path of the
+secret file.
 
 The values secret yaml files can be encrypted with `ansible-vault`. If the role detects they are encrypted, the password to
 decrypt them will be prompted when needed.
@@ -81,17 +71,6 @@ secrets:
   # This ends up as the s3Secret attribute to the path secret/hub/aws
   aws:
     s3Secret: test-secret
-
-  # The cluster_xxxx pattern is used for creating externalSecrets that
-  # will be used by ArgoCD to push manifests to other clusters.
-  #
-  # Create a service account with enough permissions and extract the token
-  #
-  # CLUSTER_TOKEN=$(oc describe secret -n default argocd-external-token | grep 'token:' | awk '{print$2}')
-  # CLUSTER_CA=$(oc extract -n openshift-config cm/kube-root-ca.crt --to=- --keys=ca.crt | base64 | awk '{print}' ORS='')
-  cluster_example:
-    server: https://api.example.openshiftapps.com:6443
-    bearerToken: <bearer_token>
 
 # This will create the vault key secret/hub/testfoo which will have two
 # properties 'b64content' and 'content' which will be the base64-encoded
@@ -210,6 +189,18 @@ secrets:
     - name: ca_crt
       path: /tmp/ca.crt
       onMissingValue: error # One of error, prompt (for path). generate makes no sense for file
+
+  # The following will read the ini-file at ~/.aws/credentials and place the ini_key "[default]/aws_access_key_id"
+  # in the aws_access_key_id_test vault attribute in the secret/hub/awsexample path
+  - name: awsexample
+    fields:
+    - name: aws_access_key_id_test
+      ini_file: ~/.aws/credentials
+      ini_section: default
+      ini_key: aws_access_key_id
+    - name: aws_secret_access_key_test
+      ini_file: ~/.aws/credentials
+      ini_key: aws_secret_access_key
 ```
 
 Internals
@@ -218,11 +209,9 @@ Internals
 Here is the rough high-level algorithm used to unseal the vault:
 
 1. Check vault status. If vault is not initialized go to 2. If initialized go to 3.
-2. Initialize vault and store unseal keys + login token either on a local file
-   or inside a secret in k8s (file_unseal var controls this)
+2. Initialize vault and store unseal keys + login token inside a secret in k8s
 3. Check vault status. If vault is unsealed go to 5. else to to 4.
-4. Unseal the vault using the secrets read from the file or the secret
-   (file_unseal controls this)
+4. Unseal the vault using the secrets read from the k8s secret
 5. Configure the vault (should be idempotent)
 
 ## License
