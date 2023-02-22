@@ -9,9 +9,9 @@ global:
 
   git:
     hostname: github.com
-    account: hybrid-cloud-demos
-    username: hybrid-cloud-demos
-    email: SOMEWHERE@EXAMPLE.COM
+    account: karuppucs
+    username: karuppusamy.m@tcs.com
+    email: karuppusamy.m@tcs.com
     dev_revision: main
 
   imageregistry:
