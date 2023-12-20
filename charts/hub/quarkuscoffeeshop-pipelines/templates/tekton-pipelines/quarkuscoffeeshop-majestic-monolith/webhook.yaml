@@ -1,6 +1,6 @@
 {{ if .Values.enableWebhookSecret }}
 ---
-apiVersion: triggers.tekton.dev/v1alpha1
+apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerTemplate
 metadata:
   name: quarkuscoffeeshop-majestic-monolith-build-triggertemplate
@@ -12,7 +12,7 @@ spec:
     - name: gitrepositoryurl
       description: The git repository url
   resourcetemplates:
-    - apiVersion: tekton.dev/v1alpha1
+    - apiVersion: tekton.dev/v1beta1
       kind: PipelineResource
       metadata:
         name: quarkuscoffeeshop-majestic-monolith-git-$(uid)
@@ -25,7 +25,7 @@ spec:
           value: $(params.gitrepositoryurl)
         - name: sslVerify
           value: "false"
-    - apiVersion: tekton.dev/v1alpha1
+    - apiVersion: tekton.dev/v1beta1
       kind: PipelineRun
       metadata:
         name: build-and-push-quarkuscoffeeshop-majestic-monolith-$(uid)
@@ -51,7 +51,7 @@ spec:
           - name: image
             type: image
 ---
-apiVersion: triggers.tekton.dev/v1alpha1
+apiVersion: triggers.tekton.dev/v1beta1
 kind: TriggerBinding
 metadata:
   name: quarkuscoffeeshop-majestic-monolith-github-triggerbinding
@@ -64,7 +64,7 @@ spec:
   - name: git-revision
     value: $(body.head_commit.id)
 ---
-apiVersion: triggers.tekton.dev/v1alpha1
+apiVersion: triggers.tekton.dev/v1beta1
 kind: Trigger
 metadata:
   name: git-quarkuscoffeeshop-majestic-monolith-trigger
@@ -75,7 +75,7 @@ spec:
   template:
     ref: quarkuscoffeeshop-majestic-monolith-build-triggertemplate
 ---
-apiVersion: triggers.tekton.dev/v1alpha1
+apiVersion: triggers.tekton.dev/v1beta1
 kind: EventListener
 metadata:
   name: quarkuscoffeeshop-majestic-monolith-webhook

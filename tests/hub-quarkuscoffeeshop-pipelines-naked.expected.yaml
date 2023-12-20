@@ -264,7 +264,7 @@ spec:
       key: secret/data/hub/imageregistry
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-barista/pipeline/deploy-pipeline.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: build-and-push-quarkuscoffeeshop-barista
@@ -382,7 +382,7 @@ spec:
     - name: maven-settings
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-counter/pipeline/deploy-pipeline.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: build-and-push-quarkuscoffeeshop-counter
@@ -500,7 +500,7 @@ spec:
     - name: maven-settings
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/pipeline/deploy-pipeline.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: build-and-push-quarkuscoffeeshop-customerloyalty
@@ -618,7 +618,7 @@ spec:
     - name: maven-settings
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/pipeline/deploy-pipeline.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: build-and-push-quarkuscoffeeshop-customermocker
@@ -736,7 +736,7 @@ spec:
     - name: maven-settings
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-inventory/pipeline/deploy-pipeline.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: build-and-push-quarkuscoffeeshop-inventory
@@ -854,7 +854,7 @@ spec:
     - name: maven-settings
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/pipeline/deploy-pipeline.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: build-and-push-quarkuscoffeeshop-kitchen
@@ -972,7 +972,7 @@ spec:
     - name: maven-settings
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pipeline/deploy-pipeline.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: build-and-push-quarkuscoffeeshop-majestic-monolith
@@ -1091,7 +1091,7 @@ spec:
     - name: maven-settings
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/pipeline/deploy-to-edge-pipeline.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: build-and-push-to-edge
@@ -1302,7 +1302,7 @@ spec:
     - name: maven-settings
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-web/pipeline/deploy-pipeline.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: build-and-push-quarkuscoffeeshop-web
@@ -1420,7 +1420,7 @@ spec:
     - name: maven-settings
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-barista/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-barista-git
@@ -1433,7 +1433,7 @@ spec:
     value: https://github.com/quarkuscoffeeshop/quarkuscoffeeshop-barista
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-barista/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-barista-image
@@ -1446,7 +1446,7 @@ spec:
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-barista
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-counter/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-counter-git
@@ -1461,7 +1461,7 @@ spec:
     value: "5.0.3-SNAPSHOT"
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-counter/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-counter-image
@@ -1474,7 +1474,7 @@ spec:
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-customerloyalty-git
@@ -1487,7 +1487,7 @@ spec:
     value: https://github.com/hybrid-cloud-demos/customerloyalty
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-customerloyalty-image
@@ -1500,7 +1500,7 @@ spec:
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customerloyalty
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-customermocker-git
@@ -1516,7 +1516,7 @@ spec:
     value: "master"
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-customermocker-image
@@ -1530,7 +1530,7 @@ spec:
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-inventory/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-inventory-git
@@ -1545,7 +1545,7 @@ spec:
     value: "5.0.0-SNAPSHOT"
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-inventory/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-inventory-image
@@ -1558,7 +1558,7 @@ spec:
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-inventory
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-kitchen-git
@@ -1573,7 +1573,7 @@ spec:
     value: "main"
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-kitchen-image
@@ -1586,7 +1586,7 @@ spec:
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-kitchen
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-majestic-monolith-git
@@ -1602,7 +1602,7 @@ spec:
     value: "master"
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-majestic-monolith-image
@@ -1616,7 +1616,7 @@ spec:
     value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-web/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-web-git
@@ -1631,7 +1631,7 @@ spec:
     value: "5.0.3-SNAPSHOT"
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-web/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: PipelineResource
 metadata:
   name: quarkuscoffeeshop-web-image
