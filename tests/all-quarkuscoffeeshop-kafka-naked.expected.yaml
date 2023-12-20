@@ -90,7 +90,7 @@ spec:
         tls: true
     config:
       default.replication.factor: 3
-      inter.broker.protocol.version: '3.1'
+      inter.broker.protocol.version: '3.5'
       min.insync.replicas: 2
       offsets.topic.replication.factor: 3
       transaction.state.log.min.isr: 2
