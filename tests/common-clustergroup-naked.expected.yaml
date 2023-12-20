@@ -1,5 +1,5 @@
 ---
-# Source: pattern-clustergroup/templates/imperative/namespace.yaml
+# Source: clustergroup/templates/imperative/namespace.yaml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -8,7 +8,7 @@ metadata:
     argocd.argoproj.io/managed-by: common-example
   name: imperative
 ---
-# Source: pattern-clustergroup/templates/plumbing/gitops-namespace.yaml
+# Source: clustergroup/templates/plumbing/gitops-namespace.yaml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -21,14 +21,14 @@ metadata:
   name: common-example
 spec: {}
 ---
-# Source: pattern-clustergroup/templates/imperative/serviceaccount.yaml
+# Source: clustergroup/templates/imperative/serviceaccount.yaml
 apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: imperative-sa
   namespace: imperative
 ---
-# Source: pattern-clustergroup/templates/imperative/configmap.yaml
+# Source: clustergroup/templates/imperative/configmap.yaml
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -38,12 +38,15 @@ data:
   values.yaml: |
     clusterGroup:
       applications: {}
+      argoCD:
+        configManagementPlugins: []
+        initContainers: []
       imperative:
         activeDeadlineSeconds: 3600
         clusterRoleName: imperative-cluster-role
         clusterRoleYaml: ""
         cronJobName: imperative-cronjob
-        image: registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest
+        image: registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel9:latest
         imagePullPolicy: Always
         insecureUnsealVaultInsideClusterSchedule: '*/5 * * * *'
         jobName: imperative-job
@@ -61,11 +64,14 @@ data:
       name: example
       namespaces: []
       projects: []
+      sharedValueFiles: []
       subscriptions: {}
       targetCluster: in-cluster
     enabled: all
     global:
+      extraValueFiles: []
       options:
+        applicationRetryLimit: 20
         installPlanApproval: Automatic
         syncPolicy: Automatic
         useCSV: true
@@ -75,7 +81,7 @@ data:
       kind: ClusterSecretStore
       name: vault-backend
 ---
-# Source: pattern-clustergroup/templates/imperative/clusterrole.yaml
+# Source: clustergroup/templates/imperative/clusterrole.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -90,7 +96,7 @@ rules:
     - list
     - watch
 ---
-# Source: pattern-clustergroup/templates/imperative/rbac.yaml
+# Source: clustergroup/templates/imperative/rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -104,7 +110,7 @@ subjects:
     name: imperative-sa
     namespace: imperative
 ---
-# Source: pattern-clustergroup/templates/plumbing/argocd-super-role.yaml
+# Source: clustergroup/templates/plumbing/argocd-super-role.yaml
 # WARNING: ONLY USE THIS FOR MANAGING CLUSTERS NOT FOR REGULAR USERS
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -123,7 +129,7 @@ subjects:
     name: openshift-gitops-argocd-server
     namespace: openshift-gitops
 ---
-# Source: pattern-clustergroup/templates/plumbing/argocd-super-role.yaml
+# Source: clustergroup/templates/plumbing/argocd-super-role.yaml
 # WARNING: ONLY USE THIS FOR MANAGING CLUSTERS NOT FOR REGULAR USERS
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
@@ -148,7 +154,7 @@ subjects:
     name: example-gitops-argocd-dex-server
     namespace: common-example
 ---
-# Source: pattern-clustergroup/templates/imperative/role.yaml
+# Source: clustergroup/templates/imperative/role.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
@@ -162,7 +168,7 @@ rules:
     verbs:
     - '*'
 ---
-# Source: pattern-clustergroup/templates/imperative/rbac.yaml
+# Source: clustergroup/templates/imperative/rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
@@ -177,7 +183,7 @@ subjects:
     name: imperative-sa
     namespace: imperative
 ---
-# Source: pattern-clustergroup/templates/imperative/unsealjob.yaml
+# Source: clustergroup/templates/imperative/unsealjob.yaml
 apiVersion: batch/v1
 kind: CronJob
 metadata:
@@ -199,7 +205,7 @@ spec:
             # git init happens in /git/repo so that we can set the folder to 0770 permissions
             # reason for that is ansible refuses to create temporary folders in there            
             - name: git-init
-              image: registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest
+              image: registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel9:latest
               imagePullPolicy: Always
               env:
                 - name: HOME
@@ -207,12 +213,33 @@ spec:
               command:
               - 'sh'
               - '-c'
-              - "mkdir /git/{repo,home};git clone --single-branch --branch main --depth 1 --  /git/repo;chmod 0770 /git/{repo,home}"
+              - >-
+                if ! oc get secrets -n openshift-gitops vp-private-repo-credentials &> /dev/null; then
+                  URL="";
+                else
+                  if ! oc get secrets -n openshift-gitops vp-private-repo-credentials -o go-template='{{index .data.sshPrivateKey | base64decode}}' &>/dev/null; then
+                    U="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{index .data.username | base64decode }}')";
+                    P="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{index .data.password | base64decode }}')";
+                    URL=$(echo  | sed -E "s/(https?:\/\/)/\1${U}:${P}@/");
+                    echo "USER/PASS: ${URL}";
+                  else
+                    S="$(oc get secret -n openshift-gitops vp-private-repo-credentials -o go-template='{{index .data.sshPrivateKey | base64decode }}')";
+                    mkdir -p --mode 0700 "${HOME}/.ssh";
+                    echo "${S}" > "${HOME}/.ssh/id_rsa";
+                    chmod 0600 "${HOME}/.ssh/id_rsa";
+                    URL=$(echo  | sed -E "s/(https?:\/\/)/\1git@/");
+                    git config --global core.sshCommand "ssh -i "${HOME}/.ssh/id_rsa" -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no";
+                    echo "SSH: ${URL}";
+                  fi;
+                fi;
+                mkdir /git/{repo,home};
+                git clone --single-branch --branch main --depth 1 -- "${URL}" /git/repo;
+                chmod 0770 /git/{repo,home};
               volumeMounts:
               - name: git
                 mountPath: "/git"
             - name: unseal-playbook
-              image: registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest
+              image: registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel9:latest
               imagePullPolicy: Always
               env:
                 - name: HOME
@@ -237,7 +264,7 @@ spec:
                   subPath: values.yaml
           containers:            
             - name: "done"
-              image: registry.redhat.io/ansible-automation-platform-22/ee-supported-rhel8:latest
+              image: registry.redhat.io/ansible-automation-platform-24/ee-supported-rhel9:latest
               imagePullPolicy: Always
               command:
                 - 'sh'
@@ -253,7 +280,7 @@ spec:
               name: helm-values-configmap-example
           restartPolicy: Never
 ---
-# Source: pattern-clustergroup/templates/plumbing/argocd.yaml
+# Source: clustergroup/templates/plumbing/argocd.yaml
 apiVersion: argoproj.io/v1alpha1
 kind: ArgoCD
 metadata:
@@ -266,37 +293,30 @@ metadata:
   annotations:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
 spec:
+# Adding health checks to argocd to prevent pvc resources
+# that aren't bound state from blocking deployments
+  resourceHealthChecks:
+  - kind: PersistentVolumeClaim
+    check: |
+      hs = {}
+      if obj.status ~= nil then
+        if obj.status.phase ~= nil then
+          if obj.status.phase == "Pending" then
+            hs.status = "Healthy"
+            hs.message = obj.status.phase
+            return hs
+          elseif obj.status.phase == "Bound" then
+            hs.status = "Healthy"
+            hs.message = obj.status.phase
+            return hs
+          end
+        end
+      end
+      hs.status = "Progressing"
+      hs.message = "Waiting for PVC"
+      return hs
+
   applicationInstanceLabelKey: argocd.argoproj.io/instance
-  # Not the greatest way to pass git/quay info to sub-applications, but it will do until
-  # we can support helmChart with kustomize
-  # The other option is to pass them in as environment variables eg. BLUEPRINT_VERSION
-  configManagementPlugins: |
-    - name: kustomize-version
-      generate:
-        command: ["sh", "-c"]
-        args: ["kustomize version 1>&2 && exit 1"]
-    - name: kustomize-with-helm
-      generate:
-        command: ["kustomize"]
-        args: ["build", "--enable-helm"]
-    - name: helm-with-kustomize
-      init:
-        command: ["/bin/sh", "-c"]
-        args: ["helm dependency build"]
-      generate:
-        command: ["/bin/bash", "-c"]
-        args: ["helm template . --name-template ${ARGOCD_APP_NAME:0:52}
-            -f $(git rev-parse --show-toplevel)/values-global.yaml
-            -f $(git rev-parse --show-toplevel)/values-example.yaml
-            --set global.repoURL=$ARGOCD_APP_SOURCE_REPO_URL
-            --set global.targetRevision=$ARGOCD_APP_SOURCE_TARGET_REVISION
-            --set global.namespace=$ARGOCD_APP_NAMESPACE
-            --set global.pattern=common
-            --set global.clusterDomain=
-            --set global.hubClusterDomain=
-            --set global.localClusterDomain=
-            --set clusterGroup.name=example
-            --post-renderer ./kustomize"]
   applicationSet:
     resources:
       limits:
@@ -314,15 +334,17 @@ spec:
       requests:
         cpu: 500m
         memory: 2Gi
-  dex:
-    openShiftOAuth: true
-    resources:
-      limits:
-        cpu: 500m
-        memory: 256Mi
-      requests:
-        cpu: 250m
-        memory: 128Mi
+  sso:
+    provider: dex
+    dex:
+      openShiftOAuth: true
+      resources:
+        limits:
+          cpu: 500m
+          memory: 256Mi
+        requests:
+          cpu: 250m
+          memory: 128Mi
   initialSSHKnownHosts: {}
   rbac:
     defaultPolicy: role:admin
@@ -366,7 +388,7 @@ spec:
     ca: {}
 status:
 ---
-# Source: pattern-clustergroup/templates/plumbing/argocd.yaml
+# Source: clustergroup/templates/plumbing/argocd.yaml
 apiVersion: console.openshift.io/v1
 kind: ConsoleLink
 metadata:

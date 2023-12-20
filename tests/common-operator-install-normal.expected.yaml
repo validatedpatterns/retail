@@ -1,4 +1,19 @@
 ---
+# Source: pattern-install/templates/pattern-operator-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: patterns-operator-config
+  namespace: openshift-operators
+data:
+  gitops.catalogSource: redhat-operators
+  gitops.channel: stable
+
+  # gitops.sourceNamespace: GitOpsDefaultCatalogSourceNamespace
+  # gitops.installApprovalPlan: GitOpsDefaultApprovalPlan
+  # gitops.ManualSync: GitOpsDefaultManualSync
+  # gitops.name: GitOpsDefaultPackageName
+---
 # Source: pattern-install/templates/pattern.yaml
 apiVersion: gitops.hybrid-cloud-patterns.io/v1alpha1
 kind: Pattern
@@ -9,9 +24,12 @@ spec:
   clusterGroupName: hub
   gitSpec:
     targetRepo: https://github.com/pattern-clone/mypattern
-    targetRevision: main
+    targetRevision: main 
   gitOpsSpec:
     operatorChannel: stable
+    operatorSource: redhat-operators
+  multiSourceConfig:
+    enabled: false
 ---
 # Source: pattern-install/templates/subscription.yaml
 apiVersion: operators.coreos.com/v1alpha1

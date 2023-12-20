@@ -2,6 +2,15 @@
 # Source: acm/templates/policies/acm-hub-ca-policy.yaml
 # This pushes out the HUB's Certificate Authorities on to the imported clusters
 ---
+# Source: acm/templates/policies/private-repo-policies.yaml
+# We copy the vp-private-repo-credentials from the "openshift-gitops" namespace
+# to the "open-cluster-management" via the "private-hub-policy"
+#
+# Then we copy the secret from the "open-cluster-management" namespace to the
+# managed clusters "openshift-gitops" instance
+#
+# And we also copy the same secret to the namespaced argo's namespace
+---
 # Source: acm/templates/multiclusterhub.yaml
 apiVersion: operator.open-cluster-management.io/v1
 kind: MultiClusterHub
@@ -10,6 +19,7 @@ metadata:
   namespace: open-cluster-management
   annotations:
     argocd.argoproj.io/sync-wave: "-1"
+    installer.open-cluster-management.io/mce-subscription-spec: '{"source": "redhat-operators" }'
 spec: {}
 ---
 # Source: acm/templates/policies/acm-hub-ca-policy.yaml
@@ -65,6 +75,8 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: acm-hub-ca-policy-placement
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   clusterConditions:
     - status: 'True'
@@ -81,6 +93,8 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: region-one-placement
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   clusterConditions:
     - status: 'True'
@@ -96,6 +110,8 @@ apiVersion: apps.open-cluster-management.io/v1
 kind: PlacementRule
 metadata:
   name: openshift-gitops-placement
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
 spec:
   clusterConditions:
     - status: 'True'
@@ -106,6 +122,10 @@ spec:
         operator: In
         values:
           - OpenShift
+      - key: local-cluster
+        operator: NotIn
+        values:
+          - 'true'
 ---
 # Source: acm/templates/policies/acm-hub-ca-policy.yaml
 apiVersion: policy.open-cluster-management.io/v1
@@ -186,14 +206,14 @@ spec:
                     helm:
                       ignoreMissingValueFiles: true
                       valueFiles:
-                      - "/values-global.yaml"
-                      - "/values-region-one.yaml"
-                      - '/values-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").spec.platformSpec.type }}.yaml'
-                      - '/values-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").spec.platformSpec.type }}-{{ printf "%d.%d" ((semver (lookup "operator.openshift.io/v1" "OpenShiftControllerManager" "" "cluster").status.version).Major) ((semver (lookup "operator.openshift.io/v1" "OpenShiftControllerManager" "" "cluster").status.version).Minor) }}.yaml'
-                      - '/values-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").spec.platformSpec.type }}-region-one.yaml'
-                      # We cannot use $.Values.global.clusterVersion because that gets resolved to the
-                      # hub's cluster version, whereas we want to include the spoke cluster version
-                      - '/values-{{ printf "%d.%d" ((semver (lookup "operator.openshift.io/v1" "OpenShiftControllerManager" "" "cluster").status.version).Major) ((semver (lookup "operator.openshift.io/v1" "OpenShiftControllerManager" "" "cluster").status.version).Minor) }}-region-one.yaml'
+                        - "/values-global.yaml"
+                        - "/values-region-one.yaml"
+                        - '/values-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").spec.platformSpec.type }}.yaml'
+                        - '/values-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").spec.platformSpec.type }}-{{ printf "%d.%d" ((semver (lookup "operator.openshift.io/v1" "OpenShiftControllerManager" "" "cluster").status.version).Major) ((semver (lookup "operator.openshift.io/v1" "OpenShiftControllerManager" "" "cluster").status.version).Minor) }}.yaml'
+                        - '/values-{{ (lookup "config.openshift.io/v1" "Infrastructure" "" "cluster").spec.platformSpec.type }}-region-one.yaml'
+                        # We cannot use $.Values.global.clusterVersion because that gets resolved to the
+                        # hub's cluster version, whereas we want to include the spoke cluster version
+                        - '/values-{{ printf "%d.%d" ((semver (lookup "operator.openshift.io/v1" "OpenShiftControllerManager" "" "cluster").status.version).Major) ((semver (lookup "operator.openshift.io/v1" "OpenShiftControllerManager" "" "cluster").status.version).Minor) }}-region-one.yaml'
                       parameters:
                       - name: global.repoURL
                         value: $ARGOCD_APP_SOURCE_REPO_URL
@@ -213,8 +233,10 @@ spec:
                       # Requires ACM 2.6 or higher (I could not come up with something less terrible to get maj.min)
                       - name: global.clusterVersion
                         value: '{{ printf "%d.%d" ((semver (lookup "operator.openshift.io/v1" "OpenShiftControllerManager" "" "cluster").status.version).Major) ((semver (lookup "operator.openshift.io/v1" "OpenShiftControllerManager" "" "cluster").status.version).Minor) }}'
+                      - name: global.localClusterName
+                        value: '{{ (split "." (lookup "config.openshift.io/v1" "Ingress" "" "cluster").spec.domain)._1 }}'
                       - name: global.clusterPlatform
-                        value: 
+                        value: aws
                       - name: clusterGroup.name
                         value: region-one
                       - name: clusterGroup.isHubCluster
@@ -226,6 +248,8 @@ spec:
                     automated:
                       prune: false
                       selfHeal: true
+                    retry:
+                      limit: 20
                   ignoreDifferences:
                   - group: apps
                     kind: Deployment
