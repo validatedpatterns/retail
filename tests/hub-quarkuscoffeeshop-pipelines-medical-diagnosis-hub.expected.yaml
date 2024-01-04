@@ -1708,10 +1708,6 @@ kind: Task
 metadata:
   name: push-quarkuscoffeeshop-barista-image-to-quay
 spec:
-  resources:
-    inputs:
-      - name: image
-        type: image
   params:
     - default: quarkuscoffeeshop
       description: >-
@@ -1740,7 +1736,6 @@ spec:
           docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-barista:$(inputs.params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/podman
       name: podman-pull-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -1755,7 +1750,6 @@ spec:
         - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-tag-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -1767,7 +1761,6 @@ spec:
         - '--storage-driver=$(params.STORAGE_DRIVER)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-list-images-after-tagging
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -1784,7 +1777,6 @@ spec:
           $(params.quay-io-repository):$(params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/buildah
       name: push-quarkuscoffeeshop-barista-image-to-quay
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -1808,10 +1800,6 @@ kind: Task
 metadata:
   name: push-quarkuscoffeeshop-counter-image-to-quay
 spec:
-  resources:
-    inputs:
-      - name: image
-        type: image
   params:
     - default: quarkuscoffeeshop
       description: >-
@@ -1840,7 +1828,6 @@ spec:
           docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter:$(inputs.params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/podman
       name: podman-pull-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -1855,7 +1842,6 @@ spec:
         - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-tag-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -1867,7 +1853,6 @@ spec:
         - '--storage-driver=$(params.STORAGE_DRIVER)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-list-images-after-tagging
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -1884,7 +1869,6 @@ spec:
           $(params.quay-io-repository):$(params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/buildah
       name: push-quarkuscoffeeshop-counter-image-to-quay
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -1908,10 +1892,6 @@ kind: Task
 metadata:
   name: push-quarkuscoffeeshop-customerloyalty-image-to-quay
 spec:
-  resources:
-    inputs:
-      - name: image
-        type: image
   params:
     - default: quarkuscoffeeshop
       description: >-
@@ -1940,7 +1920,6 @@ spec:
           docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customerloyalty:$(inputs.params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/podman
       name: podman-pull-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -1955,7 +1934,6 @@ spec:
         - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-tag-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -1967,7 +1945,6 @@ spec:
         - '--storage-driver=$(params.STORAGE_DRIVER)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-list-images-after-tagging
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -1984,7 +1961,6 @@ spec:
           $(params.quay-io-repository):$(params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/buildah
       name: push-quarkuscoffeeshop-customerloyalty-image-to-quay
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2009,10 +1985,6 @@ metadata:
   name: push-quarkuscoffeeshop-customermocker-image-to-quay
   namespace: quarkuscoffeeshop-cicd
 spec:
-  resources:
-    inputs:
-      - name: image
-        type: image
   params:
     - default: quarkuscoffeeshop
       description: >-
@@ -2041,7 +2013,6 @@ spec:
           docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker:$(inputs.params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/podman
       name: podman-pull-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2056,7 +2027,6 @@ spec:
         - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-tag-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2068,7 +2038,6 @@ spec:
         - '--storage-driver=$(params.STORAGE_DRIVER)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-list-images-after-tagging
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2084,7 +2053,6 @@ spec:
           $(params.quay-io-repository):$(params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/buildah
       name: push-quarkuscoffeeshop-customermocker-image-to-quay
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2108,10 +2076,6 @@ kind: Task
 metadata:
   name: push-quarkuscoffeeshop-inventory-image-to-quay
 spec:
-  resources:
-    inputs:
-      - name: image
-        type: image
   params:
     - default: quarkuscoffeeshop
       description: >-
@@ -2140,7 +2104,6 @@ spec:
           docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-inventory:$(inputs.params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/podman
       name: podman-pull-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2155,7 +2118,6 @@ spec:
         - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-tag-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2167,7 +2129,6 @@ spec:
         - '--storage-driver=$(params.STORAGE_DRIVER)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-list-images-after-tagging
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2184,7 +2145,6 @@ spec:
           $(params.quay-io-repository):$(params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/buildah
       name: push-quarkuscoffeeshop-inventory-image-to-quay
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2208,10 +2168,6 @@ kind: Task
 metadata:
   name: push-quarkuscoffeeshop-kitchen-image-to-quay
 spec:
-  resources:
-    inputs:
-      - name: image
-        type: image
   params:
     - default: quarkuscoffeeshop
       description: >-
@@ -2240,7 +2196,6 @@ spec:
           docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-kitchen:$(inputs.params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/podman
       name: podman-pull-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2255,7 +2210,6 @@ spec:
         - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-tag-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2267,7 +2221,6 @@ spec:
         - '--storage-driver=$(params.STORAGE_DRIVER)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-list-images-after-tagging
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2284,7 +2237,6 @@ spec:
           $(params.quay-io-repository):$(params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/buildah
       name: push-quarkuscoffeeshop-kitchen-image-to-quay
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2309,10 +2261,6 @@ metadata:
   name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay-latest
   namespace: quarkuscoffeeshop-cicd
 spec:
-  resources:
-    inputs:
-      - name: image
-        type: image
   params:
     - default: quarkuscoffeeshop
       description: >-
@@ -2341,7 +2289,6 @@ spec:
           docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:$(inputs.params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/podman
       name: podman-pull-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2356,7 +2303,6 @@ spec:
         - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-tag-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2368,7 +2314,6 @@ spec:
         - '--storage-driver=$(params.STORAGE_DRIVER)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-list-images-after-tagging
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2385,7 +2330,6 @@ spec:
           $(params.quay-io-repository):$(params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/buildah
       name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay-latest
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2410,10 +2354,6 @@ metadata:
   name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay
   namespace: quarkuscoffeeshop-cicd
 spec:
-  resources:
-    inputs:
-      - name: image
-        type: image
   params:
     - default: quarkuscoffeeshop
       description: >-
@@ -2442,7 +2382,6 @@ spec:
           docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:$(inputs.params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/podman
       name: podman-pull-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2457,7 +2396,6 @@ spec:
         - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-tag-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2469,7 +2407,6 @@ spec:
         - '--storage-driver=$(params.STORAGE_DRIVER)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-list-images-after-tagging
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2486,7 +2423,6 @@ spec:
           $(params.quay-io-repository):$(params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/buildah
       name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2510,10 +2446,6 @@ kind: Task
 metadata:
   name: push-quarkuscoffeeshop-web-image-to-quay
 spec:
-  resources:
-    inputs:
-      - name: image
-        type: image
   params:
     - default: quarkuscoffeeshop
       description: >-
@@ -2542,7 +2474,6 @@ spec:
           docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-web:$(inputs.params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/podman
       name: podman-pull-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2557,7 +2488,6 @@ spec:
         - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-tag-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2569,7 +2499,6 @@ spec:
         - '--storage-driver=$(params.STORAGE_DRIVER)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-list-images-after-tagging
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -2586,7 +2515,6 @@ spec:
           $(params.quay-io-repository):$(params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/buildah
       name: push-quarkuscoffeeshop-web-image-to-quay
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:

@@ -4,10 +4,6 @@ metadata:
   name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay-latest
   namespace: quarkuscoffeeshop-cicd
 spec:
-  resources:
-    inputs:
-      - name: image
-        type: image
   params:
     - default: quarkuscoffeeshop
       description: >-
@@ -36,7 +32,6 @@ spec:
           docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith:$(inputs.params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/podman
       name: podman-pull-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -51,7 +46,6 @@ spec:
         - '$(params.quay-io-repository):$(params.quay-io-image-tag-name)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-tag-image
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -63,7 +57,6 @@ spec:
         - '--storage-driver=$(params.STORAGE_DRIVER)'
       image: registry.redhat.io/rhel8/buildah
       name: buildah-list-images-after-tagging
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
@@ -80,7 +73,6 @@ spec:
           $(params.quay-io-repository):$(params.quay-io-image-tag-name)
       image: registry.redhat.io/rhel8/buildah
       name: push-quarkuscoffeeshop-majestic-monolith-image-to-quay-latest
-      resources: {}
       securityContext:
         privileged: true
       volumeMounts:
