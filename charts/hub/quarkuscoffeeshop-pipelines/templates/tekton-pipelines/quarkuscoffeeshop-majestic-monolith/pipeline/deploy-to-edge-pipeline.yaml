@@ -137,10 +137,6 @@ spec:
           value: $(params.quay-io-repository)
         - name: quay-io-image-tag-name
           value: $(params.quay-io-image-tag-name)
-      resources:
-        inputs:
-          - name: image
-            resource: image
       runAfter:
         - push-to-test-env
       taskRef:
@@ -152,10 +148,6 @@ spec:
           value: $(params.quay-io-repository)
         - name: quay-io-image-tag-name
           value: latest
-      resources:
-        inputs:
-          - name: image
-            resource: image
       runAfter:
         - push-quarkuscoffeeshop-majestic-monolith-image-to-quay
       taskRef:
