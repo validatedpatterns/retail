@@ -11,13 +11,6 @@ metadata:
 spec:
   pipelineRef:
     name: build-and-push-quarkuscoffeeshop-customerloyalty
-  resources:
-    - name: app-git
-      resourceRef:
-        name: quarkuscoffeeshop-customerloyalty-git
-    - name: image
-      resourceRef:
-        name: quarkuscoffeeshop-customerloyalty-image
   serviceAccountName: pipeline
   timeout: 1h0m0s
   workspaces:

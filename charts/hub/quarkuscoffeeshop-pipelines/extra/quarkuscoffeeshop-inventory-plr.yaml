@@ -11,13 +11,6 @@ metadata:
 spec:
   pipelineRef:
     name: build-and-push-quarkuscoffeeshop-inventory
-  resources:
-    - name: app-git
-      resourceRef:
-        name: quarkuscoffeeshop-inventory-git
-    - name: image
-      resourceRef:
-        name: quarkuscoffeeshop-inventory-image
   serviceAccountName: pipeline
   timeout: 1h0m0s
   workspaces:
