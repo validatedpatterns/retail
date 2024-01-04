@@ -286,11 +286,6 @@ spec:
       type: string
       default: "main"
 
-  resources:
-    - name: app-git
-      type: git
-    - name: image
-      type: image
   tasks:
     - name: fetch-repository
       params:
@@ -404,11 +399,6 @@ spec:
       type: string
       default: "5.0.3-SNAPSHOT"
 
-  resources:
-    - name: app-git
-      type: git
-    - name: image
-      type: image
   tasks:
     - name: fetch-repository
       params:
@@ -522,11 +512,6 @@ spec:
       type: string
       default: 
 
-  resources:
-    - name: app-git
-      type: git
-    - name: image
-      type: image
   tasks:
     - name: fetch-repository
       params:
@@ -640,11 +625,6 @@ spec:
       default: "master"
       type: string
 
-  resources:
-    - name: app-git
-      type: git
-    - name: image
-      type: image
   tasks:
     - name: fetch-repository
       params:
@@ -758,11 +738,6 @@ spec:
       default: "5.0.0-SNAPSHOT"
       type: string
 
-  resources:
-    - name: app-git
-      type: git
-    - name: image
-      type: image
   tasks:
     - name: fetch-repository
       params:
@@ -876,11 +851,6 @@ spec:
       default: "main"
       type: string
 
-  resources:
-    - name: app-git
-      type: git
-    - name: image
-      type: image
   tasks:
     - name: fetch-repository
       params:
@@ -995,11 +965,6 @@ spec:
       name: quay-io-image-tag-name
       type: string
 
-  resources:
-    - name: app-git
-      type: git
-    - name: image
-      type: image
   tasks:
     - name: fetch-repository
       params:
@@ -1143,11 +1108,6 @@ spec:
       description:  Ansible Tower Credential number is  found in url 
       name: tower_credential
       type: string
-  resources:
-    - name: app-git
-      type: git
-    - name: image
-      type: image
   tasks:
     - name: fetch-repository
       params:
@@ -1324,11 +1284,6 @@ spec:
       name: revision
       type: string
 
-  resources:
-    - name: app-git
-      type: git
-    - name: image
-      type: image
   tasks:
     - name: fetch-repository
       params:
@@ -1418,230 +1373,6 @@ spec:
   workspaces:
     - name: shared-workspace
     - name: maven-settings
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-barista/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-barista-git
-  labels:
-    app: quarkuscoffeeshop-barista
-spec:
-  type: git
-  params:
-  - name: url
-    value: https://github.com/quarkuscoffeeshop/quarkuscoffeeshop-barista
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-barista/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-barista-image
-  labels:
-    app: quarkuscoffeeshop-barista
-spec:
-  type: image
-  params:
-  - name: url
-    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-barista
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-counter/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-counter-git
-  labels:
-    app: quarkuscoffeeshop-counter
-spec:
-  type: git
-  params:
-  - name: url
-    value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-counter
-  - name: revision
-    value: "5.0.3-SNAPSHOT"
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-counter/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-counter-image
-  labels:
-    app: quarkuscoffeeshop-counter
-spec:
-  type: image
-  params:
-  - name: url
-    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-customerloyalty-git
-  labels:
-    app: quarkuscoffeeshop-customerloyalty
-spec:
-  type: git
-  params:
-  - name: url
-    value: https://github.com/hybrid-cloud-demos/customerloyalty
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customerloyalty/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-customerloyalty-image
-  labels:
-    app: quarkuscoffeeshop-customerloyalty
-spec:
-  type: image
-  params:
-  - name: url
-    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customerloyalty
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-customermocker-git
-  labels:
-    app: quarkuscoffeeshop-customermocker
-  namespace: quarkuscoffeeshop-cicd
-spec:
-  type: git
-  params:
-  - name: url
-    value: https://github.com/hybrid-cloud-demos}/quarkuscoffeeshop-customermocker
-  - name: revision
-    value: "master"
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-customermocker/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-customermocker-image
-  labels:
-    app: quarkuscoffeeshop-customermocker
-  namespace: quarkuscoffeeshop-cicd
-spec:
-  type: image
-  params:
-  - name: url
-    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-customermocker
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-inventory/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-inventory-git
-  labels:
-    app: quarkuscoffeeshop-inventory
-spec:
-  type: git
-  params:
-  - name: url
-    value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-inventory
-  - name: revision
-    value: "5.0.0-SNAPSHOT"
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-inventory/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-inventory-image
-  labels:
-    app: quarkuscoffeeshop-inventory
-spec:
-  type: image
-  params:
-  - name: url
-    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-inventory
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-kitchen-git
-  labels:
-    app: quarkuscoffeeshop-kitchen
-spec:
-  type: git
-  params:
-  - name: url
-    value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-kitchen
-  - name: revision
-    value: "main"
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-kitchen/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-kitchen-image
-  labels:
-    app: quarkuscoffeeshop-kitchen
-spec:
-  type: image
-  params:
-  - name: url
-    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-kitchen
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-majestic-monolith-git
-  labels:
-    app: quarkuscoffeeshop-majestic-monolith
-  namespace: quarkuscoffeeshop-cicd
-spec:
-  type: git
-  params:
-  - name: url
-    value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-majestic-monolith
-  - name: revision
-    value: "master"
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-majestic-monolith/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-majestic-monolith-image
-  labels:
-    app: quarkuscoffeeshop-majestic-monolith
-  namespace: quarkuscoffeeshop-cicd
-spec:
-  type: image
-  params:
-  - name: url
-    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-majestic-monolith
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-web/resources/git-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-web-git
-  labels:
-    app: quarkuscoffeeshop-web
-spec:
-  type: git
-  params:
-  - name: url
-    value: https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-web
-  - name: revision
-    value: "5.0.3-SNAPSHOT"
----
-# Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/quarkuscoffeeshop-web/resources/image-pipeline-resource.yaml
-apiVersion: tekton.dev/v1beta1
-kind: PipelineResource
-metadata:
-  name: quarkuscoffeeshop-web-image
-  labels:
-    app: quarkuscoffeeshop-web
-spec:
-  type: image
-  params:
-  - name: url
-    value: image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-web
 ---
 # Source: quarkuscoffeeshop-pipelines/templates/tekton-pipelines/common-functions/tasks/maven.yaml
 apiVersion: tekton.dev/v1beta1

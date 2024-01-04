@@ -50,11 +50,6 @@ spec:
       description:  Ansible Tower Credential number is  found in url 
       name: tower_credential
       type: string
-  resources:
-    - name: app-git
-      type: git
-    - name: image
-      type: image
   tasks:
     - name: fetch-repository
       params:
