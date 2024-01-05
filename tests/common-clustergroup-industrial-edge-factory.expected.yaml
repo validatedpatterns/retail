@@ -172,11 +172,11 @@ data:
       clusterVersion: "4.12"
       extraValueFiles: []
       git:
-        account: hybrid-cloud-demos
+        account: validatedpatterns-demos
         dev_revision: main
         email: SOMEWHERE@EXAMPLE.COM
         hostname: github.com
-        username: hybrid-cloud-demos
+        username: validatedpatterns-demos
       hubClusterDomain: apps.hub.example.com
       imageregistry:
         account: hybridcloudpatterns

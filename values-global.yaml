@@ -9,8 +9,8 @@ global:
 
   git:
     hostname: github.com
-    account: hybrid-cloud-demos
-    username: hybrid-cloud-demos
+    account: validatedpatterns-demos
+    username: validatedpatterns-demos
     email: SOMEWHERE@EXAMPLE.COM
     dev_revision: main
 

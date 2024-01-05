@@ -290,7 +290,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-barista'
+          value: 'https://github.com/validatedpatterns-demos/quarkuscoffeeshop-barista'
         - name: subdirectory
           value: ''
         - name: deleteExisting
@@ -403,7 +403,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-counter'
+          value: 'https://github.com/validatedpatterns-demos/quarkuscoffeeshop-counter'
         - name: subdirectory
           value: ''
         - name: revision
@@ -516,7 +516,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-demos/customerloyalty'
+          value: 'https://github.com/validatedpatterns-demos/customerloyalty'
         - name: subdirectory
           value: ''
         - name: deleteExisting
@@ -629,7 +629,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-customermocker'
+          value: 'https://github.com/validatedpatterns-demos/quarkuscoffeeshop-customermocker'
         - name: subdirectory
           value: ''
         - name: revision
@@ -742,7 +742,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-inventory'
+          value: 'https://github.com/validatedpatterns-demos/quarkuscoffeeshop-inventory'
         - name: revision
           value: $(params.revision)
         - name: subdirectory
@@ -855,7 +855,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-kitchen'
+          value: 'https://github.com/validatedpatterns-demos/quarkuscoffeeshop-kitchen'
         - name: revision
           value: $(params.revision)
         - name: subdirectory
@@ -969,7 +969,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-majestic-monolith'
+          value: 'https://github.com/validatedpatterns-demos/quarkuscoffeeshop-majestic-monolith'
         - name: subdirectory
           value: ''
         - name: deleteExisting
@@ -1280,7 +1280,7 @@ spec:
     - name: fetch-repository
       params:
         - name: url
-          value: 'https://github.com/hybrid-cloud-demos/quarkuscoffeeshop-web'
+          value: 'https://github.com/validatedpatterns-demos/quarkuscoffeeshop-web'
         - name: revision
           value: $(params.revision)
         - name: subdirectory
