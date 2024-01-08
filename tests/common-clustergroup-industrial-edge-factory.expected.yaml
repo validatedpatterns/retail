@@ -208,9 +208,6 @@ data:
       quarkuscoffeeshopKitchen:
         imageTag: latest
         revision: main
-      quarkuscoffeeshopMajesticMonolith:
-        imageTag: latest
-        revision: master
       quarkuscoffeeshopWeb:
         imageTag: latest
         revision: 5.0.3-SNAPSHOT
