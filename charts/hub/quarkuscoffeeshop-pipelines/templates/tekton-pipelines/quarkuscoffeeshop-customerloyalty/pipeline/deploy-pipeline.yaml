@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: tekton.dev/v1beta1
 kind: Pipeline
 metadata:
   name: build-and-push-quarkuscoffeeshop-customerloyalty
@@ -25,11 +25,6 @@ spec:
       name: webhook-secret
       type: string
 {{ end }}
-  resources:
-    - name: app-git
-      type: git
-    - name: image
-      type: image
   tasks:
     - name: fetch-repository
       params:

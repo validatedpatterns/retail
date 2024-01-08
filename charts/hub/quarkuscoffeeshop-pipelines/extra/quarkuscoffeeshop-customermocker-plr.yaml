@@ -11,13 +11,6 @@ metadata:
 spec:
   pipelineRef:
     name: build-and-push-quarkuscoffeeshop-customermocker
-  resources:
-    - name: app-git
-      resourceRef:
-        name: quarkuscoffeeshop-customermocker-git
-    - name: image
-      resourceRef:
-        name: quarkuscoffeeshop-customermocker-image
   serviceAccountName: pipeline
   timeout: 1h0m0s
   workspaces:

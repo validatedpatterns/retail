@@ -31,11 +31,12 @@ global:
     revision: main
     # revision: '5.0.0-SNAPSHOT'
 
-  quarkuscoffeeshopMajesticMonolith:
-    revision: master
-
   quarkuscoffeeshopWeb:
     revision: '5.0.3-SNAPSHOT'
+
+  secretStore:
+    name: vault-backend
+    kind: ClusterSecretStore
 
 buildNamespace: 'quarkuscoffeeshop-cicd'
 testNamespace: 'quarkuscoffeeshop-demo'
@@ -44,7 +45,3 @@ enableWebhookSecret: false
 
 imageregistrysecret:
   key: secret/data/hub/imageregistry
-
-secretStore:
-  name: vault-backend
-  kind: ClusterSecretStore
