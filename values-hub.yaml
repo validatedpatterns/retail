@@ -150,14 +150,14 @@ clusterGroup:
 
   managedClusterGroups:
     raleigh:
-      name: raleigh
+      name: store-raleigh
       helmOverrides:
       # Values must be strings!
       - name: clusterGroup.isHubCluster
         value: "false"
       clusterSelector:
         matchLabels:
-          clusterGroup: raleigh
+          clusterGroup: store-raleigh
         matchExpressions:
         - key: vendor
           operator: In

@@ -1,8 +1,5 @@
 clusterGroup:
-  name: store-atlanta
-  # Note: setting this to true stores the vault unseal keys inside a cluster secret and
-  # is fundamentally insecure
-  insecureUnsealVaultInsideCluster: true
+  name: store-raleigh
 
   namespaces:
     - landing-page
