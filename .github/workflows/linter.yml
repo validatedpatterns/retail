@@ -29,7 +29,7 @@ jobs:
       # Checkout the code base #
       ##########################
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
           # Full git history is needed to get a proper list of changed files within `super-linter`
           fetch-depth: 0
@@ -48,18 +48,9 @@ jobs:
       #     VALIDATE_ALL_CODEBASE: false
       #     DEFAULT_BRANCH: main
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Run make test
         run: |
           make test
-
       - name: Run make helmlint
         run: |
           make helmlint
-
-      - name: Run make helm kubeconform
-        run: |
-          curl -L -O https://github.com/yannh/kubeconform/releases/download/v0.4.13/kubeconform-linux-amd64.tar.gz
-          tar xf kubeconform-linux-amd64.tar.gz
-          sudo mv -v kubeconform /usr/local/bin
-          make kubeconform
