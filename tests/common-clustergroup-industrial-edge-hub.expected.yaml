@@ -373,6 +373,8 @@ data:
         imageTag: latest
         revision: 5.0.3-SNAPSHOT
       repoURL: https://github.com/pattern-clone/mypattern
+      secretStore:
+        backend: vault
       targetRevision: main
     main:
       clusterGroupName: hub
