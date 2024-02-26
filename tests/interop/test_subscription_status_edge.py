@@ -14,6 +14,8 @@ def test_subscription_status_edge(openshift_dyn_client):
     # These are the operator subscriptions and their associated namespaces
     expected_subs = {
         "openshift-gitops-operator": ["openshift-operators"],
+        "amq-streams": ["openshift-operators"],
+        "crunchy-postgres-operator": ["openshift-operators"],
     }
 
     operator_versions = []

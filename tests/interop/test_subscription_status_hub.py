@@ -21,6 +21,9 @@ def test_subscription_status_hub(openshift_dyn_client):
         "openshift-gitops-operator": ["openshift-operators"],
         "advanced-cluster-management": ["open-cluster-management"],
         "multicluster-engine": ["multicluster-engine"],
+        "openshift-pipelines-operator-rh": ["openshift-operators"],
+        "amq-streams": ["openshift-operators"],
+        "crunchy-postgres-operator": ["openshift-operators"],
     }
 
     operator_versions = []
