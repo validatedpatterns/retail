@@ -24,7 +24,7 @@ spec:
   databaseInitSQL:
     key: initSQL
     name: db-init-sql
-  postgresVersion: 14
+  postgresVersion: 16
   instances: [
   {
     "dataVolumeClaimSpec": {
