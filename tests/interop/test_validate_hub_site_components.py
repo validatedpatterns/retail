@@ -9,8 +9,6 @@ from validatedpatterns_tests.interop import application, components
 from validatedpatterns_tests.interop.crd import ManagedCluster
 
 from . import __loggername__
-from .crd import ArgoCD, ManagedCluster
-from .edge_util import get_long_live_bearer_token, get_site_response
 
 logger = logging.getLogger(__loggername__)
 
