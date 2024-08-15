@@ -1,16 +1,16 @@
 import logging
 import os
-import subprocess
 
 import pytest
-from ocp_resources.namespace import Namespace
-from ocp_resources.pod import Pod
 from ocp_resources.route import Route
-from openshift.dynamic.exceptions import NotFoundError
+from validatedpatterns_tests.interop import components
+from validatedpatterns_tests.interop.crd import ArgoCD
+from validatedpatterns_tests.interop.edge_util import (
+    get_long_live_bearer_token,
+    get_site_response,
+)
 
 from . import __loggername__
-from .crd import ArgoCD
-from .edge_util import get_long_live_bearer_token, get_site_response
 
 logger = logging.getLogger(__loggername__)
 
@@ -26,8 +26,7 @@ Validate following retail on edge site (line server):
 @pytest.mark.test_validate_edge_site_components
 def test_validate_edge_site_components():
     logger.info("Checking Openshift version on edge site")
-    version_out = subprocess.run([oc, "version"], capture_output=True)
-    version_out = version_out.stdout.decode("utf-8")
+    version_out = components.dump_openshift_version()
     logger.info(f"Openshift version:\n{version_out}")
 
 
@@ -42,9 +41,14 @@ def test_validate_edge_site_reachable(kube_config, openshift_dyn_client):
     else:
         logger.info(f"EDGE api url : {edge_api_url}")
 
-    bearer_token = get_long_live_bearer_token(dyn_client=openshift_dyn_client)
+    bearer_token = get_long_live_bearer_token(
+        dyn_client=openshift_dyn_client,
+        namespace="openshift-gitops",
+        sub_string="argocd-dex-server-token",
+    )
+
     if not bearer_token:
-        assert False, "Bearer token is missing for hub site"
+        assert False, "Bearer token is missing for argocd-dex-server"
 
     edge_api_response = get_site_response(
         site_url=edge_api_url, bearer_token=bearer_token
@@ -63,9 +67,6 @@ def test_check_pod_status(openshift_dyn_client):
     logger.info("Checking pod status")
 
     err_msg = []
-    failed_pods = []
-    missing_pods = []
-    missing_projects = []
     projects = [
         "openshift-operators",
         "open-cluster-management-agent",
@@ -73,60 +74,13 @@ def test_check_pod_status(openshift_dyn_client):
         "openshift-gitops",
     ]
 
-    for project in projects:
-        # Check for missing project
-        try:
-            namespaces = Namespace.get(dyn_client=openshift_dyn_client, name=project)
-            next(namespaces)
-        except NotFoundError:
-            missing_projects.append(project)
-            continue
-        # Check for absence of pods in project
-        try:
-            pods = Pod.get(dyn_client=openshift_dyn_client, namespace=project)
-            pod = next(pods)
-        except StopIteration:
-            missing_pods.append(project)
-            continue
+    missing_projects = components.check_project_absense(openshift_dyn_client, projects)
+    missing_pods = []
+    failed_pods = []
 
     for project in projects:
-        pods = Pod.get(dyn_client=openshift_dyn_client, namespace=project)
-        logger.info(f"Checking pods in namespace '{project}'")
-        for pod in pods:
-            for container in pod.instance.status.containerStatuses:
-                logger.info(
-                    f"{pod.instance.metadata.name} : {container.name} :"
-                    f" {container.state}"
-                )
-                if container.state.terminated:
-                    if container.state.terminated.reason != "Completed":
-                        logger.info(
-                            f"Pod {pod.instance.metadata.name} in"
-                            f" {pod.instance.metadata.namespace} namespace is"
-                            " FAILED:"
-                        )
-                        failed_pods.append(pod.instance.metadata.name)
-                        logger.info(describe_pod(project, pod.instance.metadata.name))
-                        logger.info(
-                            get_log_output(
-                                project,
-                                pod.instance.metadata.name,
-                                container.name,
-                            )
-                        )
-                elif not container.state.running:
-                    logger.info(
-                        f"Pod {pod.instance.metadata.name} in"
-                        f" {pod.instance.metadata.namespace} namespace is"
-                        " FAILED:"
-                    )
-                    failed_pods.append(pod.instance.metadata.name)
-                    logger.info(describe_pod(project, pod.instance.metadata.name))
-                    logger.info(
-                        get_log_output(
-                            project, pod.instance.metadata.name, container.name
-                        )
-                    )
+        missing_pods += components.check_pod_absence(openshift_dyn_client, project)
+        failed_pods += components.check_pod_status(openshift_dyn_client, project)
 
     if missing_projects:
         err_msg.append(f"The following namespaces are missing: {missing_projects}")
@@ -156,13 +110,11 @@ def test_validate_argocd_reachable_edge_site(openshift_dyn_client):
             namespace=namespace,
             name="openshift-gitops-server",
         ):
-            pass
+            argocd_route_url = route.instance.spec.host
     except StopIteration:
         err_msg = f"Argocd url/route is missing in {namespace} namespace"
         logger.error(f"FAIL: {err_msg}")
         assert False, err_msg
-
-    argocd_route_url = route.instance.spec.host
 
     logger.info("Check if argocd route/url on hub site is reachable")
     if not argocd_route_url:
@@ -176,10 +128,10 @@ def test_validate_argocd_reachable_edge_site(openshift_dyn_client):
     bearer_token = get_long_live_bearer_token(
         dyn_client=openshift_dyn_client,
         namespace=namespace,
-        sub_string="openshift-gitops-argocd-server-token",
+        sub_string="argocd-dex-server-token",
     )
     if not bearer_token:
-        err_msg = f"Bearer token is missing for argocd-server in {namespace} namespace"
+        err_msg = "Bearer token is missing for argocd-dex-server"
         logger.error(f"FAIL: {err_msg}")
         assert False, err_msg
     else:
@@ -201,40 +153,32 @@ def test_validate_argocd_reachable_edge_site(openshift_dyn_client):
 
 @pytest.mark.validate_argocd_applications_health_edge_site
 def test_validate_argocd_applications_health_edge_site(openshift_dyn_client):
-    namespace = "oepnshift-gitops"
-
-    argocd_apps_status = dict()
+    unhealthy_apps = []
     logger.info("Get all applications deployed by argocd on edge site")
+    projects = ["openshift-gitops"]
+    for project in projects:
+        for app in ArgoCD.get(dyn_client=openshift_dyn_client, namespace=project):
+            app_name = app.instance.metadata.name
+            app_health = app.instance.status.health.status
+            app_sync = app.instance.status.sync.status
 
-    for app in ArgoCD.get(dyn_client=openshift_dyn_client, namespace=namespace):
-        app_name = app.instance.metadata.name
-        app_health = app.health
-        argocd_apps_status[app_name] = app_health
-        logger.info(f"Health status of {app_name} is: {app_health}")
+            logger.info(f"Status for {app_name} : {app_health} : {app_sync}")
 
-    if False in (argocd_apps_status.values()):
-        err_msg = f"Some or all applications deployed on edge site are Degraded/Unhealthy: {argocd_apps_status}"
-        logger.error(f"FAIL: {err_msg}")
+            if "Healthy" != app_health or "Synced" != app_sync:
+                logger.info(f"Dumping failed resources for app: {app_name}")
+                unhealthy_apps.append(app_name)
+                try:
+                    for res in app.instance.status.resources:
+                        if (
+                            res.health and res.health.status != "Healthy"
+                        ) or res.status != "Synced":
+                            logger.info(f"\n{res}")
+                except TypeError:
+                    logger.info(f"No resources found for app: {app_name}")
+
+    if unhealthy_apps:
+        err_msg = "Some or all applications deployed on edge site are unhealthy"
+        logger.error(f"FAIL: {err_msg}:\n{unhealthy_apps}")
         assert False, err_msg
     else:
         logger.info("PASS: All applications deployed on edge site are healthy.")
-
-
-def describe_pod(project, pod):
-    cmd_out = subprocess.run(
-        [oc, "describe", "pod", "-n", project, pod], capture_output=True
-    )
-    if cmd_out.stdout:
-        return cmd_out.stdout.decode("utf-8")
-    else:
-        assert False, cmd_out.stderr
-
-
-def get_log_output(project, pod, container):
-    cmd_out = subprocess.run(
-        [oc, "logs", "-n", project, pod, "-c", container], capture_output=True
-    )
-    if cmd_out.stdout:
-        return cmd_out.stdout.decode("utf-8")
-    else:
-        assert False, cmd_out.stderr
