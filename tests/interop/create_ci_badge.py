@@ -55,8 +55,8 @@ if __name__ == "__main__":
 
     for file in os.listdir(results_dir):
         if file.startswith("test_") and file.endswith(".xml"):
-            with open(os.path.join(results_dir, file), "r") as result_file: # type: ignore
-                xml = JUnitXml.fromfile(result_file) # type: ignore
+            with open(os.path.join(results_dir, file), "r") as result_file:  # type: ignore
+                xml = JUnitXml.fromfile(result_file)  # type: ignore
                 for suite in xml:
                     for case in suite:
                         if case.result:
@@ -71,14 +71,14 @@ if __name__ == "__main__":
     ci_badge["message"] = ci_badge["patternBranch"]
 
     ci_badge_json_basename = (
-        os.environ.get("PATTERN_SHORTNAME") # type: ignore
+        os.environ.get("PATTERN_SHORTNAME")  # type: ignore
         + "-"
         + os.environ.get("INFRA_PROVIDER")
         + "-"
         + versions[1]
         + "-stable-badge.json"
     )
-    ci_badge_json_filename = os.path.join(results_dir, ci_badge_json_basename) # type: ignore
+    ci_badge_json_filename = os.path.join(results_dir, ci_badge_json_basename)  # type: ignore
     print(f"Creating CI badge file at: {ci_badge_json_filename}")
 
     with open(ci_badge_json_filename, "w") as ci_badge_file:
