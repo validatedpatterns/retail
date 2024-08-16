@@ -60,7 +60,6 @@ if __name__ == "__main__":
                 for suite in xml:
                     for case in suite:
                         if case.result:
-                            print(case.result)
                             failures += 1
 
     # Determine badge color from results
