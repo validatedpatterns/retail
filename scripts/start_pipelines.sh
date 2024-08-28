@@ -3,11 +3,31 @@
 build_ns=quarkuscoffeeshop-cicd
 pipelines=('build-and-push-quarkuscoffeeshop-barista' 'build-and-push-quarkuscoffeeshop-counter' 'build-and-push-quarkuscoffeeshop-customerloyalty' 'build-and-push-quarkuscoffeeshop-customermocker' 'build-and-push-quarkuscoffeeshop-inventory' 'build-and-push-quarkuscoffeeshop-kitchen' 'build-and-push-quarkuscoffeeshop-web')
 
+
+MAX_ATTEMPTS=720
+DELAY=5
+ATTEMPT=1
+
+while [ ${ATTEMPT} -le ${MAX_ATTEMPTS} ]; do
+    OUT=$(oc get clustertasks 2>/dev/null | wc -l)
+    if [ ${OUT} -gt 0 ]; then
+        echo "ClusterTasks found"
+        break
+    else
+        echo "ClusterTasks not found yet"
+        if [ ${ATTEMPT} -ge ${MAX_ATTEMPTS} ]; then
+            echo "Max attempts reached. Existing."
+        fi
+        ATTEMPT=$((ATTEMPT + 1))
+        sleep ${DELAY}
+    fi
+done
+
 echo "Checking for resources to be available to start pipelines"
 retry=0
 check=1
 while [ "$check" == "1" ]; do
-    sleep 2;
+    sleep ${DELAY}
 
     for p in ${pipelines[@]}; do
         oc get -n $build_ns pipeline $p 1>/dev/null 2>/dev/null
