@@ -61,3 +61,14 @@ Create the name of the service account to use
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
 {{- end }}
+
+{{/*
+Set the hostname for the imageregistry if type is openshift-internal
+*/}}
+{{- define "quarkuscoffeeshop-charts.imageRegistryHostname" -}}
+{{- if (eq .Values.global.imageregistry.type "openshift-internal") -}}
+registry.{{- .Values.global.hubClusterDomain -}}
+{{- else }}
+{{- .Values.global.imageregistry.hostname -}}
+{{- end }}
+{{- end }}

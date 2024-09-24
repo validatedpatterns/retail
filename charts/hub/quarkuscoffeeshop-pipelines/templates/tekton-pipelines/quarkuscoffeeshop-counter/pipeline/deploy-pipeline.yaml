@@ -10,7 +10,7 @@ spec:
       description: Image Tag Value
       name: IMAGE_TAG
       type: string
-    - default: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-counter
+    - default: {{ include "quarkuscoffeeshop-pipelines.imageRegistryHostname" . }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-counter
       name: quay-io-repository
       type: string
     - default: latest
@@ -95,7 +95,7 @@ spec:
         - name: srcImageURL
           value: "docker://image-registry.openshift-image-registry.svc:5000/quarkuscoffeeshop-cicd/quarkuscoffeeshop-counter:$(params.IMAGE_TAG)"
         - name: destImageURL
-          value: "docker://{{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-counter:$(params.IMAGE_TAG)"
+          value: "docker://{{ include "quarkuscoffeeshop-pipelines.imageRegistryHostname" . }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-counter:$(params.IMAGE_TAG)"
       runAfter:
         - tag-test-image
       taskRef:

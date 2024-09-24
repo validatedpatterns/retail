@@ -25,7 +25,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-barista
-          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-barista:{{ .Values.global.quarkuscoffeeshopBarista.imageTag }}
+          image: {{ include "quarkuscoffeeshop-charts.imageRegistryHostname" . }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-barista:{{ .Values.global.quarkuscoffeeshopBarista.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8778
@@ -63,7 +63,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-inventory
-          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-inventory:{{ .Values.global.quarkuscoffeeshopInventory.imageTag }}
+          image: {{ include "quarkuscoffeeshop-charts.imageRegistryHostname" . }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-inventory:{{ .Values.global.quarkuscoffeeshopInventory.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8778
@@ -101,7 +101,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-counter
-          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-counter:{{ .Values.global.quarkuscoffeeshopCounter.imageTag }}
+          image: {{ include "quarkuscoffeeshop-charts.imageRegistryHostname" . }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-counter:{{ .Values.global.quarkuscoffeeshopCounter.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
@@ -155,7 +155,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-customermocker
-          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-customermocker:{{ .Values.global.quarkuscoffeeshopCustomermocker.imageTag }}
+          image: {{ include "quarkuscoffeeshop-charts.imageRegistryHostname" . }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-customermocker:{{ .Values.global.quarkuscoffeeshopCustomermocker.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
@@ -196,7 +196,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-kitchen
-          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-kitchen:{{ .Values.global.quarkuscoffeeshopKitchen.imageTag }}
+          image: {{ include "quarkuscoffeeshop-charts.imageRegistryHostname" . }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-kitchen:{{ .Values.global.quarkuscoffeeshopKitchen.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
@@ -232,7 +232,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-customerloyalty
-          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-customerloyalty:{{ .Values.global.quarkuscoffeeshopCustomerloyalty.imageTag }}
+          image: {{ include "quarkuscoffeeshop-charts.imageRegistryHostname" . }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-customerloyalty:{{ .Values.global.quarkuscoffeeshopCustomerloyalty.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
@@ -270,7 +270,7 @@ spec:
     spec:
       containers:
         - name: quarkuscoffeeshop-web
-          image: {{ .Values.global.imageregistry.hostname }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-web:{{ .Values.global.quarkuscoffeeshopWeb.imageTag }}
+          image: {{ include "quarkuscoffeeshop-charts.imageRegistryHostname" . }}/{{ .Values.global.imageregistry.account }}/quarkuscoffeeshop-web:{{ .Values.global.quarkuscoffeeshopWeb.imageTag }}
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 8080
