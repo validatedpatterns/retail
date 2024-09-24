@@ -15,9 +15,9 @@ global:
     dev_revision: main
 
   imageregistry:
-    account: hybridcloudpatterns
-    hostname: quay.io
-    type: quay
+    account: quarkuscoffeeshop-demo
+    type: openshift-internal
+    # hostname: with openshift-internal this will be filled from clusterDomain
 
   quarkuscoffeeshopBarista:
     revision: main
@@ -50,3 +50,6 @@ global:
 
 main:
   clusterGroupName: hub
+  git:
+    repoUpstreamURL: https://github.com/validatedpatterns/retail
+    revision: rhdp-deploy
