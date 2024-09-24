@@ -1021,6 +1021,8 @@ spec:
       parameters:
         - name: global.repoURL
           value: https://github.com/pattern-clone/mypattern
+        - name: global.originURL
+          value: 
         - name: global.targetRevision
           value: main
         - name: global.namespace
@@ -1094,6 +1096,8 @@ spec:
       parameters:
         - name: global.repoURL
           value: https://github.com/pattern-clone/mypattern
+        - name: global.originURL
+          value: 
         - name: global.targetRevision
           value: main
         - name: global.namespace
@@ -1158,6 +1162,8 @@ spec:
       parameters:
         - name: global.repoURL
           value: https://github.com/pattern-clone/mypattern
+        - name: global.originURL
+          value: 
         - name: global.targetRevision
           value: main
         - name: global.namespace
@@ -1222,6 +1228,8 @@ spec:
       parameters:
         - name: global.repoURL
           value: https://github.com/pattern-clone/mypattern
+        - name: global.originURL
+          value: 
         - name: global.targetRevision
           value: main
         - name: global.namespace
@@ -1316,6 +1324,8 @@ spec:
       parameters:
         - name: global.repoURL
           value: https://github.com/pattern-clone/mypattern
+        - name: global.originURL
+          value: 
         - name: global.targetRevision
           value: main
         - name: global.namespace
@@ -1380,6 +1390,8 @@ spec:
       parameters:
         - name: global.repoURL
           value: https://github.com/pattern-clone/mypattern
+        - name: global.originURL
+          value: 
         - name: global.targetRevision
           value: main
         - name: global.namespace
@@ -1471,6 +1483,8 @@ spec:
       parameters:
         - name: global.repoURL
           value: https://github.com/pattern-clone/mypattern
+        - name: global.originURL
+          value: 
         - name: global.targetRevision
           value: main
         - name: global.namespace
