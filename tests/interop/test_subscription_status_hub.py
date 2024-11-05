@@ -20,7 +20,9 @@ def test_subscription_status_hub(openshift_dyn_client):
         "crunchy-postgres-operator": ["openshift-operators"],
     }
 
-    err_msg = subscription.subscription_status(openshift_dyn_client, expected_subs, diff=True)
+    err_msg = subscription.subscription_status(
+        openshift_dyn_client, expected_subs, diff=False
+    )
     if err_msg:
         logger.error(f"FAIL: {err_msg}")
         assert False, err_msg
