@@ -36,7 +36,9 @@ def test_validate_pipelineruns(openshift_dyn_client):
         "quarkuscoffeeshop-web",
     ]
 
-    err_msg = components.validate_pipelineruns(openshift_dyn_client, project, expected_pipelines, expected_pipelineruns)
+    err_msg = components.validate_pipelineruns(
+        openshift_dyn_client, project, expected_pipelines, expected_pipelineruns
+    )
     if err_msg:
         logger.error(f"FAIL: {err_msg}")
         assert False, err_msg
