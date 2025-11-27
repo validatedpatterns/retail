@@ -4,7 +4,7 @@
      spec:
        containers:
          - name: homeoffice-ingress
--          image: quay.io/hybrid-cloud-patterns-demo/homeoffice-ingress:latest
+-          image: quay.io/validatedpatterns-demo/homeoffice-ingress:latest
 +          image: quay.io/hybridcloudpatterns/homeoffice-ingress:latest
            imagePullPolicy: Always
            env:
@@ -13,7 +13,7 @@
      spec:
        containers:
          - name: homeoffice-ui
--          image: quay.io/hybrid-cloud-patterns-demo/quarkuscoffeeshop-homeoffice-ui:latest
+-          image: quay.io/validatedpatterns-demo/quarkuscoffeeshop-homeoffice-ui:latest
 +          image: quay.io/hybridcloudpatterns/quarkuscoffeeshop-homeoffice-ui:latest
            imagePullPolicy: Always
            env:
@@ -22,7 +22,7 @@
      spec:
        containers:
          - name: homeoffice-backend
--          image: quay.io/hybrid-cloud-patterns-demo/homeoffice-backend:latest
+-          image: quay.io/validatedpatterns-demo/homeoffice-backend:latest
 +          image: quay.io/hybridcloudpatterns/homeoffice-backend:latest
            imagePullPolicy: Always
            env:
