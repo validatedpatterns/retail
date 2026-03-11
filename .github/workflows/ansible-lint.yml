@@ -2,16 +2,20 @@ name: Ansible Lint # feel free to pick your own name
 
 on: [push, pull_request]
 
+permissions: read-all
+
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
       # Important: This sets up your GITHUB_WORKSPACE environment variable
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
+        with:
+          persist-credentials: false
 
       - name: Lint Ansible Playbook
-        uses: ansible/ansible-lint-action@v6
+        uses: ansible/ansible-lint@8ba9595a4acd1b906eb75568b34f6ef592cd1528 # v26
         # Let's point it to the path
         with:
-          path: "ansible/"
+          working_directory: "ansible/"
