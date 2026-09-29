@@ -5,7 +5,8 @@ clusterGroup:
   namespaces:
     - open-cluster-management
     - vault
-    - golang-external-secrets
+    - external-secrets-operator
+    - external-secrets
     - landing-page
     - coffeeshop-store
     - quarkuscoffeeshop-cicd
@@ -27,6 +28,11 @@ clusterGroup:
       name: crunchy-postgres-operator
       namespace: openshift-operators
       source: certified-operators
+
+    eso:
+      name: openshift-external-secrets-operator
+      namespace: external-secrets-operator
+      channel: stable-v1
 
   projects:
     - hub
@@ -51,11 +57,14 @@ clusterGroup:
       project: hub
       path: common/hashicorp-vault
 
-    golang-external-secrets:
-      name: golang-external-secrets
-      namespace: golang-external-secrets
+    openshift-external-secrets:
+      name: openshift-external-secrets
+      namespace: external-secrets
       project: hub
-      path: common/golang-external-secrets
+      chart: openshift-external-secrets
+      chartVersion: 0.0.*
+      annotations:
+        argocd.argoproj.io/sync-wave: "30"
 
     quarkuscoffeeshop-cicd:
       name: quarkuscoffeeshop-cicd
