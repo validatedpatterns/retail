@@ -362,6 +362,7 @@ data:
       repoURL: https://github.com/pattern-clone/mypattern
       secretStore:
         backend: vault
+      singleArgoCD: true
       targetRevision: main
     main:
       clusterGroupName: hub
