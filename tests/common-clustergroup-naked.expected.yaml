@@ -116,7 +116,6 @@ data:
       pattern: common
       secretStore:
         backend: vault
-      singleArgoCD: true
       targetRevision: main
     secretStore:
       kind: ClusterSecretStore
